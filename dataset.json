@@ -1,0 +1,25 @@
+{
+    "topic_order":[["4", 0.4], ["8", 0.2], ["3", 0.3], ["6", 0.1]],
+    "raw_text": "Avoid The mitigate/transfer/accept approaches assume that you do not want to change your organizations goals. If those three approaches are not feasible for you, then you may want to avoid a risk by narrowing  goals that are related to this risk. Avoiding is about being out of the risk altogether so it will not affect  you. Typically, avoiding a risk involves eliminating its root cause. However, since your organization by  itself will not stop climate change from occurring, and since you cannot relocate your place, avoiding  a risk in this context would require a shift in your organizations operations or goals so that you are no  longer exposed to that risk. For example, if one of your goals is to maintain some resource, but you  conclude that climate change is making that a lost cause, you could relinquish that goal. Avoiding a  risk does not mean the impact to the resource or to your place goes awaythis is an administrative  handling of risk in which you move away from this objective and you will no longer put resources toward  it. Avoiding a risk may be a radical move for an organization: you will be pulling back from work that you thought was important. Reserve this approach for risks that will not be mitigated (by you or others) and  where accepting the risk is a bad proposition.",
+    
+    "topic": {
+        "8":  {
+            "spans": [[0, 5], [35, 45], [46,52], [125, 135], [362, 373],  [89, 101], [410, 422], [584, 596]],
+            "score":  [0.002, 0.08, 0.001, 0.0025, 0.0004, 0.00365, 0.0065, 0.03]
+               },
+        "3":{
+            "spans": [[19, 27], [10, 18],  [144, 152], [378, 388], [612, 616], [210, 214], [102, 107], [695, 699], [824, 828]],
+            "score": [0.000235, 0.001487, 0.0065, 0.0017, 0.00057, 0.01036, 0.0872, 0.0685, 0.000397]
+        }, 
+        "4": {
+            "spans": [[19, 27], [77, 82], [191, 195], [241, 245],  [282, 286], [348, 352], [661, 665], [842, 846],  [953, 957], [1061, 1065], [1202, 1206], [1279, 1283]],
+            "score": [0.000088, 0.0035, 0.00487, 0.036, 0.0088, 0.000568, 0.000154, 0.077, 0.000587, 0.004, 0.08, 0.006 ]
+     },
+        "6":{
+            "spans": [[19, 27], [77, 83], [191, 195], [241, 245]],
+            "score": [0.000088, 0.0035, 0.00487, 0.036, 0.0088]
+        }
+
+    },
+    "document_id": 1
+}
