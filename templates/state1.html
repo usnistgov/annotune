@@ -20,105 +20,28 @@
             </section>
             <br>
             <div class="all_topics">
+            {% for a in results.keys()%}
             <div class="topics">
-                <h5>Topic 1</h5>
+                
+                <h5>Topic {{a}}</h5>
+                
                 <div class="keywords">
                     <span> daniel</span> <span>kofi</span> <span>stephens</span>
                 </div>
-                <div class="documents">
+                {% for b in results[a].keys() %}
+                <div id="{{b}}" class="documents">
                     <ul>
-                        <li id="{{response['document_id']}}"><div class="each_document"><a href="{{ url_for('label', document_id=response.document_id, name=name, response=response)}}">{{response["raw_text"]}}</a></div></li>
-                        <li><a href="{{ url_for('get_data') }}">The second sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The third sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The forth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Fifth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Sixth sentence of the documents will be here</a></li>
-                    
-                    
-                    </ul>
+                        <li ><div id="{{b}}" class="each_document"><a href="{{url_for('get_label', id=b, counter=counter)}}">{{results[a][b]}}</a></div></li>
+
+                        
+                        <!-- <li><a href="">The second sentence of the documents will be here</a></li> -->
+                   </ul>
                 </div>
+                {% endfor %}
+                
             </div>
-            <div class="topics">
-                <h5>Topic 2</h5>
-                <div class="keywords">
-                    <span> first </span> <span> second </span> <span> third</span>
-                </div>
-                <div class="documents">
-                    <ul>
-                        <li><a href="{{ url_for('get_data') }}">The first sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The second sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The third sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The forth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Fifth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Sixth sentence of the documents will be here</a></li>
-                    
-                    
-                    </ul>
-                </div>
+            {% endfor %}
             </div>
-            <div class="topics">
-                <h5>Topic 3</h5>
-                <div class="keywords">
-                    <span> first </span> <span> second </span> <span> third</span>
-                </div>
-                <div class="documents">
-                    <ul>
-                        <li><a href="{{ url_for('get_data') }}">The first sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The second sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The third sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The forth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Fifth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Sixth sentence of the documents will be here</a></li>
-                    
-                    
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="all_topics">
-            <div class="topics">
-                <h5>Topic 1</h5>
-                <div class="keywords">
-                    <span> first </span> <span> second </span> <span> third</span>
-                </div>
-                <div class="documents">
-                    <ul>
-                        <li><a href="{{ url_for('get_data') }}">The first sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The second sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The third sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The forth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Fifth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Sixth sentence of the documents will be here</a></li>
-                    
-                    
-                    </ul>
-                </div>
-            </div>
-            <div class="topics">
-                <h5>Topic 2</h5>
-                <div class="keywords">
-                    <span> first </span> <span> second </span> <span> third</span>
-                </div>
-                <div class="documents">
-                    <ul>
-                        <li><a href="{{ url_for('get_data') }}">The first sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The second sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The third sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The forth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Fifth sentence of the documents will be here</a></li>
-                        <li><a href="{{ url_for('get_data') }}">The Sixth sentence of the documents will be here</a></li>
-                    
-                    
-                    </ul>
-                </div>
-            </div>
-            <div class="topics">
-                <h5>Topic 3</h5>
-                <div class="keywords">
-                    <span> first </span> <span> second </span> <span> third</span>
-                </div>
-            </div>
-        </div>
         </div>
           
         <div class="center">
@@ -126,6 +49,6 @@
                 <button name="finish" class="next_button" type=“button”><h3>Finish</h3></button>
             </form>
         </div>
-
+        <script src = "{{ url_for('static', filename='label.js') }}"></script>
     </body>
 </html>

@@ -25,6 +25,8 @@ viewButtons.forEach((btn, index) => {
     });
 });
 
+var each_document  = document.querySelectorAll(".each_document");
+console.log(each_document)
 
 
 
@@ -51,4 +53,6 @@ function highlighWords(words) {
     });
   }
 
+
+  
 

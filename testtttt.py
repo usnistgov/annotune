@@ -3,6 +3,7 @@ import time
 import json
 from xml.dom import minidom
 import os
+import pandas as pd
 
 
 
@@ -17,10 +18,13 @@ import os
 #                 continue
 #         words[a] = set(semi_words)
 #     return words
-# received_data = json.load(open('dataset.json'))
+# received_data = json.load(open('newsgroup_sub_500.json'))
 
-create_user = "http://54.87.190.90//create_user"
-recommend_document = "http://54.87.190.90//recommend_document"
+df = pd.read_json("newsgroup_sub_500.json")
+print(df.head())
+
+# create_user = "http://54.87.190.90//create_user"
+# recommend_document = "http://54.87.190.90//recommend_document"
 
 # # response=received_data
 # st = time.time()
@@ -30,12 +34,12 @@ recommend_document = "http://54.87.190.90//recommend_document"
 #     })
 # print(user.json())
 
-response = requests.post(recommend_document, json={
-    "document_id": '408',
-    "label": '3',
-    "response_time": '1',
-    "user_id": 23
-})
+# response = requests.post(recommend_document, json={
+#     "document_id": '408',
+#     "label": '3',
+#     "response_time": '1',
+#     "user_id": 23
+# })
 # # print(user.json()["user_id"])
 # et = time.time()
 
@@ -43,7 +47,7 @@ response = requests.post(recommend_document, json={
 # print(elapsed_time)
 # data = response.json()
 # print(data)
-print(response.json())
+# print(response.json())
 # # print(response.json()["topic_order"])
 
 # # print(response.json()["topic"])

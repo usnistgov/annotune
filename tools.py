@@ -79,3 +79,13 @@ def save_response(name, label, response_time, document_id, user_id):
 
 
     return xml_str
+
+
+def get_texts (topic_list, all_texts):
+    results = {}
+    for a in topic_list["cluster"].keys():
+        sub_results = {}
+        for b in topic_list["cluster"][a]:
+            sub_results[str(b)] = all_texts["text"][str(b)]
+        results[a]= sub_results
+    return results
