@@ -1,7 +1,7 @@
 .welcome{
   text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   font-size:  xx-large;
   width: 70%;
   align-self: center;
@@ -79,9 +79,8 @@
 span{
   background-color: rgb(214, 223, 227);
   border-radius: 20%;
-  margin: 5px;
-  padding: 5px;
-  height: 2rem;
+
+
 
   
 }
@@ -101,10 +100,11 @@ span{
 }
 
 .label{
-  margin-top: 2rem;
   background-color: rgb(214, 223, 227);
   padding:4rem;
   font-size: medium;
+  height: 40rem;
+  overflow:scroll;
 }
 
 .overall{
@@ -126,7 +126,7 @@ span{
   width: 50%;
 }
 
-.submit{
+.submits{
   width: 10%;
   background: rgb(214, 223, 227);;
   color: black;
@@ -165,7 +165,7 @@ span{
 
 .left{
   background-color:rgb(44, 148, 218);
-  width: 50%;
+  width: 75%;
 }
 .predicted_topics{
   background-color: rgb(44, 148, 218);
@@ -337,3 +337,5 @@ span{
 .submit:active {
   background-color: #06b;
 }
+
+

@@ -20,7 +20,7 @@
         <form method="POST">
         <div>
             <input class="text_input" name="label" type="text" placeholder="Enter a label"/>
-            <button class="submit">submit</button>
+            <button class="submits">submit</button>
         </div>
     </form>
         </div>
@@ -36,8 +36,11 @@
 
                 <div class="predicted-keywords">
                     {% for b in words[a[0]] %}
-                    <span>{{b}}</span>
+                        <span>{{b}}</span>
                   {% endfor %}
+                  {% for c in response["topic"][a[0]]["keywords"] %}
+                        <span>{{c}}</span>
+                    {% endfor %}
                 
                     
                 </div>
