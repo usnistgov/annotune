@@ -87,7 +87,7 @@ def topic_page(name):
         get_topic_list = "http://54.87.190.90//get_topic_list"
         # print(session)
         topics = requests.post(get_topic_list, json={
-                            "user_id": session["user_id"]
+                            "user_id": 5
                             }).json()
 
         results = get_texts(topic_list=topics, all_texts=all_texts)
@@ -112,6 +112,7 @@ def get_label(document_id):
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
                                                          }).json()
+    print(session)
 
     return redirect( url_for("label", response=data, name =session["name"], document_id=document_id))
     

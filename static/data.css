@@ -6,7 +6,7 @@
   width: 70%;
   align-self: center;
   margin:auto;
-  font-weight: 500;
+  font-weight: 400;
   font-style:inherit;
   background-color:  rgb(217, 219, 219);
 }
@@ -78,11 +78,7 @@
 }
 span{
   background-color: rgb(214, 223, 227);
-  border-radius: 20%;
-
-
-
-  
+  border-radius: 20%;  
 }
 
 .documents{
@@ -101,19 +97,19 @@ span{
 
 .label{
   background-color: rgb(214, 223, 227);
-  padding:4rem;
+  padding:2rem;
   font-size: medium;
-  height: 40rem;
+  height: 30rem;
   overflow:scroll;
 }
 
 .overall{
-  background-color: rgb(44, 148, 218);
+  background-color:  rgb(72, 139, 181);
   width: 70%;
   align-self: center;
   margin:auto;
-  padding: 3rem;
   display: flex;
+  border: 1px  rgb(52, 144, 184) solid;
 }
 
 .labelling{
@@ -145,16 +141,17 @@ span{
 }
 
 .right_topics{
-  background-color: rgb(208, 243, 244);
-  width: 50%;
-  padding: 3%;
-  margin-left: 5%;
-  overflow: scroll;
-  height:50rem
+  background-color:  rgb(72, 139, 181);
+  width: 40%;
+  padding: 1%;
+  margin-left: 2%;
+  overflow-y: scroll;
+  height:30rem;
+  /* border-bottom:2px solid; */
 }
 
 .topic_prediction{
-  background-color:rgb(44, 148, 218); 
+  background-color: rgb(72, 139, 181);; 
   width: 70%;
   margin-top: 1rem;
   margin-left: 1rem;
@@ -164,12 +161,13 @@ span{
 }
 
 .left{
-  background-color:rgb(44, 148, 218);
+  background-color: rgb(72, 139, 181);
   width: 75%;
 }
 .predicted_topics{
-  background-color: rgb(44, 148, 218);
+  background-color:  rgb(72, 139, 181);
   text-align: center;
+  border: rgb(214, 223, 227) solid;
 }
 .right-card{
   display: flex;
@@ -189,8 +187,8 @@ span{
 .predicted-keywords{
   margin-top: 3%;
   margin-bottom: 5%;
-  padding: 3%;
-  background-color:rgb(44, 148, 218);
+  padding: 1%;
+  background-color: rgb(72, 139, 181);
 }
 .login{
   background-color: rgb(208, 243, 244);
