@@ -20,7 +20,8 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("newsgroup_sub_500.json"))
-base = "http://54.87.190.90//recommend_document"
+url = 'https://nist-topic-model.umiacs.umd.edu'
+url = 'http://localhost:5000'
 
 
 app = Flask(__name__)
@@ -37,7 +38,7 @@ def login():
     if request.method =="POST":
         name = request.form["name"]
         session["name"] = name
-        user = requests.post("https://nist-topic-model.umiacs.umd.edu//create_user", {"user_session": session["name"]})
+        user = requests.post(url + "//create_user", {"user_session": session["name"]})
 
         user_id = user.json()["user_id"]
         session["user_id"] = user_id
@@ -84,7 +85,7 @@ def home_page(name, user_id):
 def topic_page(name):
     
     if "name" in session:
-        get_topic_list = "http://54.87.190.90//get_topic_list"
+        get_topic_list = url + "//get_topic_list"
         # print(session)
         topics = requests.post(get_topic_list, json={
                             "user_id": 5
@@ -108,7 +109,7 @@ def topic_page(name):
 def get_label(document_id):
     document_id = document_id 
     user_id=session["user_id"] 
-    get_document_information = "https://nist-topic-model.umiacs.umd.edu/get_document_information"
+    get_document_information = url + "/get_document_information"
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
                                                          }).json()
@@ -219,5 +220,7 @@ def label(name,document_id, response):
                 
 #     return render_template("index.html", text=text, received_data=response, words=words, counter=counter)
     
+
+
 
 
