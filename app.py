@@ -31,9 +31,24 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
+## uSER FIRST LOGS IN
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method =="POST":
+        name = request.form["name"]
+        session["name"] = name
+        user = requests.post("http://54.87.190.90//create_user", {"user_session": session["name"]})
+
+        id = user.json()["user_id"]
+        session["id"] = id
+        return redirect(url_for("home_page", name=name, id=id))
+    return render_template("login.html")
 
 
 
+
+# READING WHAT THE STUDY IS ABOUT
 @app.route("/firstpage/<name>/<id>", methods = ["POST", "GET"])
 def home_page(name, id):
     # print(session)
@@ -42,16 +57,6 @@ def home_page(name, id):
         return redirect("/login")
 
     if request.method =="POST":
-        # recommend_document = "http://54.87.190.90//recommend_document"
-        # data = requests.post(recommend_document, json={
-        #     "document_id": "-1",
-        #     "label": '3',
-        #     "response_time": '1',
-        #     "user_id":session["id"]
-        #     })
-        # global response
-        
-        # response=data.json()
 
         return redirect(url_for("topic_page", name=name))
         
@@ -75,7 +80,7 @@ def home_page(name, id):
 #     return redirect(url_for('topic_page', name=session['name'], response=response))
 
 
-
+## lIST OF TOPICS BASED ON THE SELECTED LIST
 @app.route("/topic/<name>", methods = ["POST", "GET"])
 def topic_page(name):
     
@@ -95,7 +100,7 @@ def topic_page(name):
 
 
 
-
+### lABELLING THE TOPIC AND SAVING THE RESPONSE
 @app.route("/get_label/<id>/<counter>", methods=["POST", 'GET'])
 def get_label(id, counter):
     counter=int(counter)
@@ -180,17 +185,7 @@ def label(name,document_id, response):
     return render_template("label.html", response=response, words=words, id=response["document_id"])
 
 
-@app.route("/login", methods=["POST", "GET"])
-def login():
-    if request.method =="POST":
-        name = request.form["name"]
-        session["name"] = name
-        user = requests.post("http://54.87.190.90//create_user", {"user_session": session["name"]})
 
-        id = user.json()["user_id"]
-        session["id"] = id
-        return redirect(url_for("home_page", name=name, id=id))
-    return render_template("login.html")
 
 
 # def submit_response():
