@@ -20,7 +20,7 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("newsgroup_sub_500.json"))
-# base = "http://54.87.190.90//recommend_document"
+url = 'https://nist-topic-model.umiacs.umd.edu'
 
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ def login():
     if request.method =="POST":
         name = request.form["name"]
         session["name"] = name
-        user = requests.post("https://nist-topic-model.umiacs.umd.edu//create_user", {"user_session": session["name"]})
+        user = requests.post(url + "//create_user", {"user_session": session["name"]})
 
         user_id = user.json()["user_id"]
         session["user_id"] = user_id
@@ -82,13 +82,12 @@ def home_page(name, user_id):
 ## lIST OF TOPICS BASED ON THE SELECTED LIST
 @app.route("/topic/<name>/", methods = ["POST", "GET"])
 def topic_page(name):
-    
     if session.get("name") != name:
         return redirect(url_for("login"))
     
-    
-    get_topic_list = "https://nist-topic-model.umiacs.umd.edu/get_topic_list"
-    print(session)
+  
+    get_topic_list = url + "//get_topic_list"
+    # print(session)
     topics = requests.post(get_topic_list, json={
                         "user_id": session["user_id"]
                         }).json()
@@ -113,7 +112,7 @@ def get_label(document_id):
         return redirect(url_for("login"))
     document_id = document_id 
     user_id=session["user_id"] 
-    get_document_information = "https://nist-topic-model.umiacs.umd.edu/get_document_information"
+    get_document_information = url + "/get_document_information"
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
                                                         }).json()
@@ -227,5 +226,7 @@ def require_login():
                 
 #     return render_template("index.html", text=text, received_data=response, words=words, counter=counter)
     
+
+
 
 
