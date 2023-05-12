@@ -20,7 +20,7 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("newsgroup_sub_500.json"))
-base = "http://54.87.190.90//recommend_document"
+# base = "http://54.87.190.90//recommend_document"
 
 
 app = Flask(__name__)
@@ -80,23 +80,26 @@ def home_page(name, user_id):
 
 
 ## lIST OF TOPICS BASED ON THE SELECTED LIST
-@app.route("/topic/<name>", methods = ["POST", "GET"])
+@app.route("/topic/<name>/", methods = ["POST", "GET"])
 def topic_page(name):
     
-    if "name" in session:
-        get_topic_list = "http://54.87.190.90//get_topic_list"
-        # print(session)
-        topics = requests.post(get_topic_list, json={
-                            "user_id": 5
-                            }).json()
+    if session.get("name") != name:
+        return redirect(url_for("login"))
+    
+    
+    get_topic_list = "https://nist-topic-model.umiacs.umd.edu/get_topic_list"
+    print(session)
+    topics = requests.post(get_topic_list, json={
+                        "user_id": session["user_id"]
+                        }).json()
 
-        results = get_texts(topic_list=topics, all_texts=all_texts)
+    results = get_texts(topic_list=topics, all_texts=all_texts)
 
-        if request.method =="POST":
-            return redirect(url_for("finish"))
- 
-        return render_template("state1.html", results=results, name=name)
-    return render_template("login.html")
+    if request.method =="POST":
+        return redirect(url_for("finish"))
+
+    return render_template("state1.html", results=results, name=name)
+    
 
 
 
@@ -106,16 +109,47 @@ def topic_page(name):
 
 @app.route("/get_label/<document_id>/", methods=["POST", 'GET'])
 def get_label(document_id):
+    if "name"  not in session:
+        return redirect(url_for("login"))
     document_id = document_id 
     user_id=session["user_id"] 
     get_document_information = "https://nist-topic-model.umiacs.umd.edu/get_document_information"
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
-                                                         }).json()
-    print(session)
+                                                        }).json()
+    # print(session)
 
     return redirect( url_for("label", response=data, name =session["name"], document_id=document_id))
-    
+
+
+@app.route('/label/<name>/<document_id>/<response>/', methods=['POST', 'GET'])
+def label(name,document_id, response):
+    if "name" in session:
+        st = time.time()
+        response = ast.literal_eval(response)
+
+
+
+        # print(response)
+        text = all_texts["text"][str(document_id)]
+
+        if request.method =="POST":
+            name=name
+            document_id=document_id
+            user_id = session["user_id"]
+            et = time.time()
+            response_time = st- et
+            label = request.form.get("label")
+
+            save_response(name, label, response_time, document_id, user_id)
+        
+
+            return redirect(url_for("topic_page", name=name, response=response))
+
+        words = get_words(response["topic"],  text)
+
+        return render_template("label.html", response=response, words=words, document_id=document_id, text=text)
+    return render_template("login.html")    
 
 
 
@@ -123,7 +157,8 @@ def get_label(document_id):
 @app.route("/logout", methods=["POST", "GET"])
 def finish():
     name = session['name']
-    session.pop(name)
+    print(session)
+    session.pop(name, None)
     return redirect(url_for("login"))
 
 
@@ -137,33 +172,6 @@ def require_login():
 
 
 
-@app.route('/label/<name>/<document_id>/<response>/', methods=['POST', 'GET'])
-def label(name,document_id, response):
-    
-    st = time.time()
-    response = ast.literal_eval(response)
-
-
-
-    print(response)
-    text = all_texts["text"][str(document_id)]
-
-    if request.method =="POST":
-        name=name
-        document_id=document_id
-        user_id = session["user_id"]
-        et = time.time()
-        response_time = st- et
-        label = request.form.get("label")
-
-        save_response(name, label, response_time, document_id, user_id)
-    
-
-        return redirect(url_for("topic_page", name=name, response=response))
-
-    words = get_words(response["topic"],  text)
-
-    return render_template("label.html", response=response, words=words, document_id=document_id, text=text)
 
 
 

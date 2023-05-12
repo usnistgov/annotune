@@ -32,11 +32,11 @@
                 {% for b in results[a].keys() %}
                 
                     <ul>
-                        <li ><div id="{{b}}" class="each_document"><a href="{{url_for('get_label', document_id=b)}}">{{results[a][b]}}</a></div></li>
+                        <li ><div id="{{b}}" class="each_document"><a href="{{url_for('get_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></li>
                         <!-- <li><a href="">The second sentence of the documents will be here</a></li> -->
                    </ul>
                 {% endfor %}
-                
+
             </div>
                 
             </div>
