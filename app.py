@@ -33,6 +33,11 @@ Session(app)
 
 ## uSER FIRST LOGS IN
 
+@app.route("/")
+def home():
+    return redirect(url_for("login"))
+
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method =="POST":
