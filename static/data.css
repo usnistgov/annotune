@@ -100,7 +100,8 @@ span{
   padding:2rem;
   font-size: medium;
   height: 30rem;
-  overflow:scroll;
+  overflow-y:scroll;
+  overflow-x: hidden;
 }
 
 .overall{
@@ -162,7 +163,7 @@ span{
 
 .left{
   background-color: rgb(72, 139, 181);
-  width: 75%;
+  width: 60%;
 }
 .predicted_topics{
   background-color:  rgb(72, 139, 181);
@@ -207,7 +208,6 @@ span{
 
 .input{
   width: 50%;
-
 }
 
 
@@ -336,4 +336,7 @@ span{
   background-color: #06b;
 }
 
-
+.suggestion{
+  width: 20%;
+  height: 3rem;
+}
