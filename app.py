@@ -85,7 +85,6 @@ def active_check(name):
                             "user_id": session['user_id']
                             }).json()
 
-    print(len(topics["cluster"].keys()))
     # print(topics)  
     if len(topics["cluster"].keys()) == 1:
 
@@ -135,13 +134,16 @@ def non_active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
+    # print(topics)
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
+    keywords = topics["keywords"]
+    print(keywords)
 
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html", results=results, name=name)
+    return render_template("nonactive.html", results=results, name=name, keywords=keywords)
 
 
 

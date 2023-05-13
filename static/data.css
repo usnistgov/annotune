@@ -340,3 +340,9 @@ span{
   width: 20%;
   height: 3rem;
 }
+
+.view_more{
+  height: 2rem;
+  width: 20%;
+  margin-left: 40%;
+}
