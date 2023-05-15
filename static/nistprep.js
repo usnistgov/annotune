@@ -7,7 +7,7 @@ textElement=document.getElementById("text");
 // console.log(textElement.innerText)
 const original_text = textElement.innerText;
 const viewButtons = document.querySelectorAll(".view");
-console.log({viewButtons})
+
 
 
 viewButtons.forEach((btn, index) => {
@@ -24,9 +24,6 @@ viewButtons.forEach((btn, index) => {
 
     });
 });
-
-var each_document  = document.querySelectorAll(".each_document");
-console.log(each_document)
 
 
 
@@ -45,14 +42,20 @@ function highlighWords(words) {
     });
   }
 
-  function removeAllActive() {
-    viewButtons.forEach((button) => {
-        console.log(button.parentElement.nextElementSibling.classList.remove("predicted-keywords"))
-    //   button.parentElement.parentElement.nextElementSibling.classList.remove("predicted-keywords");
-      button.innerText = "View";
-    });
+
+
+  function openForm() {
+    document.getElementById("loginPopup").style.display = "block";
   }
-
-
+  function closeForm() {
+    document.getElementById("loginPopup").style.display = "none";
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    let modal = document.getElementById('loginPopup');
+    if (event.target == modal) {
+      closeForm();
+    }
+  }
   
 

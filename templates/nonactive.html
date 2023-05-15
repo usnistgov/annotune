@@ -20,7 +20,7 @@
             </section>
             <br>
             <div class="all_topics">
-            {% for a in results.keys()%}
+            {% for a in sliced_results.keys()%}
             <div class="topics">
                 
                 <h5>Topic {{a}}</h5>
@@ -31,16 +31,29 @@
                     {% endfor %}
                 </div>
                 <div class="documents">
-                {% for b in results[a].keys() %}
                 
-                    <ul>
-                        <li ><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></li>
-                        <!-- <li><a href="">The second sentence of the documents will be here</a></li> -->
-                   </ul>
-                {% endfor %}
+                    
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Document</th>
+                            <th>status</th>
+                        </tr>
+                        </thead>
+                        {% for b in sliced_results[a].keys() %}
+                        <tbody>
+                        <tr>
+                          <td>{{b}}</td>
+                          <td><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
+                          <td>{{b}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                      </table>   
 
             </div >
-                <button class="view_more" name="Show more" type=“button”> more </button>
+                <button class="view_more" name="Show more" type=“button”>  view more </button>
             </div>
             {% endfor %}
             </div>
