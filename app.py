@@ -112,7 +112,7 @@ def active_list(name):
                             }).json()
 
     rec = str(topics["document_id"])
-    print(type(rec))
+    print(topics["keywords"])
 
     results = get_single_document(topics["cluster"]["1"], all_texts)
     # print(results)
@@ -178,7 +178,14 @@ def active(name, document_id):
         label = request.form.get("label")
 
         save_response(name, label, response_time, document_id, user_id)
-    
+        recommend_document = url + "//recommend_document"
+        # answer = requests.post(recommend_document, json={
+        #                     "user_id": session['user_id'],
+        #                     "label":label,
+        #                     "document_id": document_id,
+        #                     "response_time": response_time
+        #                     }).json()
+        # print(answer)
 
         return redirect(url_for("active_list", name=name))
     return render_template("activelearning.html", text =text ) 

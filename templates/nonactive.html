@@ -48,7 +48,7 @@
                           <td><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
                           <td>{{b}}</td>
                         </tr>
-                        
+                        {% endfor %}
                     </tbody>
                       </table>   
 
