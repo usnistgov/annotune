@@ -18,46 +18,45 @@
             These are the various topics from the LDA model. <br>
             You can feel free to explore them to get a better understanding of what each one represents
             </section>
-            <br>
             <div class="all_topics">
-            {% for a in sliced_results.keys()%}
+            
             <div class="topics">
                 
-                <h5>Topic {{a}}</h5>
+                <h5>Topic {{topic_id}}</h5>
                 
                 <div class="keywords">
-                    {% for k in keywords[a] %}
-                    <span> {{k}}</span> 
-                    {% endfor %}
+                     <span>recommended</span>
                 </div>
-                <div class="documents">
-                
-                    
-                    <table class="table">
-                        <thead>
+
+                <table class="styled-table">
+                    <thead>
                         <tr>
-                            <th>Number</th>
+                            <th> Number</th>
                             <th>Document</th>
-                            <th>status</th>
+                            <th>Status</th>
                         </tr>
-                        </thead>
-                        {% for b in sliced_results[a].keys() %}
-                        <tbody>
+                    </thead>
+
+                    <tbody>
+                        {% for a in res.keys()%}
                         <tr>
-                          <td>{{b}}</td>
-                          <td><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
-                          <td>{{b}}</td>
+                            <td>{{a}} </td>
+                            <td><a href ="#"> <div class="table-data"> {{res[a]}}</div> </a></td>
+                            <td>{{a}} </td>
                         </tr>
+
                         {% endfor %}
                     </tbody>
-                      </table>   
 
-            </div >
+                </table>
+                <a href="#"><button name="Show more" type=“button”>  view more </button></a>
+                <a href="#"><button name="Show more" type=“button”>  view more </button></a>
 
-                <a href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a])}}"><button class="view_more" name="Show more" type=“button”>  view more </button>
-                </a>      
+                
+
+                
             </div>
-            {% endfor %}
+            
             </div>
         </div>
           

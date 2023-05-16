@@ -110,20 +110,24 @@ def active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    # print(topics)
-    recommended = int(topics["document_id"])
-    print(recommended)
 
-    results = get_texts(topic_list=topics, all_texts=all_texts)
+    rec = str(topics["document_id"])
+    print(topics["keywords"])
+
+    results = get_single_document(topics["cluster"]["1"], all_texts)
+    # print(results)
+
+    # results = get_texts(topic_list=topics, all_texts=all_texts)
+    # results = results["1"]
 
     if request.method =="POST":
         return redirect(url_for("finish"))
  
-    return render_template("active_list.html", results=results, name=name, recommeded=recommended)
+    return render_template("active_list.html", results=results, name=name, rec = rec)
 
     
 
-
+ 
  
 @app.route("//non_active_list//<name>", methods=["POST", "GET"])
 def non_active_list(name):
@@ -136,12 +140,13 @@ def non_active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
+
     recommended = int(topics["document_id"])
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
 
     sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts)
-    print(sliced_results)
+    # print(sliced_results)
 
     keywords = topics["keywords"] 
     # print(keywords)
@@ -149,7 +154,7 @@ def non_active_list(name):
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html",sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=recommended)
+    return render_template("nonactive.html",sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=recommended, document_list = topics["cluster"])
 
 
 
@@ -173,7 +178,14 @@ def active(name, document_id):
         label = request.form.get("label")
 
         save_response(name, label, response_time, document_id, user_id)
-    
+        recommend_document = url + "//recommend_document"
+        # answer = requests.post(recommend_document, json={
+        #                     "user_id": session['user_id'],
+        #                     "label":label,
+        #                     "document_id": document_id,
+        #                     "response_time": response_time
+        #                     }).json()
+        # print(answer)
 
         return redirect(url_for("active_list", name=name))
     return render_template("activelearning.html", text =text ) 
@@ -257,3 +269,12 @@ def trial():
 # def view_all(name, topic):
 
     
+
+@app.route("/non_active/<name>/<topic_id>//<documents>")
+def topic(name, topic_id, documents):
+    print(topic_id)
+    # res = get_single_document(documents, all_texts)
+    # print(res)
+    res = get_single_document(documents.strip("'[]'").split(", "), all_texts)
+
+    return  render_template("topic.html", res = res, topic_id=topic_id)  
