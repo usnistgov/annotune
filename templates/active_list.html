@@ -2,65 +2,66 @@
 <html lang="en">
     <head>
       <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+      <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
       <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}"/>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
       <title>Document</title>
     </head>
 
     <body class="body">
-        <div class="welcome"> EXPLORE THE VARIOUS TOPICS </div>
+        <div class=""> EXPLORE THE VARIOUS TOPICS </div>
         <br>
     
-        <div class="about">
-            <section>
-            These are the various topics from the LDA model. <br>
-            You can feel free to explore them to get a better understanding of what each one represents
-            </section>
-            <div class="all_topics">
-            {% for a in results.keys()%}
-            <div class="topics">
-                
-                <h5>Topic {{a}}</h5>
-                
-                <div class="keywords">
-                     <span>{{recommended}}</span> <span>{{recommended}}</span>
+        <div>
+            <div>
+            <div>
+                <div>
+                    <span>ACTIVE LEARING  </span>
+               </div>
+               <span>{{rec}}</span>
+
+               <div class="">
+               <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th> Number</th>
+                        <th>Document</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in results.keys()%}
+
+                    {% if rec == a %}
+                    <tr style="background-color: red;">
+                        <td>{{a}} </td>
+                        <td><div class="table-data"><a href ="{{url_for('active', name=name, document_id=a)}}">  {{results[a][:200]}}</a></div></td>
+                        <td>{{a}}</td>
+                    </tr>
+
+                    {% endif%}
+
+                    <tr>
+                        <td>{{a}} </td>
+                        <td><div class="table-data"><a href ="{{url_for('active', name=name, document_id=a)}}">  {{results[a][:200]}}</a></div></td>
+                        <td>{{a}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                    </table>
                 </div>
-                <div class="documents" style="height: 40rem;">
-
-                    <table class="table"  style="width:50% ;">
-                        <thead>
-                        <tr>
-                            <th>Number</th>
-                            <th>Document</th>
-                            <th>status</th>
-                        </tr>
-                        </thead>
-                        {% for b in results[a].keys() %}
-                        <tbody>
-                        <tr>
-                          <td>{{b}}</td>
-                          <td><div id="{{b}}" class="each_document"  style="width:50% ;"><a href="{{url_for('active', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
-                          <td>{{b}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                      </table>
-                
-
+                <div class="center">
+                    <form method="POST">
+                        <button name="finish" class="next_button" type=“button”><h3>Finish</h3></button>
+                    </form>
+                </div>
+            
             </div>
-                
-            </div>
-            {% endfor %}
             </div>
         </div>
           
-        <div class="center">
-            <form method="POST">
-                <button name="finish" class="next_button" type=“button”><h3>Finish</h3></button>
-            </form>
-        </div>
+       
         <script src = "{{ url_for('static', filename='label.js') }}"></script>
     </body>
 </html>
