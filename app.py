@@ -111,18 +111,20 @@ def active_list(name):
                             "user_id": session['user_id']
                             }).json()
     # print(topics)
+    recommended = int(topics["document_id"])
+    print(recommended)
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
 
     if request.method =="POST":
         return redirect(url_for("finish"))
  
-    return render_template("active_list.html", results=results, name=name)
+    return render_template("active_list.html", results=results, name=name, recommeded=recommended)
 
     
 
 
-
+ 
 @app.route("//non_active_list//<name>", methods=["POST", "GET"])
 def non_active_list(name):
     if session.get("name") != name:
@@ -134,16 +136,20 @@ def non_active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    # print(topics)
+    recommended = int(topics["document_id"])
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
-    keywords = topics["keywords"]
-    print(keywords)
+
+    sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts)
+    print(sliced_results)
+
+    keywords = topics["keywords"] 
+    # print(keywords)
 
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html", results=results, name=name, keywords=keywords)
+    return render_template("nonactive.html",sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=recommended)
 
 
 
@@ -177,7 +183,7 @@ def active(name, document_id):
 
 
 
-### lABELLING THE TOPIC AND SAVING THE RESPONSE
+### lABELLING THE TOPIC AND SAVING THE RESPONSE aaa
 
 
 
@@ -226,7 +232,7 @@ def non_active_label(name, document_id):
     words = get_words(response["topic"],  text)
 
     if request.method =="POST":
-        name=name
+        name=name 
         document_id=document_id
         user_id = session["user_id"]
         et = time.time()
@@ -241,4 +247,13 @@ def non_active_label(name, document_id):
 
     return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text)
 
+  
+@app.route("/try")
+def trial():
+    return render_template("try.html")
 
+
+# @app.route("view_all//<name>//<topic>")
+# def view_all(name, topic):
+
+    

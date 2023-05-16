@@ -83,16 +83,15 @@ span{
 
 .documents{
   background-color:  rgb(214, 223, 227);
-  border-radius: 5%;
-  margin: 1rem;
-  height: 15rem;
-  overflow: scroll;
+  height: 20rem;
 }
 
 .each_document{
   background-color:  rgb(208, 243, 244);
   height: 30px;
   overflow: hidden;
+  /* width: 80%; */
+  /* margin-left: 10%; */
 }
 
 .label{
@@ -251,13 +250,6 @@ span{
   width: 100%;
 }
 
-.ic1 {
-  margin-top: 40px;
-}
-
-.ic2 {
-  margin-top: 30px;
-}
 
 .input {
   background-color: #303245;
@@ -272,7 +264,7 @@ span{
   width: 100%;
 }
 
-.cut {
+/* .cut {
   background-color: #15172b;
   border-radius: 10px;
   height: 20px;
@@ -282,7 +274,7 @@ span{
   transform: translateY(0);
   transition: transform 200ms;
   width: 76px;
-}
+} */
 
 .cut-short {
   width: 50px;
@@ -346,3 +338,49 @@ span{
   width: 20%;
   margin-left: 40%;
 }
+
+
+.styled-table {
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  height: 10rem;
+  overflow-y: hidden;
+}
+
+.styled-table thead tr {
+  background-color: rgb(72, 139, 181);
+  color: #ffffff;
+  text-align: left;
+}
+
+td {
+  text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 7px 10px;
+}
+
+/* .styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+} */
+
+/* .styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+} */
+
+/* .styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid rgb(72, 139, 181);
+} */
+
+/* .styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+} */
+
+.anchor{
+  width: auto;
+}
+

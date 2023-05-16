@@ -25,15 +25,28 @@
                 <h5>Topic {{a}}</h5>
                 
                 <div class="keywords">
-                    <span> daniel</span> <span>kofi</span> <span>stephens</span>
+                     <span>{{recommended}}</span> <span>{{recommended}}</span>
                 </div>
                 <div class="documents" style="height: 40rem;">
-                    <ol>
+
+                    <table class="table"  style="width:50% ;">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Document</th>
+                            <th>status</th>
+                        </tr>
+                        </thead>
                         {% for b in results[a].keys() %}
-                        <li ><div id="{{b}}" class="each_document"><a href="{{url_for('active', document_id=b, name=name)}}">{{results[a][b]}}</a></div></li>
-                        <!-- <li><a href="">The second sentence of the documents will be here</a></li> -->
+                        <tbody>
+                        <tr>
+                          <td>{{b}}</td>
+                          <td><div id="{{b}}" class="each_document"  style="width:50% ;"><a href="{{url_for('active', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
+                          <td>{{b}}</td>
+                        </tr>
                         {% endfor %}
-                    </ol>
+                    </tbody>
+                      </table>
                 
 
             </div>

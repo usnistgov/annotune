@@ -89,3 +89,12 @@ def get_texts (topic_list, all_texts):
             sub_results[str(b)] = all_texts["text"][str(b)]
         results[a]= sub_results
     return results
+
+def get_sliced_texts(topic_list, all_texts):
+    results = {}
+    for a in topic_list["cluster"].keys():
+        sub_results = {}
+        for b in topic_list["cluster"][a][:6]:
+            sub_results[str(b)] = all_texts["text"][str(b)]
+        results[a]= sub_results
+    return results
