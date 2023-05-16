@@ -19,7 +19,7 @@
             You can feel free to explore them to get a better understanding of what each one represents
             </section>
             <div class="all_topics">
-            {% for a in sliced_results.keys()%}
+            {% for a in results.keys()%}
             <div class="topics">
                 
                 <h5>Topic {{a}}</h5>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="documents" style="height: 40rem;">
 
-                    <table class="table">
+                    <table class="table"  style="width:50% ;">
                         <thead>
                         <tr>
                             <th>Number</th>
@@ -41,26 +41,12 @@
                         <tbody>
                         <tr>
                           <td>{{b}}</td>
-                          <td><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
+                          <td><div id="{{b}}" class="each_document"  style="width:50% ;"><a href="{{url_for('active', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
                           <td>{{b}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                       </table>
-                    <!-- <ol>
-                        {% for b in sliced_results[a] %}
-                            {% if recommended == b%}
-
-                            <li >let us seee </li>
- 
-                            {% else %}
-
-                            <li ><div id="{{b}}" class="each_document"><a href="{{url_for('active', document_id=b, name=name)}}">{{results[a][b]}}</a></div></li>
-                       
-                            {%endif%}
-                            <li><a href="">The second sentence of the documents will be here</a></li>
-                         {% endfor %} -->
-                    </ol> -->
                 
 
             </div>

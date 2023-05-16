@@ -232,7 +232,7 @@ def non_active_label(name, document_id):
     words = get_words(response["topic"],  text)
 
     if request.method =="POST":
-        name=name
+        name=name 
         document_id=document_id
         user_id = session["user_id"]
         et = time.time()
@@ -247,7 +247,7 @@ def non_active_label(name, document_id):
 
     return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text)
 
-
+  
 @app.route("/try")
 def trial():
     return render_template("try.html")
