@@ -25,7 +25,7 @@ all_texts = json.load(open("newsgroup_sub_500.json"))
 url = 'https://nist-topic-model.umiacs.umd.edu'
 
 global predicitons
-predicitons = []
+predictions = []
 
 
 app = Flask(__name__)
@@ -162,17 +162,20 @@ def non_active_list(name):
 
 
 
-@app.route("//acitve//<name>//<document_id>//<predictions>", methods=["GET", "POST"])
-def active(name, document_id, predictions):
+@app.route("//acitve//<name>//<document_id>/", methods=["GET", "POST"])
+def active(name, document_id):
     get_topic_list = url + "//get_topic_list"
 
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
+    print(topics.keys())
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
     text = all_texts["text"][str(document_id)]
     st =time.time()
+    old_labels = list(set(predictions))
+    print(old_labels)
     if request.method =="POST":
         name=name
         document_id=document_id
@@ -189,13 +192,15 @@ def active(name, document_id, predictions):
         "response_time": response_time,
         "document_id" : document_id}).json()
         next = posts["document_id"]
-        predicitons.append(label.lower())
-        print(predicitons)
+        print(posts.keys())
+        predictions.append(label.lower())
+        old_labels =list(set(predictions))
+        
 
 
  
-        return redirect(url_for("active", name=name, document_id=next, predicitons=predicitons))
-    return render_template("activelearning.html", text =text, predicitons=predicitons ) 
+        return redirect(url_for("active", name=name, document_id=next, predictions=old_labels))
+    return render_template("activelearning.html", text =text, predictions=old_labels ) 
 
     
 
@@ -249,7 +254,7 @@ def non_active_label(name, document_id):
 
     text = all_texts["text"][str(document_id)]
     words = get_words(response["topic"],  text)
-    old_labels = list(set(predicitons))
+    old_labels = list(set(predictions))
 
     if request.method =="POST":
         name=name 
@@ -268,9 +273,9 @@ def non_active_label(name, document_id):
         }).json()
         # print(posts.keys())
         next = posts["document_id"]
-        predicitons.append(label.lower())
-        old_labels = list(set(predicitons))
-        print(old_labels)
+        predictions.append(label.lower())
+        old_labels = list(set(predictions))
+        # print(old_labels)
 
         save_response(name, label, response_time, document_id, user_id)
         get_document_information = url + "//get_document_information"
