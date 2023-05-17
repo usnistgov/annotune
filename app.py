@@ -16,12 +16,16 @@ import ast
 received_data = json.load(open('dataset.json'))
 
 
+
+
 os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("newsgroup_sub_500.json"))
 url = 'https://nist-topic-model.umiacs.umd.edu'
-# url = 'http://localhost:5000'
+
+global predicitons
+predicitons = []
 
 
 app = Flask(__name__)
@@ -179,20 +183,22 @@ def active(name, document_id):
 
         save_response(name, label, response_time, document_id, user_id)
         recommend_document = url + "//recommend_document"
-        # answer = requests.post(recommend_document, json={
-        #                     "user_id": session['user_id'],
-        #                     "label":label,
-        #                     "document_id": document_id,
-        #                     "response_time": response_time
-        #                     }).json()
-        # print(answer)
+        posts = requests.post(recommend_document, json={
+        "user_id" : int(user_id),
+        "label": label,
+        "response_time": response_time,
+        "document_id" : document_id
+        }).json()
+        next = posts["document_id"]
+        predicitons.append(next)
 
-        return redirect(url_for("active_list", name=name))
+ 
+        return redirect(url_for("active", name=name, document_id=next))
     return render_template("activelearning.html", text =text ) 
 
     
 
-
+ 
 
 
 ### lABELLING THE TOPIC AND SAVING THE RESPONSE aaa
@@ -245,19 +251,32 @@ def non_active_label(name, document_id):
 
     if request.method =="POST":
         name=name 
-        document_id=document_id
+        document_id=str(document_id)
         user_id = session["user_id"]
         et = time.time()
-        response_time = st- et
+        response_time = et - st
         label = request.form.get("label")
+        recommend_document = "https://nist-topic-model.umiacs.umd.edu/recommend_document"
+        recommend_document = url + "//recommend_document"
+        posts = requests.post(recommend_document, json={
+        "user_id" : int(user_id),
+        "label": label,
+        "response_time": response_time,
+        "document_id" : document_id
+        }).json()
+        # print(posts.keys())
+        next = posts["document_id"]
+        predicitons.append(next)
 
         save_response(name, label, response_time, document_id, user_id)
-    
+        get_document_information = url + "//get_document_information"
+        response = requests.post(get_document_information, json={ "document_id": posts["document_id"],
+                                                        "user_id":session["user_id"]
+                                                         }).json()
+        print(response["prediction"])
+        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name), predicitons=predicitons)
 
-        return redirect(url_for("non_active_list", name=name))
-
-
-    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text)
+    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name)
 
   
 @app.route("/try")

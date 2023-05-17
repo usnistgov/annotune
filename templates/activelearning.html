@@ -21,7 +21,9 @@
         <form method="POST">
         <div style="background-color:  rgb(72, 139, 181);;">
             <select class="suggestion" name="suggestion" id="suggestion">
-            <option value="volvo">Volvo</option>
+            {% for c in prediction %}
+            <option value="prediction">{{c}}</option>
+            {% endfor %}
             </select>
             <input class="text_input" name="label" type="text" placeholder="Enter a label"/>
             <button class="submits">submit</button>
