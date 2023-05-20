@@ -2,25 +2,23 @@
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-size:  xx-large;
+  font-size:  x-large;
   width: 70%;
   align-self: center;
   margin:auto;
-  font-weight: 400;
   font-style:inherit;
   background-color:  rgb(217, 219, 219);
 }
 
 .about{
-  margin-top: 2rem;
+  margin-top: 1rem;
   background-color: rgb(214, 223, 227);
   padding:4rem;
   width:70%;
   margin:auto;
   font-size: medium;
-  
-
 }
+
 .vertical-center {
   margin: 0;
   position: absolute;
@@ -54,7 +52,6 @@
 }
 
 .body{
-  padding:2rem;
   background-color: rgb(72, 139, 181);
 }
 
@@ -393,4 +390,33 @@ td {
 
 .table-div{
   width:80%;
+}
+
+.nav-bar{
+  background-color: rgb(214, 223, 227);
+  display: inline;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: rgb(72, 139, 181);
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 7px 10px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: rgb(72, 139, 181);
+  color: white;
 }
