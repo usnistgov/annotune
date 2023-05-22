@@ -287,5 +287,6 @@ def topic(name, topic_id, documents):
     # res = get_single_document(documents, all_texts)
     # print(res)
     res = get_single_document(documents.strip("'[]'").split(", "), all_texts)
+    
 
     return  render_template("topic.html", res = res, topic_id=topic_id)
