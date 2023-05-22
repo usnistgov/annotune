@@ -10,6 +10,12 @@
     </head>
 
     <body class="body">
+        <div class="topnav">
+            <a class="active" href="{{url_for('home_page', name=session['name'])}}">Home</a>
+            <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+            <a href="(url_for('finish')"> Finish</a>
+            <a href="(url_for ('login')"> Logout</a>
+          </div>
         <div class="welcome"> EXPLORE THE VARIOUS TOPICS </div>
         <br>
     
@@ -41,7 +47,7 @@
                         {% for a in res.keys()%}
                         <tr>
                             <td>{{a}} </td>
-                            <td><a href ="#"> <div class="table-data"> {{res[a]}}</div> </a></td>
+                            <td><a href ="{{url_for('non_active_label', document_id=a, name=session['name'])}}"> <div class="table-data"> {{res[a]}}</div> </a></td>
                             <td>{{a}} </td>
                         </tr>
 
@@ -49,8 +55,8 @@
                     </tbody>
 
                 </table>
-                <a href="#"><button name="Show more" type=“button”>  view more </button></a>
-                <a href="#"><button name="Show more" type=“button”>  view more </button></a>
+                <!-- <a href="#"><button name="Back" type=“button”>  view more </button></a> -->
+                <!-- <a href="#"><button name="Show more" type=“button”>  view more </button></a> -->
 
                 
 

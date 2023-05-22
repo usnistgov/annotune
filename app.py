@@ -4,12 +4,10 @@ import pandas as pd
 from .tools import *
 import json
 from flask_session import Session
-# from flask_restful import API, Resource
 from xml.dom import minidom
 import requests
 import time
 import os
-from flask import jsonify
 import ast
 
 
@@ -22,7 +20,8 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("newsgroup_sub_500.json"))
-url = 'https://nist-topic-model.umiacs.umd.edu'
+# url = 'https://nist-topic-model.umiacs.umd.edu'
+url = "http://54.87.190.90:5001"
 
 global predicitons
 predictions = []
@@ -47,14 +46,13 @@ def login():
     if request.method =="POST":
         name = request.form["name"]
         session["name"] = name
+        session["labels"] = ""
         user = requests.post(url + "//create_user", {"user_session": session["name"]})
 
         user_id = user.json()["user_id"]
         
         print('user id is {}'.format(user_id))
-        session["user_id"] = user_id
-
-
+        session["user_id"] = user_id       
         return redirect(url_for("home_page", name=name, user_id=user_id))
     return render_template("login.html")
 
@@ -64,15 +62,11 @@ def login():
 # READING WHAT THE STUDY IS ABOUT
 @app.route("//firstpage//<name>/", methods = ["POST", "GET"])
 def home_page(name):
-    # print(session)
     if session.get("name") != name:
         # if not there in the session then redirect to the login page
         return redirect("/login")
-
     if request.method =="POST":
-
         return redirect(url_for("active_check", name=name))
-        
     return render_template("first.html", name=name)
 
 
@@ -84,16 +78,11 @@ def active_check(name):
         return redirect("/login")
 
     get_topic_list = url + "//get_topic_list"
-        # print(session)
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-
-    # print(topics)  
     if len(topics["cluster"].keys()) == 1:
-
         return redirect(url_for("active_list", name=name))
-
     else:
         return redirect(url_for("non_active_list", name=name))
 
@@ -110,7 +99,6 @@ def active_list(name):
         return redirect("/login")
 
     get_topic_list = url + "//get_topic_list"
-        # print(session)
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
@@ -119,10 +107,6 @@ def active_list(name):
     print(topics["keywords"])
 
     results = get_single_document(topics["cluster"]["1"], all_texts)
-    # print(results)
-
-    # results = get_texts(topic_list=topics, all_texts=all_texts)
-    # results = results["1"]
 
     if request.method =="POST":
         return redirect(url_for("finish"))
@@ -162,20 +146,21 @@ def non_active_list(name):
 
 
 
-@app.route("//acitve//<name>//<document_id>/", methods=["GET", "POST"])
+@app.route("//active//<name>//<document_id>/", methods=["GET", "POST"])
 def active(name, document_id):
     get_topic_list = url + "//get_topic_list"
 
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    print(topics.keys())
+    # print(topics.keys())
 
     results = get_texts(topic_list=topics, all_texts=all_texts)
     text = all_texts["text"][str(document_id)]
     st =time.time()
+    
     old_labels = list(set(predictions))
-    print(old_labels)
+    # print(old_labels)
     if request.method =="POST":
         name=name
         document_id=document_id
@@ -192,13 +177,12 @@ def active(name, document_id):
         "response_time": response_time,
         "document_id" : document_id}).json()
         next = posts["document_id"]
-        print(posts.keys())
+        # print(posts.keys())
         predictions.append(label.lower())
+        session["labels"] = session["labels"] + "," + label
         old_labels =list(set(predictions))
+        print([x.strip("") for x in session["labels"].split(",")])
         
-
-
- 
         return redirect(url_for("active", name=name, document_id=next, predictions=old_labels))
     return render_template("activelearning.html", text =text, predictions=old_labels ) 
 
@@ -255,6 +239,8 @@ def non_active_label(name, document_id):
     text = all_texts["text"][str(document_id)]
     words = get_words(response["topic"],  text)
     old_labels = list(set(predictions))
+    labels = list(set(session["labels"].strip(",").split(",")))
+    print(labels)
 
     if request.method =="POST":
         name=name 
@@ -271,11 +257,13 @@ def non_active_label(name, document_id):
         "response_time": response_time,
         "document_id" : document_id
         }).json()
-        # print(posts.keys())
+
         next = posts["document_id"]
         predictions.append(label.lower())
         old_labels = list(set(predictions))
-        # print(old_labels)
+        session["labels"] = session["labels"] + "," + label
+        labels = list(set(session["labels"].strip(",").split(",")))
+        print(labels)
 
         save_response(name, label, response_time, document_id, user_id)
         get_document_information = url + "//get_document_information"
@@ -283,19 +271,14 @@ def non_active_label(name, document_id):
                                                         "user_id":session["user_id"]
                                                          }).json()
         # print(response["prediction"]) 
-        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=old_labels, pred=response["prediction"]))
+        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"]))
 
-    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=old_labels, pred=response["prediction"])
+    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"])
 
   
 @app.route("/try")
 def trial():
     return render_template("try.html")
-
-
-# @app.route("view_all//<name>//<topic>")
-# def view_all(name, topic):
-
     
 
 @app.route("/non_active/<name>/<topic_id>//<documents>")
@@ -304,5 +287,6 @@ def topic(name, topic_id, documents):
     # res = get_single_document(documents, all_texts)
     # print(res)
     res = get_single_document(documents.strip("'[]'").split(", "), all_texts)
+    
 
-    return  render_template("topic.html", res = res, topic_id=topic_id)  
+    return  render_template("topic.html", res = res, topic_id=topic_id)
