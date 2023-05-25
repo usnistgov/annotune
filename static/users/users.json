@@ -1,0 +1,32 @@
+{
+    "fiifi": {
+        "username": "fiifi",
+        "id": 180,
+        "labels": ",food,ivory,root,science,bread",
+        "labelled_document": ",248"
+    },
+    "emeka": {
+        "username": "emeka",
+        "id": 181,
+        "labels": "",
+        "labelled_document": ",248"
+    },
+    "emeka1": {
+        "username": "emeka1",
+        "id": 182,
+        "labels": ",texas,food",
+        "labelled_document": ",248"
+    },
+    "daniel": {
+        "username": "daniel",
+        "id": 183,
+        "labels": ",science,food,lab,Daniel,labe,",
+        "labelled_document": ",116,292,239,477,173,305"
+    },
+    "useer1": {
+        "username": "useer1",
+        "id": 185,
+        "labels": ",ivory,root,bread,food,ivory,oreo,op,bread,,food,root,,bread,bread,root,science,science,science,science,science,bread,bread,,oreo,,root,ivory,",
+        "labelled_document": ",0,0,8,8,9,9,126,126,414,414,439,213,14,2,3,1,123,125,162,102,345,345,345,345,345,111,111,387,412,119,150,52,266"
+    }
+}

@@ -67,7 +67,7 @@ def save_response(name, label, response_time, document_id, user_id):
 
     xml_str = root.toprettyxml(indent ="\t")
 
-    directory = "./static/"+name
+    directory = "./static/responses/"+name
 
     save_path_file = directory + "/"+ str(document_id) +".xml"
     try:
@@ -76,31 +76,60 @@ def save_response(name, label, response_time, document_id, user_id):
         print("all_good")
     with open(save_path_file, "w") as f:
         f.write(xml_str)
-
-
     return xml_str
 
 
-def get_texts (topic_list, all_texts):
+# def get_texts (topic_list, all_texts):
+#     results = {}
+#     for a in topic_list["cluster"].keys():
+#         sub_results = {}
+#         for b in topic_list["cluster"][a]:
+#             sub_results[str(b)] = all_texts["text"][str(b)]
+#         results[a]= sub_results
+#     return results
+
+
+def get_texts (topic_list, all_texts, docs):
     results = {}
     for a in topic_list["cluster"].keys():
         sub_results = {}
         for b in topic_list["cluster"][a]:
+            if str(b) in docs:
+                continue
             sub_results[str(b)] = all_texts["text"][str(b)]
         results[a]= sub_results
     return results
 
-def get_sliced_texts(topic_list, all_texts):
+
+
+def get_sliced_texts(topic_list, all_texts, docs):
     results = {}
     for a in topic_list["cluster"].keys():
         sub_results = {}
         for b in topic_list["cluster"][a][:6]:
+            if str(b) in docs:
+                continue
             sub_results[str(b)] = all_texts["text"][str(b)]
         results[a]= sub_results
     return results
 
-def get_single_document( top, all_texts):
+
+def get_single_document( top, all_texts, docs):
     results = {}
     for a in top:
+        if str(a) in docs:
+                continue
         results[str(a)] = all_texts["text"][str(a)]
     return results 
+
+
+def save_labels(session):
+    import json
+    with open('.\\static\\users\\users.json') as user_file:
+        name_string = user_file.read()
+        names = json.loads(name_string)
+
+    with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
+        names[session["name"]]["labels"] = session["labels"]
+        names[session["name"]]["labelled_document"] = session["labelled_document"]
+        json.dump(names, name_json, indent=4)

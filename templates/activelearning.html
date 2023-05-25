@@ -24,11 +24,20 @@
         <div id ="text" class="label">
             {{text}}   
         </div>
+        <div style="background-color: red;">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
         <form method="POST">
         <div style="background-color:  rgb(72, 139, 181);;">
             <select class="suggestion" name="suggestion" id="suggestion">
             {% for c in predictions %}
-            <option value="prediction">{{c}}</option>
+            <option value="{{c}}">{{c}}</option>
             {% endfor %}
             </select>
             <input class="text_input" name="label" type="text" placeholder="Enter a label"/>
