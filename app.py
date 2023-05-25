@@ -7,7 +7,7 @@ from flask_session import Session
 from xml.dom import minidom
 import requests
 import time
-import datetime
+from datetime import datetime
 import os
 import ast
 
@@ -57,6 +57,7 @@ def login():
             session["labels"] = names[name]["labels"]
             session["user_id"] = names[name]["id"]
             session["labelled_document"] = names[name]["labelled_document"]
+            session["start_time"] = ""
             user_id = session["user_id"]
             print('user id is {}'.format(user_id))
             return redirect(url_for("active_check", name=name))
@@ -166,7 +167,7 @@ def non_active_list(name):
 
     results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
 
-    sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts)
+    sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts, docs=docs)
     # print(sliced_results)
 
     keywords = topics["keywords"] 
@@ -186,12 +187,15 @@ def active(name, document_id):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    # docs = list(set(session["labelled_document"].strip(",").split(",")))
-    # results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
+
     text = all_texts["text"][str(document_id)]
-    print("start time")
-    st =time.time()
-    print(st)
+
+    session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
+
+
+    # print("start time")
+    # session["start_time"] = session["start_time"] + "+" + str(datetime.now().strftime("%H:%M:%S"))
+    # print(session["start_time"])
     labels = list(set(session["labels"].strip(",").split(",")))
 
     if request.method =="POST":
@@ -208,10 +212,17 @@ def active(name, document_id):
         name=name
         document_id=document_id
         user_id = session["user_id"]
-        et = time.time()
-        print("end time")
-        print(et)
-        response_time = st- et
+
+        st = datetime.strptime(session["start_time"].strip("+").split("+")[-2], "%H:%M:%S")
+        et = datetime.strptime(session["start_time"].strip("+").split("+")[-1], "%H:%M:%S")
+
+        response_time = str(et-st)
+        print(response_time)
+
+        # et = time.time() 
+        # print("end time")
+        # print(et)
+        # response_time = 1
 
         
 
@@ -277,40 +288,61 @@ def require_login():
 
 @app.route('//non_active_label//<name>//<document_id>/', methods=["POST", "GET"])
 def non_active_label(name, document_id):
-    st = time.time()
     get_document_information = url + "//get_document_information"
     response = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":session["user_id"]
                                                          }).json()
+                                                         
 
     text = all_texts["text"][str(document_id)]
     words = get_words(response["topic"],  text)
     old_labels = list(set(predictions))
     labels = list(set(session["labels"].strip(",").split(",")))
-    print(labels)
+    # print("start time")
+    session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
+    # print(session["start_time"])
+
+
 
     if request.method =="POST":
+        label = request.form.get("label")
+        drop = request.form.get("suggestion")
+
+        print(label)
+        print(drop)
+        if label and drop:
+            flash("Select either dropdown or type a label ")
+            return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"])
+        
+        if not label and not drop:
+            print(False)
+            flash("Select either dropdown or type a label ")
+            return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"])        
 
         label = request.form.get("label")
         drop = request.form.get("suggestion")
-        print(label)
-        print(drop)
+        # print(label)
+        # print(drop)
 
         # if label and drop:
         #     print("true")
-
         name=name 
         document_id=str(document_id)
         user_id = session["user_id"]
-        et = time.time()
-        response_time = et - st
+
+        st = datetime.strptime(session["start_time"].strip("+").split("+")[-2], "%H:%M:%S")
+        et = datetime.strptime(session["start_time"].strip("+").split("+")[-1], "%H:%M:%S")
+
+        response_time = str(et-st)
+
+        
         
         recommend_document = "https://nist-topic-model.umiacs.umd.edu/recommend_document"
         recommend_document = url + "//recommend_document"
         posts = requests.post(recommend_document, json={
         "user_id" : int(user_id),
         "label": label,
-        "response_time": response_time,
+        "response_time": str(response_time),
         "document_id" : document_id
         }).json()
 
@@ -347,7 +379,8 @@ def topic(name, topic_id, documents):
     print(topic_id)
     # res = get_single_document(documents, all_texts)
     # print(res)
-    res = get_single_document(documents.strip("'[]'").split(", "), all_texts)
+    docs = list(set(session["labelled_document"].strip(",").split(",")))
+    res = get_single_document(documents.strip("'[]'").split(", "), all_texts, docs=docs)
 
 
     return  render_template("topic.html", res = res, topic_id=topic_id)

@@ -36,6 +36,7 @@
         <form method="POST">
         <div style="background-color:  rgb(72, 139, 181);;">
             <select class="suggestion" name="suggestion" id="suggestion">
+            <option></option>
             {% for c in predictions %}
             <option value="{{c}}">{{c}}</option>
             {% endfor %}

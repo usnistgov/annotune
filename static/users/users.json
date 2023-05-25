@@ -20,13 +20,25 @@
     "daniel": {
         "username": "daniel",
         "id": 183,
-        "labels": ",science,food,lab,Daniel,labe,",
-        "labelled_document": ",116,292,239,477,173,305"
+        "labels": ",science,food,lab,Daniel,labe,,,,,,food",
+        "labelled_document": ",116,292,239,477,173,305,156,235,463,72,217"
     },
     "useer1": {
         "username": "useer1",
         "id": 185,
-        "labels": ",ivory,root,bread,food,ivory,oreo,op,bread,,food,root,,bread,bread,root,science,science,science,science,science,bread,bread,,oreo,,root,ivory,",
-        "labelled_document": ",0,0,8,8,9,9,126,126,414,414,439,213,14,2,3,1,123,125,162,102,345,345,345,345,345,111,111,387,412,119,150,52,266"
+        "labels": ",ivory,root,bread,food,ivory,oreo,op,bread,,food,root,,bread,bread,root,science,science,science,science,science,bread,bread,,oreo,,root,ivory,,bread,",
+        "labelled_document": ",0,0,8,8,9,9,126,126,414,414,439,213,14,2,3,1,123,125,162,102,345,345,345,345,345,111,111,387,412,119,150,52,266,161,243"
+    },
+    "user1": {
+        "username": "user1",
+        "id": 186,
+        "labels": ",ivory,science",
+        "labelled_document": ",441,282"
+    },
+    "123": {
+        "username": "123",
+        "id": 187,
+        "labels": ",bread,oreo,ivory,science,bread,ivory,bread,root,root,ivory,food,food,science,ivory,bread",
+        "labelled_document": ",116,116,239,418,156,432,23,354,426,149,235,105,72,347,463"
     }
 }
