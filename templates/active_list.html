@@ -1,80 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
-      <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='data.css') }}"/>
-      <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
-      <title>Document</title>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/active-list.css') }}"
+    />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <title>Document</title>
+  </head>
 
-    <body class="body">
-        <div class="topnav">
-            <a class="active" href="{{url_for('home_page', name=session['name'])}}">Home</a>
-            <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-            <a href="(redirect(url_for('finish'))"> Finish</a>
-            <a href="(redirect(url_for ('login'))"> Logout</a>
-          </div>
-        <div class=""> EXPLORE THE VARIOUS TOPICS </div>
-        <br>
-    
-        <div>
-            <div>
-            <div>
-                <div>
-                    <span>ACTIVE LEARING  </span>
-               </div>
-               <span>{{rec}}</span>
+  <body>
+    <nav class="topnav">
+      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Home</a
+      >
+      <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      <a href="{{url_for('finish')}}"> Finish</a>
+      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+    </nav>
+    <main>
+      <h1 class="heading">SELECT DOCUMENTS TO LABEL </h1>
+      <br />
+      <div> Recommended Document</div>
+      <div class="table-wrapper active-list-table" style="height:4rem ; overflow:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Document</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{rec}}</td>
+            <td>
+              <div class="table-data">
+                <a href="{{url_for('active', name=name, document_id=rec)}}">
+                  {{results[rec][:200]}}</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-               <div class="">
-               <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th> Number</th>
-                        <th>Document</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <section> Recommended Document on Top </section>
-                <tbody>
-                    
-                    <tr style="background-color: red;">
-                        <td>{{rec}} </td>
-                        <td><div class="table-data"><a href ="{{url_for('active', name=name, document_id=rec)}}">  {{results[rec][:200]}}</a></div></td>
-                        <td>{{rec}}</td>
-                    </tr>
-                    {% for a in results.keys()%}
-
-                    <!-- {% if rec == a %}
-                    <tr style="background-color: red;">
-                        <td>{{a}} </td>
-                        <td><div class="table-data"><a href ="{{url_for('active', name=name, document_id=a)}}">  {{results[a][:200]}}</a></div></td>
-                        <td>{{a}}</td>
-                    </tr>
-
-                    {% endif%} -->
-
-                    <tr>
-                        <td>{{a}} </td>
-                        <td><div class="table-data"><a href ="{{url_for('active', name=name, document_id=a)}}">  {{results[a][:200]}}</a></div></td>
-                        <td>{{a}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                    </table>
+      <br>
+      <div class="table-wrapper active-list-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Document</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr>
+              <td>{{rec}}</td>
+              <td>
+                <div class="table-data">
+                  <a href="{{url_for('active', name=name, document_id=rec)}}">
+                    {{results[rec][:200]}}</a
+                  >
                 </div>
-                <div class="center">
-                    <form method="POST">
-                        <button name="finish" class="next_button" type=“button”><h3>Finish</h3></button>
-                    </form>
+              </td>
+            </tr> -->
+            {% for a in results.keys()%}
+
+            <tr>
+              <td>{{a}}</td>
+              <td>
+                <div class="table-data">
+                  <a href="{{url_for('active', name=name, document_id=a)}}">
+                    {{results[a][:200]}}</a
+                  >
                 </div>
-            
-            </div>
-            </div>
-        </div>
-          
-       
-        <script src = "{{ url_for('static', filename='label.js') }}"></script>
-    </body>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="center">
+        <form method="POST">
+          <button name="finish" class="next_button" type="“button”">
+            <h3>Finish</h3>
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='label.js') }}"></script>
+  </body>
 </html>

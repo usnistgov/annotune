@@ -7,6 +7,7 @@ from flask_session import Session
 from xml.dom import minidom
 import requests
 import time
+from datetime import datetime
 import os
 import ast
 
@@ -44,17 +45,49 @@ def home():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method =="POST":
+        with open('.\\static\\users\\users.json') as user_file:
+            name_string = user_file.read()
+            names = json.loads(name_string)
         name = request.form["name"]
         session["name"] = name
-        session["labels"] = ""
-        user = requests.post(url + "//create_user", {"user_session": session["name"]})
-
-        user_id = user.json()["user_id"]
+        session["start_time"] = ""
         
-        print('user id is {}'.format(user_id))
-        session["user_id"] = user_id       
-        return redirect(url_for("home_page", name=name, user_id=user_id))
-    return render_template("login.html")
+
+        if name in list(names.keys()):
+            session["name"] = names[name]['username']
+            session["labels"] = names[name]["labels"]
+            session["user_id"] = names[name]["id"]
+            session["labelled_document"] = names[name]["labelled_document"]
+            
+            user_id = session["user_id"]
+            print('user id is {}'.format(user_id))
+            return redirect(url_for("active_check", name=name))
+            
+        else:
+            user = requests.post(url + "//create_user", {"user_session": name})
+            user_id = user.json()["user_id"] 
+            session["user_id"] = user_id
+            session["labels"] = ""
+            session["labelled_document"] = ""
+            data = {
+                "username": name, 
+                "id" : user_id,
+                "labels" : session["labels"],
+                "labelled_document" : session["labelled_document"]
+            }
+
+            session["user_id"] = user_id  
+            names[name]=data
+            
+            with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
+                # names = json.loads(name_string)
+                names[name] = data
+                json.dump(names, name_json, indent=4)
+
+            
+            
+            return redirect(url_for("home_page", name=name, user_id=user_id))
+    return render_template("login.html") 
 
 
 
@@ -90,8 +123,6 @@ def active_check(name):
 
 
 
-
-
 @app.route("//active_list//<name>", methods=["POST", "GET"])
 def active_list(name):
     if session.get("name") != name:
@@ -104,9 +135,10 @@ def active_list(name):
                             }).json()
 
     rec = str(topics["document_id"])
-    print(topics["keywords"])
+    docs = list(set(session["labelled_document"].strip(",").split(",")))
+    print(docs)
 
-    results = get_single_document(topics["cluster"]["1"], all_texts)
+    results = get_single_document(topics["cluster"]["1"], all_texts, docs)
 
     if request.method =="POST":
         return redirect(url_for("finish"))
@@ -131,9 +163,12 @@ def non_active_list(name):
 
     recommended = int(topics["document_id"])
 
-    results = get_texts(topic_list=topics, all_texts=all_texts)
+    docs = list(set(session["labelled_document"].strip(",").split(",")))
+    print(docs)
 
-    sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts)
+    results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
+
+    sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts, docs=docs)
     # print(sliced_results)
 
     keywords = topics["keywords"] 
@@ -153,21 +188,44 @@ def active(name, document_id):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    # print(topics.keys())
 
-    results = get_texts(topic_list=topics, all_texts=all_texts)
     text = all_texts["text"][str(document_id)]
-    st =time.time()
-    
-    old_labels = list(set(predictions))
-    # print(old_labels)
+
+    session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
+
+
+    # print("start time")
+    # session["start_time"] = session["start_time"] + "+" + str(datetime.now().strftime("%H:%M:%S"))
+    # print(session["start_time"])
+    labels = list(set(session["labels"].strip(",").split(",")))
+
     if request.method =="POST":
+        label = request.form.get("label")
+        drop = request.form.get("suggestion")
+        if label and drop:
+            flash("Select either dropdown or type a label ")
+            return render_template("activelearning.html", text =text, predictions=labels ) 
+        
+        if not label and not drop:
+            flash("Select either dropdown or type a label ")
+            return render_template("activelearning.html", text =text, predictions=labels ) 
+ 
         name=name
         document_id=document_id
         user_id = session["user_id"]
-        et = time.time()
-        response_time = st- et
-        label = request.form.get("label")
+
+        st = datetime.strptime(session["start_time"].strip("+").split("+")[-2], "%H:%M:%S")
+        et = datetime.strptime(session["start_time"].strip("+").split("+")[-1], "%H:%M:%S")
+
+        response_time = str(et-st)
+        print(response_time)
+
+        # et = time.time() 
+        # print("end time")
+        # print(et)
+        # response_time = 1
+
+        
 
         save_response(name, label, response_time, document_id, user_id)
         recommend_document = url + "//recommend_document"
@@ -178,13 +236,19 @@ def active(name, document_id):
         "document_id" : document_id}).json()
         next = posts["document_id"]
         # print(posts.keys())
-        predictions.append(label.lower())
-        session["labels"] = session["labels"] + "," + label
-        old_labels =list(set(predictions))
-        print([x.strip("") for x in session["labels"].split(",")])
+        predictions.append(label.lower()) 
         
-        return redirect(url_for("active", name=name, document_id=next, predictions=old_labels))
-    return render_template("activelearning.html", text =text, predictions=old_labels ) 
+        # session["labelled_document"] = session["labelled_document"]+","+str(document_id)
+        session["labels"] = session["labels"] + "," + label
+        labels = list(set(session["labels"].strip(",").split(",")))
+
+        session["labelled_document"] = session["labelled_document"]+","+str(document_id)
+        # print(session)
+        # print([x.strip("") for x in session["labels"].split(",")])
+        # print([x.strip("") for x in session["labelled_document"].split(",")])
+        save_labels(session)
+        return redirect(url_for("active", name=name, document_id=next, predictions=labels))
+    return render_template("activelearning.html", text =text, predictions=labels ) 
 
     
 
@@ -192,9 +256,6 @@ def active(name, document_id):
 
 
 ### lABELLING THE TOPIC AND SAVING THE RESPONSE aaa
-
-
-
 @app.route("//get_label//<document_id>//", methods=["POST", 'GET'])
 def get_label(document_id):
     document_id = document_id 
@@ -204,8 +265,6 @@ def get_label(document_id):
                                                         "user_id":user_id
                                                          }).json()
                                                          
-
-
     return redirect( url_for("label", response=data, name=session["name"], document_id=document_id))
     
 
@@ -230,40 +289,75 @@ def require_login():
 
 @app.route('//non_active_label//<name>//<document_id>/', methods=["POST", "GET"])
 def non_active_label(name, document_id):
-    st = time.time()
     get_document_information = url + "//get_document_information"
     response = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":session["user_id"]
                                                          }).json()
+                                                         
 
     text = all_texts["text"][str(document_id)]
     words = get_words(response["topic"],  text)
     old_labels = list(set(predictions))
     labels = list(set(session["labels"].strip(",").split(",")))
-    print(labels)
+    # print("start time")
+    session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
+    # print(session["start_time"])
+
+
 
     if request.method =="POST":
+        label = request.form.get("label")
+        drop = request.form.get("suggestion")
+
+        print(label)
+        print(drop)
+        if label and drop:
+            flash("Select either dropdown or type a label ")
+            return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"])
+        
+        if not label and not drop:
+            print(False)
+            flash("Select either dropdown or type a label ")
+            return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"])        
+
+        label = request.form.get("label")
+        drop = request.form.get("suggestion")
+        # print(label)
+        # print(drop)
+
+        # if label and drop:
+        #     print("true")
         name=name 
         document_id=str(document_id)
         user_id = session["user_id"]
-        et = time.time()
-        response_time = et - st
-        label = request.form.get("label")
+
+        st = datetime.strptime(session["start_time"].strip("+").split("+")[-2], "%H:%M:%S")
+        et = datetime.strptime(session["start_time"].strip("+").split("+")[-1], "%H:%M:%S")
+
+        response_time = str(et-st)
+
+        
+        
         recommend_document = "https://nist-topic-model.umiacs.umd.edu/recommend_document"
         recommend_document = url + "//recommend_document"
         posts = requests.post(recommend_document, json={
         "user_id" : int(user_id),
         "label": label,
-        "response_time": response_time,
+        "response_time": str(response_time),
         "document_id" : document_id
         }).json()
 
         next = posts["document_id"]
         predictions.append(label.lower())
         old_labels = list(set(predictions))
+        
+        session["labelled_document"] = session["labelled_document"]+","+str(document_id)
+        docs = list(set(session["labelled_document"].strip(",").split(",")))
         session["labels"] = session["labels"] + "," + label
         labels = list(set(session["labels"].strip(",").split(",")))
-        print(labels)
+        print(docs)
+        print(session)
+        save_labels(session)
 
         save_response(name, label, response_time, document_id, user_id)
         get_document_information = url + "//get_document_information"
@@ -286,7 +380,8 @@ def topic(name, topic_id, documents):
     print(topic_id)
     # res = get_single_document(documents, all_texts)
     # print(res)
-    res = get_single_document(documents.strip("'[]'").split(", "), all_texts)
-    
+    docs = list(set(session["labelled_document"].strip(",").split(",")))
+    res = get_single_document(documents.strip("'[]'").split(", "), all_texts, docs=docs)
+
 
     return  render_template("topic.html", res = res, topic_id=topic_id)
