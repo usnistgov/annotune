@@ -8,6 +8,7 @@ import os
 def read_data(path):
     return pd.read_json(path)
 
+
 def filter_data(json_data, probability):
     filtered_topics = {}
     for a in json_data['topics']:
@@ -79,15 +80,6 @@ def save_response(name, label, response_time, document_id, user_id):
     return xml_str
 
 
-# def get_texts (topic_list, all_texts):
-#     results = {}
-#     for a in topic_list["cluster"].keys():
-#         sub_results = {}
-#         for b in topic_list["cluster"][a]:
-#             sub_results[str(b)] = all_texts["text"][str(b)]
-#         results[a]= sub_results
-#     return results
-
 
 def get_texts (topic_list, all_texts, docs):
     results = {}
@@ -106,12 +98,15 @@ def get_sliced_texts(topic_list, all_texts, docs):
     results = {}
     for a in topic_list["cluster"].keys():
         sub_results = {}
-        for b in topic_list["cluster"][a][:6]:
+        counter = 0
+        for b in topic_list["cluster"][a]:
             if str(b) in docs:
                 continue
-            sub_results[str(b)] = all_texts["text"][str(b)]
+            if counter < 6:
+                sub_results[str(b)] = all_texts["text"][str(b)]
+            counter+=1
         results[a]= sub_results
-    return results
+    return results 
 
 
 def get_single_document( top, all_texts, docs):

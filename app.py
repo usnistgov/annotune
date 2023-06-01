@@ -50,6 +50,7 @@ def login():
             names = json.loads(name_string)
         name = request.form["name"]
         session["name"] = name
+        session["start_time"] = ""
         
 
         if name in list(names.keys()):
@@ -57,7 +58,7 @@ def login():
             session["labels"] = names[name]["labels"]
             session["user_id"] = names[name]["id"]
             session["labelled_document"] = names[name]["labelled_document"]
-            session["start_time"] = ""
+            
             user_id = session["user_id"]
             print('user id is {}'.format(user_id))
             return redirect(url_for("active_check", name=name))
@@ -208,7 +209,7 @@ def active(name, document_id):
         if not label and not drop:
             flash("Select either dropdown or type a label ")
             return render_template("activelearning.html", text =text, predictions=labels ) 
-
+ 
         name=name
         document_id=document_id
         user_id = session["user_id"]

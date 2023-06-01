@@ -44,18 +44,76 @@ function highlighWords(words) {
 
 
 
-  function openForm() {
-    document.getElementById("loginPopup").style.display = "block";
-  }
-  function closeForm() {
-    document.getElementById("loginPopup").style.display = "none";
-  }
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    let modal = document.getElementById('loginPopup');
-    if (event.target == modal) {
-      closeForm();
-    }
-  }
+  // function openForm() {
+  //   document.getElementById("loginPopup").style.display = "block";
+  // }
+  // function closeForm() {
+  //   document.getElementById("loginPopup").style.display = "none";
+  // }
+  // // When the user clicks anywhere outside of the modal, close it
+  // window.onclick = function (event) {
+  //   let modal = document.getElementById('loginPopup');
+  //   if (event.target == modal) {
+  //     closeForm();
+  //   }
+  // }
+
+
+// written = document.getElementById("written")
+// sugg= document.getElementById("suggestion")
+
+// // label = document.forms["responses"]["label"].value
+
+// var write  = written.value
+// var suggest = sugg.value
+
+
+// written.onkeyup = function() {
+//   console.log(this.value);
+// };
+
+
+
+// sugg.addEventListener("click", function(event){
+//   console.log(sugg.value)
+
+// })
+
+
+// // console.log(written)
+// // console.log(sugg)
+
+// traps = document.getElementById("myBtn")
+// traps.disabled = false;
+// traps.classList.add("fadeIn");
   
+
+
+const select = document.querySelector(".suggestion");
+const label = document.querySelector(".text_input");
+const submitButton = document.querySelector("#myBtn");
+console.log({ select, submitButton });
+
+submitButton.disabled = true;
+
+let selectValue;
+let labelValue;
+
+select.addEventListener("change", (e) => {
+  selectValue = e.target.value;
+  checkButtonEnabled();
+});
+
+label.addEventListener("change", (e) => {
+  labelValue = e.target.value;
+  checkButtonEnabled();
+});
+
+function checkButtonEnabled() {
+  if (selectValue && labelValue) {
+    submitButton.disabled = true;
+  } else if (selectValue || labelValue) {
+    submitButton.disabled = false;
+  }
+}
 
