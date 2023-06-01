@@ -29,16 +29,15 @@
   </head>
 
   <body>
-    <div class="topnav">
+    <nav class="topnav">
       <a class="active" href="{{url_for('home_page', name=session['name'])}}"
         >Home</a
       >
       <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-      <a href="redirect(url_for('finish'))"> Finish</a>
-      <a href="redirect(url_for ('login'))"> Logout</a>
-    </div>
-    <div class="welcome"> <h5>EXPLORE THE VARIOUS TOPICS</h5></div>
-
+      <a href="{{url_for('finish')}}"> Finish</a>
+      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+    </nav>
+    <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div>
     <main class="non-active-list">
 
       <div class="all_topics">
@@ -80,8 +79,8 @@
 
           <a
             href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a])}}"
-            ><button class="view_more" style="background-color: rgb(72, 139, 181);" name="Show more" type="“button”">
-              view more
+            ><button class="view_more" style="background-color: rgb(235, 241, 245);" name="Show more" type="“button”">
+              View all
             </button>
           </a>
         </div>
@@ -90,8 +89,8 @@
 
       <div class="center">
         <form method="POST">
-          <button name="finish" class="next_button" type="“button”">
-            <h3>Finish</h3>
+          <button name="finish" class="next_button"style="width: 70%; background-color: rgb(208, 219, 230); font-size: large;"type="“button”">
+            Finish
           </button>
         </form>
       </div>
