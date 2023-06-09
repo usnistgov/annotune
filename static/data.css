@@ -2,7 +2,7 @@
 
 body {
   font-family: sans-serif;
-  /* background-color: rgb(72, 139, 181); */
+  /* background-color: rgb(180, 216, 240); */
 }
 a,
 a:hover,
@@ -12,6 +12,11 @@ a:visited {
   color: inherit;
 }
 
+.instructions{
+
+  width: 60%;
+  margin: auto;
+}
 .topnav {
   display: flex;
   align-items: center;
@@ -336,3 +341,6 @@ thead {
   justify-content: center;
   height: 100vh;
 }
+
+
+

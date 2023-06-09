@@ -29,12 +29,23 @@
         >Home</a
       >
       <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      {% if doc_len != 1 %}
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      {% endif %}
       <a href="{{url_for('finish')}}"> Finish</a>
       <a class="logout" href="{{url_for ('login')}}"> Logout</a>
     </nav>
     <h1 class="heading" style="margin-top: 2px;">LABEL THE DOCUMENT</h1>
+    
     <main class="mains">
+      <div class="heading" style="background-color: rgb(233, 247, 244);">
+        {% for message in get_flashed_messages() %}
+        <h5>{{ message }}</h5>
+        {% endfor %}
+    </div>
+      <h6>Document Number: {{document_id}}</h6>
       <div id="text" class="active-label">{{text}}</div>
+      
       <form method="POST">
         <div name="responses">
           <select class="suggestion" name="suggestion">
@@ -54,6 +65,14 @@
         </div>
       </form>
       <div> Type a label or select one from the dropdown</div>
+      <br>
+      {% if docs_len != 1 %}
+          <div> <h6> completed {{docs_len}} out of {{total}} </h6></div>
+
+          {% else %}
+          <div> <h6> completed 0 out of {{total}} </h6></div>
+
+          {% endif %}
     </main>
 
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>

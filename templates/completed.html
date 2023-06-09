@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/active-list.css') }}"
+    />
+    
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav class="topnav">
+      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Home</a
+      >
+      <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      <a href="{{url_for('finish')}}"> Finish</a>
+      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+    </nav>
+    <main>
+      <h1 class="heading">SELECT DOCUMENTS TO LABEL </h1>
+      <div class="table-wrapper active-list-table" style="height:4rem ; overflow:auto">
+
+    </div>
+
+      <br>
+      <div class="table-wrapper active-list-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Document</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in docss.keys()%}
+            <tr>
+              <td> {{a}}</td>
+              <td>
+                <div class="table-data">
+                  <a href="{{url_for('view_labeled', document_id=a, name = session['name'])}}">
+                    {{docss[a]}}</a>
+                </div>
+              </td>
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
+      </div>
+      <div class="center">
+        <form method="POST">
+          <button name="finish" class="next_button" style="width: 20%; background-color: rgb(208, 219, 230); font-size: large;" type="“button”">
+            Finish
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='label.js') }}"></script>
+  </body>
+</html>
