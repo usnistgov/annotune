@@ -34,6 +34,9 @@
         >Home</a
       >
       <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      {% if docs_len != 1 %}
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      {% endif %}
       <a href="{{url_for('finish')}}"> Finish</a>
       <a class="logout" href="{{url_for ('login')}}"> Logout</a>
     </nav>
@@ -98,3 +101,5 @@
     <script src="{{ url_for('static', filename='label.js') }}"></script>
   </body>
 </html>
+
+

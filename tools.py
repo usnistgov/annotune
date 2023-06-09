@@ -128,3 +128,20 @@ def save_labels(session):
         names[session["name"]]["labels"] = session["labels"]
         names[session["name"]]["labelled_document"] = session["labelled_document"]
         json.dump(names, name_json, indent=4)
+
+
+def labelled_docs(labe, all_texts):
+    results = {}
+    labelled = [x for x in labe.strip(",").split(",")][: : -1]
+    for a in labelled:
+        results[a] = all_texts["text"][a]
+    return results
+
+def extract_label (name, number):
+    responses_path =(".\\static\\responses\\" + name + "\\" + number +".xml" )
+    doc = minidom.parse(responses_path)
+    root = doc.getElementsByTagName("label")
+    label = None
+    for a in root:
+        label = a.getAttribute("label")
+    return label

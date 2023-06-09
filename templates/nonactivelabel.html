@@ -22,21 +22,28 @@
         />
         <title>Label</title>
       </head>
-    
+
 
     <body class="body">
         <nav class="topnav">
             <a class="active" href="{{url_for('home_page', name=session['name'])}}"
-              >Home</a
-            >
-            <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+              >Home</a>
+              <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+              {% if docs_len != 1 %}
+              <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+              {% endif %}
             <a href="{{url_for('finish')}}"> Finish</a>
             <a class="logout" href="{{url_for ('login')}}"> Logout</a>
           </nav>
-        <div class="heading"> LABEL THE DOCUMENT </div>
-        <br>
+        <div class="heading"> <h2>LABEL THE DOCUMENT</h2></div>
+        <div class="heading" style="background-color: rgb(233, 247, 244);">
+          {% for message in get_flashed_messages() %}
+          <h5>{{ message }}</h5>
+          {% endfor %}
+      </div>
         <div class="overall">
         <div class="left">
+          <h6>Document Number: {{document_id}}</h6>
         <div id ="text" class="label">
             {{text}}
         </div>
@@ -58,7 +65,31 @@
               <button id="myBtn" disabled>submit</button>
             </div>
           </form>
-          <div> Type a label or select one from the dropdown</div>
+
+
+        <!-- <div class="combobox combobox-list">
+          <div class="group">
+            <input id="cb1-input" class="cb_edit" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb1-listbox">
+            <button id="cb1-button" tabindex="-1" aria-label="States" aria-expanded="false" aria-controls="cb1-listbox">
+              <svg width="18" height="16" aria-hidden="true" focusable="false" style="forced-color-adjust: auto">
+                <polygon class="arrow" stroke-width="0" fill-opacity="0.75" fill="currentcolor" points="3,6 15,6 9,14"></polygon>
+              </svg>
+            </button>
+          </div>
+          <ul id="cb1-listbox" role="listbox" aria-label="States">
+            {}
+            <li id="lb1-al" role="option">Alabama</li>
+            <li id="lb1-wy" role="option">Wyoming</li>
+          </ul>
+        </div>
+           -->
+          {% if docs_len != 1 %}
+          <div> <h6> completed {{done}} out of {{total}} </h6></div>
+
+          {% else %}
+          <div> <h6> completed 0 out of {{total}} </h6></div>
+
+          {% endif %}
         </div>
 
 
@@ -66,19 +97,22 @@
             {% for a in response['topic_order'] %}
             <div class="predicted_topics" id="{{a[0]}}">
                 <div class="viewing">
-                <div class="topic_prediction" > <h5>Topic {{a[0]}}</h5></div>
-                <button id="buttons" class="view" type="button">view</button>
+                <div class="topic_prediction" > <h5>Topic {{a[0]}} Keywords</h5></div>
+                <button id="buttons" class="view" type="button">Highlight</button>
                 </div>
 
-                <div class="predicted-keywords">
+                <div class="predicted-keywords" hidden="hidden">
                     {% for b in words[a[0]] %}
                         <span>{{b}}</span>
                   {% endfor %}
                   {% for c in response["topic"][a[0]]["keywords"] %}
-                        <span>{{c}}</span>
+                        <span >{{c}}</span>
                     {% endfor %}
-                
-                    
+                </div>
+                <div class="predicted-keywords">
+                  {% for c in response["topic"][a[0]]["keywords"] %}
+                        <span >{{c}}</span>
+                    {% endfor %}
                 </div>
             </div>
             {% endfor %}
@@ -86,5 +120,6 @@
     </div>
 </div>
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
+<script src = "{{ url_for('static', filename='label.js') }}"></script>
     </body>
 </html>
