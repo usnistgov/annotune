@@ -200,8 +200,8 @@ def active(name, document_id):
     total = len(all_texts["text"])
 
     if request.method =="POST":
-        label = request.form.get("label")
-        drop = request.form.get("suggestion")
+        label = request.form.get("label").lower()
+        drop = request.form.get("suggestion").lower()
 
         label = str(drop) + str(label)
         name=name
@@ -297,12 +297,13 @@ def non_active_label(name, document_id):
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
     print(docs_len)
+    print(response)
 
 
 
     if request.method =="POST":
-        label = request.form.get("label")
-        drop = request.form.get("suggestion")
+        label = request.form.get("label").lower()
+        drop = request.form.get("suggestion").lower()
         label = str(drop)+str(label)
 
         name=name 
@@ -363,19 +364,19 @@ def non_active_label(name, document_id):
 
     
 
-@app.route("/non_active/<name>/<topic_id>//<documents>")
-def topic(name, topic_id, documents):
+@app.route("/non_active/<name>/<topic_id>//<documents>//<keywords>")
+def topic(name, topic_id, documents, keywords): 
     print(topic_id)
     # res = get_single_document(documents, all_texts)
-    # print(res)
+    keywords = keywords.strip("'[]'").split("', '")
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
+    
     res = get_single_document(documents.strip("'[]'").split(", "), all_texts, docs=docs)
 
-
-    return  render_template("topic.html", res = res, topic_id=topic_id, docs_len = docs_len) 
+    return  render_template("topic.html", res = res, topic_id=topic_id, docs_len = docs_len, keywords=keywords) 
  
-
+ 
 
 @app.route("/<name>/labeled/<document_id>")
 def view_labeled(name,document_id):
@@ -390,7 +391,8 @@ def view_labeled(name,document_id):
 def labeled_list(name):
     labe = session["labelled_document"]
     
-
     docss = labelled_docs(labe, all_texts)
-    return render_template("completed.html", docss = docss)
+    completed = completed_json_(name)
+    completed_docs = get_completed(completed, all_texts)
+    return render_template("completed.html", completed_docs=completed_docs, docss=docss)
  

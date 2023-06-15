@@ -145,3 +145,38 @@ def extract_label (name, number):
     for a in root:
         label = a.getAttribute("label")
     return label
+
+def completed_json_ (name):
+    import pandas as pd
+    import glob
+    path = "./static/responses/" + name+"/*"
+    doc_id = []
+    doc_label = []
+    res = []
+    for a in glob.glob(path):
+        doc = minidom.parse(a)
+        user_label = doc.getElementsByTagName("label")
+        document_id = doc.getElementsByTagName("document_id")
+        for a in document_id:
+            doc = a.getAttribute("document_id")
+            doc_id.append(doc)
+        for b in user_label:
+            label = b.getAttribute("label")
+            doc_label.append(label)
+    for c in zip(doc_id, doc_label):
+        res.append(c)
+    df = pd.DataFrame(res, columns=["document_id", "label"])
+    completed_json = {}
+    for a in set(df["label"]):
+        completed_json[a]=list(df[df["label"]==a]["document_id"])
+    return completed_json
+
+
+def get_completed(completed_json, all_texts):
+    results = {}
+    for a in completed_json.keys():
+        sub_results = {}
+        for b in completed_json[a]:
+            sub_results[str(b)] = all_texts["text"][str(b)]
+            results[a]= sub_results
+    return results

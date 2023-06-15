@@ -81,7 +81,7 @@
         </div>
 
           <a
-            href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a])}}"
+            href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}"
             ><button class="view_more" style="background-color: rgb(235, 241, 245);" name="Show more" type="“button”">
               View all
             </button>
