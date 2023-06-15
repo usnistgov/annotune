@@ -30,7 +30,14 @@
     <main>
       <h4> Topic {{topic_id}}</h4>
 
-      <div class="table-wrapper active-list-table">
+      <div class="keywords__list">
+        {% for k in keywords %}
+        <p class="keyword">{{k}}</p>
+        {% endfor %}
+      </div>
+      <br>
+
+      <div class="table-wrapper active-list-table" style="overflow-y: auto;">
         <table>
           <thead>
             <tr>

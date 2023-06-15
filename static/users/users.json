@@ -1,56 +1,14 @@
 {
     "daniel": {
         "username": "daniel",
-        "id": 36,
+        "id": 95,
         "labels": "",
         "labelled_document": ""
     },
-    "daniel1": {
-        "username": "daniel1",
-        "id": 37,
-        "labels": ",science",
-        "labelled_document": ",252"
-    },
-    "daniel2": {
-        "username": "daniel2",
-        "id": 39,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "fiifi": {
-        "username": "fiifi",
-        "id": 40,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "daniel5": {
-        "username": "daniel5",
-        "id": 41,
-        "labels": ",,,,,science,daniel",
-        "labelled_document": ",0,95,76,498,221,484"
-    },
-    "daniel6": {
-        "username": "daniel6",
-        "id": 42,
-        "labels": ",science,food",
-        "labelled_document": ",144,156"
-    },
-    "daniel7": {
-        "username": "daniel7",
-        "id": 43,
-        "labels": ",science",
-        "labelled_document": ",214"
-    },
-    "daniel8": {
-        "username": "daniel8",
-        "id": 44,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "daniel9": {
-        "username": "daniel9",
-        "id": 45,
-        "labels": ",science,science",
-        "labelled_document": ",0,265"
+    "user": {
+        "username": "user",
+        "id": 96,
+        "labels": ",science,texas,Daniel,science,texas,science,science,Daniel,Daniel,Daniel,texas,texas,texas,Daniel,science,texas,daniel",
+        "labelled_document": ",160,160,39,224,233,179,173,135,166,157,4,23,89,51,225,158,198"
     }
 }
