@@ -45,7 +45,8 @@
     </div>
       <h6>Document Number: {{document_id}}</h6>
       <div id="text" class="active-label">{{text}}</div>
-      
+      <!-- <div> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div> -->
+    
       <form method="POST">
         <div name="responses">
           <select class="suggestion" name="suggestion">
@@ -63,9 +64,8 @@
           />
           <button id="myBtn" disabled>submit</button>
         </div>
-      </form>
-      <div> Type a label or select one from the dropdown</div>
-      <br>
+          </form>
+      <!-- <div> Type a label or select one from the dropdown</div> -->
       {% if docs_len != 1 %}
           <div> <h6> completed {{docs_len}} out of {{total}} </h6></div>
 

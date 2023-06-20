@@ -44,7 +44,77 @@
     <main class="non-active-list">
 
       <div class="all_topics">
+        <div class="topic">
+        <h5 style="text-align: center;">Topic {{recommended_topic}}</h5>
+
+        <div class="keywords__list">
+          {% for k in keywords[recommended_topic] %}
+          <p class="keyword">{{k}}</p>
+          {% endfor %}
+        </div>
+        <div class="table-wrapper active-list-table">
+          Recommended Document
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr >
+                <td>{{recommended}}</td>
+                <td>
+                  <div id="{{recommended}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=recommended, name=name)}}"
+                      >{{recommended_block[recommended_topic][recommended]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+         
+          </table>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            
+        
+            <tbody>
+
+              {% for b in recommended_block[recommended_topic].keys() %}    
+              <tr >
+                <td>{{b}}</td>
+                <td>
+                  <div id="{{b}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=b, name=name)}}"
+                      >{{recommended_block[recommended_topic][b]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+         
+          </table>
+        </div>
+
+      </div>
+
+
         {% for a in sliced_results.keys()%}
+        {% if a != recommended_topic%}
+
+        
+        
         <div class="topic">
           <h5 style="text-align: center;">Topic {{a}}</h5>
 
@@ -75,6 +145,7 @@
                   </div>
                 </td>
               </tr>
+              
               {% endfor %}
             </tbody>
           </table>
@@ -87,6 +158,7 @@
             </button>
           </a>
         </div>
+        {% endif %}
         {% endfor %}
       </div>
 

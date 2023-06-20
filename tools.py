@@ -179,4 +179,18 @@ def get_completed(completed_json, all_texts):
         for b in completed_json[a]:
             sub_results[str(b)] = all_texts["text"][str(b)]
             results[a]= sub_results
+            
     return results
+
+
+def get_recommended_topic(recommended, topics, all_texts):
+    results = {}
+    for a in topics["cluster"].keys():
+        sub_results = {}
+        for b in topics["cluster"][a]:
+            if b == recommended:
+                for c in topics["cluster"][a]:
+                    sub_results[str(c)] = all_texts["text"][str(c)]
+                results[a] = sub_results
+                recommended_topic = a
+    return recommended_topic,  results
