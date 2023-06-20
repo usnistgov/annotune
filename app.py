@@ -144,7 +144,7 @@ def active_list(name):
 
     if request.method =="POST":
         return redirect(url_for("finish"))
-    return render_template("active_list.html", results=results, name=name, rec = rec, docs_len=docs_len)
+    return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len)
 
     
 
@@ -156,7 +156,7 @@ def non_active_list(name):
         # if not there in the session then redirect to the login page
         return redirect("/login")
 
-    get_topic_list = url + "//get_topic_list"
+    get_topic_list = url + "//get_topic_list" 
         # print(session)
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
@@ -166,29 +166,27 @@ def non_active_list(name):
 
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
-    # print(docs)
+    print(recommended)
+
+    recommended_topic, recommended_block = get_recommended_topic(recommended, topics, all_texts)
+    print(recommended_block)
 
     results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
 
     sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts, docs=docs)
     # print(sliced_results)
-
+ 
     keywords = topics["keywords"] 
     # print(keywords)
 
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html",sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=recommended, document_list = topics["cluster"], docs_len = docs_len)
+    return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic)
 
  
 @app.route("//active//<name>//<document_id>/", methods=["GET", "POST"])
 def active(name, document_id):
-    get_topic_list = url + "//get_topic_list"
-
-    topics = requests.post(get_topic_list, json={ 
-                            "user_id": session['user_id']
-                            }).json()
 
     text = all_texts["text"][str(document_id)]
 
@@ -221,6 +219,7 @@ def active(name, document_id):
         "label": label,
         "response_time": response_time,
         "document_id" : document_id}).json()
+        print(posts.keys())
         next = posts["document_id"]
         # print(posts.keys())
         predictions.append(label.lower()) 
@@ -228,11 +227,8 @@ def active(name, document_id):
         # session["labelled_document"] = session["labelled_document"]+","+str(document_id)
         session["labels"] = session["labels"] + "," + label
         labels = list(set(session["labels"].strip(",").split(",")))
-        print(labels)
+        # print(labels)
         session["labelled_document"] = session["labelled_document"]+","+str(document_id)
-        # print(session)
-        # print([x.strip("") for x in session["labels"].split(",")])
-        # print([x.strip("") for x in session["labelled_document"].split(",")])
         save_labels(session)
         docs = list(set(session["labelled_document"].strip(",").split(",")))
         docs_len = len(docs)
@@ -296,8 +292,8 @@ def non_active_label(name, document_id):
     total = len(all_texts["text"].keys())
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
-    print(docs_len)
-    print(response)
+    # print(docs_len)
+    # print(response)
 
 
 

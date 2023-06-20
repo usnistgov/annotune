@@ -8,7 +8,43 @@
     "user": {
         "username": "user",
         "id": 96,
-        "labels": ",science,texas,Daniel,science,texas,science,science,Daniel,Daniel,Daniel,texas,texas,texas,Daniel,science,texas,daniel",
-        "labelled_document": ",160,160,39,224,233,179,173,135,166,157,4,23,89,51,225,158,198"
+        "labels": ",science,texas,Daniel,science,texas,science,science,Daniel,Daniel,Daniel,texas,texas,texas,Daniel,science,texas,daniel,texas,daniel",
+        "labelled_document": ",160,160,39,224,233,179,173,135,166,157,4,23,89,51,225,158,198,162,227"
+    },
+    "Daniel": {
+        "username": "Daniel",
+        "id": 128,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "daniel1": {
+        "username": "daniel1",
+        "id": 129,
+        "labels": ",texas,food",
+        "labelled_document": ",138,160"
+    },
+    "daniel2": {
+        "username": "daniel2",
+        "id": 130,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "daniel3": {
+        "username": "daniel3",
+        "id": 131,
+        "labels": ",food,daniel,texas,texas,texas,texas,daniel,daniel,food,texas,science",
+        "labelled_document": ",86,82,27,227,170,0,2,34,43,107,192"
+    },
+    "daniel5": {
+        "username": "daniel5",
+        "id": 132,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "fiifi": {
+        "username": "fiifi",
+        "id": 133,
+        "labels": ",bread,oreo",
+        "labelled_document": ",201,0"
     }
 }
