@@ -34,7 +34,7 @@ function highlighWords(words) {
         const pattern = new RegExp(word, "gi");
         text = text.replace(
           pattern,
-          "<span class='highlighted-word'>" + word + "</span>"
+          "<span style='background-color:yellow'>" + word + "</span>"
         );
         textElement.innerHTML = text;
         // console.log(textElement)

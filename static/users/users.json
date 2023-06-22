@@ -14,8 +14,8 @@
     "Daniel": {
         "username": "Daniel",
         "id": 128,
-        "labels": "",
-        "labelled_document": ""
+        "labels": ",root,science,science,root",
+        "labelled_document": ",188,39,179,227"
     },
     "daniel1": {
         "username": "daniel1",
@@ -32,19 +32,43 @@
     "daniel3": {
         "username": "daniel3",
         "id": 131,
-        "labels": ",food,daniel,texas,texas,texas,texas,daniel,daniel,food,texas,science",
-        "labelled_document": ",86,82,27,227,170,0,2,34,43,107,192"
+        "labels": ",food,daniel,texas,texas,texas,texas,daniel,daniel,food,texas,science,,danieil",
+        "labelled_document": ",86,82,27,227,170,0,2,34,43,107,192,1,158"
     },
     "daniel5": {
         "username": "daniel5",
         "id": 132,
-        "labels": "",
-        "labelled_document": ""
+        "labels": ",",
+        "labelled_document": ",19"
     },
     "fiifi": {
         "username": "fiifi",
         "id": 133,
         "labels": ",bread,oreo",
         "labelled_document": ",201,0"
+    },
+    "Daniela": {
+        "username": "Daniela",
+        "id": 145,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Daniel22": {
+        "username": "Daniel22",
+        "id": 146,
+        "labels": ",science,bread,science",
+        "labelled_document": ",224,178,252"
+    },
+    "daniels": {
+        "username": "daniels",
+        "id": 147,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "daniels1": {
+        "username": "daniels1",
+        "id": 148,
+        "labels": "",
+        "labelled_document": ""
     }
 }
