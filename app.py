@@ -49,45 +49,50 @@ def login():
             name_string = user_file.read()
             names = json.loads(name_string)
         name = request.form["name"]
-        session["name"] = name
+        email = request.form["email"]
+
+        identity = name+email
+        session["name"] = identity
+
+
         session["start_time"] = ""
         
         
 
-        if name in list(names.keys()):
-            session["name"] = names[name]['username']
-            session["labels"] = names[name]["labels"]
-            session["user_id"] = names[name]["id"]
-            session["labelled_document"] = names[name]["labelled_document"]
+        if identity in list(names.keys()):
+            session["name"] = names[identity]['username']
+            session["labels"] = names[identity]["labels"]
+            session["user_id"] = names[identity]["id"]
+            session["labelled_document"] = names[identity]["labelled_document"]
             
             user_id = session["user_id"]
             print('user id is {}'.format(user_id))
-            return redirect(url_for("active_check", name=name))
+            return redirect(url_for("active_check", name=identity))
             
         else:
-            user = requests.post(url + "//create_user", {"user_session": name})
+            user = requests.post(url + "//create_user", {"user_session": identity})
             user_id = user.json()["user_id"] 
             session["user_id"] = user_id
             session["labels"] = ""
             session["labelled_document"] = ""
             data = {
-                "username": name, 
+                "username": identity, 
                 "id" : user_id,
                 "labels" : session["labels"],
                 "labelled_document" : session["labelled_document"]
             }
 
             session["user_id"] = user_id  
-            names[name]=data
+            names[identity]=data
             
             with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
                 # names = json.loads(name_string)
-                names[name] = data
+                names[identity] = data
                 json.dump(names, name_json, indent=4)
 
             
             
-            return redirect(url_for("home_page", name=name, user_id=user_id))
+            return redirect(url_for("home_page", name=identity, user_id=user_id))
     return render_template("login.html") 
 
 
@@ -116,8 +121,10 @@ def active_check(name):
                             "user_id": session['user_id']
                             }).json()
     if len(topics["cluster"].keys()) == 1:
+        session["is_active"] = 1
         return redirect(url_for("active_list", name=name))
     else:
+        session["is_active"] = 0
         return redirect(url_for("non_active_list", name=name))
 
 
@@ -392,3 +399,11 @@ def labeled_list(name):
     completed_docs = get_completed(completed, all_texts)
     return render_template("completed.html", completed_docs=completed_docs, docss=docss)
  
+
+@app.route("/<name>/edit_response/<document_id>")
+def edit_labels(name, document_id):
+    if session["is_active"] == True:
+        return redirect(url_for("active", name=name, document_id=document_id))
+
+    if session["is_active"] == False:
+        return redirect(url_for("non_active_label", name=name, document_id=document_id))
