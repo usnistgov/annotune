@@ -38,7 +38,12 @@
       <h6>Document Number: {{document_id}}</h6>
       <div id="text" class="active-label">{{text}}</div>
       <br>
-      <p style="text-align: center;"> <h5>Response:  {{response}}</h5></p>
+      <div >
+        <div style="display: inline-block;"> <h5>Response: {{response}}</h5></div>
+        <div style="float: right;"> <a href="{{url_for('edit_labels', name=session['name'], document_id=document_id)}}"> edit response</a></div>
+        
+      </div>
+      
     </main>
 
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>

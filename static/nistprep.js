@@ -1,14 +1,18 @@
 let wordsToHighlight = []
 const acc = document.querySelectorAll(".right_topics");
-console.log(acc)
+// console.log(acc)
 
 
 textElement=document.getElementById("text");
+oritextElement=document.getElementById("original_text");
 // console.log(textElement.innerText)
-const original_text = textElement.innerText;
+const original_text = oritextElement.innerText;
 const viewButtons = document.querySelectorAll(".view");
 
-
+// const REGEXP_SPECIAL_CHAR = /[\!\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
+const REGEXP_SPECIAL_CHAR = /[\&\*\)\(\+\=\.\<\>]/g;
+// const REGEXP_SPECIAL_CHAR = /[\<\>]/g;
+num = 0
 
 viewButtons.forEach((btn, index) => {
     btn.addEventListener("click", function (event) {
@@ -19,8 +23,15 @@ viewButtons.forEach((btn, index) => {
         Array.from(topic_el).forEach(function (ele) {
             wordsArr.push(ele.innerText);
         });
-        console.log(wordsArr)
-        highlighWords(wordsArr);
+        // console.log(wordsArr)
+        if (num % 2 === 0){
+          highlighWords(wordsArr);
+        }
+        else {
+          textElement.innerHTML = original_text;
+        }
+        num = num + 1
+        
 
     });
 });
@@ -31,16 +42,21 @@ function highlighWords(words) {
     var text = original_text;
     words.forEach((word) => {
       if (word.length>2){
-        const pattern = new RegExp(word, "gi");
+
+        const escapedQuery = word.replace(REGEXP_SPECIAL_CHAR, '\\$&');
+
+        const pattern = new RegExp(escapedQuery, "gi");
         text = text.replace(
           pattern,
-          "<span class='highlighted-word'>" + word + "</span>"
+          "<span class='highlighted-word'>" + escapedQuery + "</span>"
         );
         textElement.innerHTML = text;
         // console.log(textElement)
       }
     });
   }
+  // console.log(original_text)
+  // console.log(text)
 
 
 
