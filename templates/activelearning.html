@@ -20,6 +20,12 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+          rel="stylesheet"
+        />
+    
+
     <title>Document</title>
   </head>
 
@@ -28,12 +34,18 @@
       <a class="active" href="{{url_for('home_page', name=session['name'])}}"
         >Home</a
       >
-      <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
       {% if doc_len != 1 %}
       <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
       {% endif %}
-      <a href="{{url_for('finish')}}"> Finish</a>
-      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+      <a id="demo" href="#">Demo</a>
+      <div>
+        <label id="minutes">00</label>
+        <label id="colon">:</label>
+        <label id="seconds">00</label>
+      </div>
+      
+      <a class="logout" href="{{url_for('finish')}}"> Finish</a>
     </nav>
     <h1 class="heading" style="margin-top: 2px;">LABEL THE DOCUMENT</h1>
     
@@ -48,7 +60,7 @@
       <!-- <div> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div> -->
     
       <form method="POST">
-        <div name="responses">
+        <div id="model_sugges" name="responses">
           <select class="suggestion" name="suggestion">
             <option></option>
             {% for c in predictions %}
@@ -76,5 +88,8 @@
     </main>
 
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+    <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>
+
   </body>
 </html>

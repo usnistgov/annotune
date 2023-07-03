@@ -30,7 +30,13 @@
       >
       <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
       <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed</a>
-      <a href="{{url_for('finish')}}"> Finish</a>
+      <!-- <a href="{{url_for('finish')}}"> Finish</a> -->
+      <a id="demo" href="#">Demo</a>
+      <div>
+        <label id="minutes">00</label>
+        <label id="colon">:</label>
+        <label id="seconds">00</label>
+      </div>
       <a class="logout" href="{{url_for ('login')}}"> Logout</a>
     </nav>
     <h1 class="heading" style="margin-top: 2px;">LABEL THE DOCUMENT</h1>

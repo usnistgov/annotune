@@ -54,6 +54,9 @@ def login():
         identity = name+email
         session["name"] = identity
 
+        session["begin"] = datetime.now()
+        print(session["begin"])
+
 
         session["start_time"] = ""
         
@@ -106,7 +109,7 @@ def home_page(name):
         return redirect("/login")
     if request.method =="POST":
         return redirect(url_for("active_check", name=name))
-    return render_template("first.html", name=name)
+    return render_template("first.html", name=name, time=session["begin"])
 
 
 
@@ -122,10 +125,10 @@ def active_check(name):
                             }).json()
     if len(topics["cluster"].keys()) == 1:
         session["is_active"] = 1
-        return redirect(url_for("active_list", name=name))
+        return redirect(url_for("active_list", name=name, time=session["begin"]))
     else:
         session["is_active"] = 0
-        return redirect(url_for("non_active_list", name=name))
+        return redirect(url_for("non_active_list", name=name, time=session["begin"]))
 
 
 
@@ -151,7 +154,7 @@ def active_list(name):
 
     if request.method =="POST":
         return redirect(url_for("finish"))
-    return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len)
+    return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len, time=session["begin"])
 
     
 
@@ -173,10 +176,10 @@ def non_active_list(name):
 
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
-    print(recommended)
+    # print(recommended)
 
     recommended_topic, recommended_block = get_recommended_topic(recommended, topics, all_texts)
-    print(recommended_block)
+    # print(recommended_block)
 
     results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
 
@@ -189,7 +192,7 @@ def non_active_list(name):
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic)
+    return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic, time=session["begin"])
 
  
 @app.route("//active//<name>//<document_id>/", methods=["GET", "POST"])
@@ -226,7 +229,7 @@ def active(name, document_id):
         "label": label,
         "response_time": response_time,
         "document_id" : document_id}).json()
-        print(posts.keys())
+        print(posts)
         next = posts["document_id"]
         # print(posts.keys())
         predictions.append(label.lower()) 
@@ -242,8 +245,8 @@ def active(name, document_id):
         # print(label) 
         flash("Response has been submitted")
         
-        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total))
-    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total ) 
+        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total, time=session["begin"]))
+    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total, time=session["begin"] ) 
 
     
 

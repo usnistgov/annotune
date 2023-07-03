@@ -1,5 +1,4 @@
 import re, numpy as np, pandas as pd
-from pprint import pprint
 import pickle
 from xml.dom import minidom
 import os
@@ -99,13 +98,17 @@ def get_sliced_texts(topic_list, all_texts, docs):
     for a in topic_list["cluster"].keys():
         sub_results = {}
         counter = 0
+        # print(a, len(topic_list["cluster"][a]))
+        if len(topic_list["cluster"][a]) == 0:
+            continue
         for b in topic_list["cluster"][a]:
             if str(b) in docs:
                 continue
             if counter < 6:
                 sub_results[str(b)] = all_texts["text"][str(b)]
             counter+=1
-        results[a]= sub_results
+        if len(sub_results) != 0:   
+            results[a]= sub_results
     return results 
 
 
