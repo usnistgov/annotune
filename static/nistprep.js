@@ -10,8 +10,8 @@ const original_text = oritextElement.innerText;
 const viewButtons = document.querySelectorAll(".view");
 
 // const REGEXP_SPECIAL_CHAR = /[\!\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
-const REGEXP_SPECIAL_CHAR = /[\&\*\)\(\+\=\.\<\>]/g;
-// const REGEXP_SPECIAL_CHAR = /[\<\>]/g;
+// const REGEXP_SPECIAL_CHAR = /[\&\*\)\(\+\=\.\<\>]/g;
+const REGEXP_SPECIAL_CHAR = /[\<\>]/g;
 num = 0
 
 viewButtons.forEach((btn, index) => {
@@ -38,97 +38,103 @@ viewButtons.forEach((btn, index) => {
 
 
 
+// function highlighWords(words) {
+//     var text = original_text;
+//     words.forEach((word) => {
+//       if (word.length>2){
+
+//         // const escapedQuery = word.replace(REGEXP_SPECIAL_CHAR, '\\$&');
+
+//         const pattern = new RegExp(escapedQuery, "gi");
+//         text = text.replace(
+//           pattern,
+//           "<mark class='highlighted-word'>" + escapedQuery + "</mark>"
+//         );
+//         textElement.innerHTML = text;
+//         // console.log(textElement)
+//       }
+//     });
+//  }
+
 function highlighWords(words) {
-    var text = original_text;
-    words.forEach((word) => {
-      if (word.length>2){
-
-        const escapedQuery = word.replace(REGEXP_SPECIAL_CHAR, '\\$&');
-
-        const pattern = new RegExp(escapedQuery, "gi");
-        text = text.replace(
-          pattern,
-          "<span class='highlighted-word'>" + escapedQuery + "</span>"
-        );
-        textElement.innerHTML = text;
-        // console.log(textElement)
-      }
-    });
-  }
-  // console.log(original_text)
-  // console.log(text)
+  var text = original_text;
+  words.forEach((word) => {
+    if (word.length > 2) {
+      const pattern = new RegExp(word, "gi");
+      text = text.replace(
+        pattern,
+        "<span class='highlighted-word' >" + word + "</span>"
+      );
+      textElement.innerHTML = text;
+      // console.log(textElement)
+    }
+  });
+}
 
 
 
-  // function openForm() {
-  //   document.getElementById("loginPopup").style.display = "block";
-  // }
-  // function closeForm() {
-  //   document.getElementById("loginPopup").style.display = "none";
-  // }
-  // // When the user clicks anywhere outside of the modal, close it
-  // window.onclick = function (event) {
-  //   let modal = document.getElementById('loginPopup');
-  //   if (event.target == modal) {
-  //     closeForm();
-  //   }
-  // }
 
-
-// written = document.getElementById("written")
-// sugg= document.getElementById("suggestion")
-
-// // label = document.forms["responses"]["label"].value
-
-// var write  = written.value
-// var suggest = sugg.value
-
-
-// written.onkeyup = function() {
-//   console.log(this.value);
-// };
-
-
-
-// sugg.addEventListener("click", function(event){
-//   console.log(sugg.value)
-
-// })
-
-
-// // console.log(written)
-// // console.log(sugg)
-
-// traps = document.getElementById("myBtn")
-// traps.disabled = false;
-// traps.classList.add("fadeIn");
   
 
 
 const select = document.querySelector(".suggestion");
 const label = document.querySelector(".text_input");
-const submitButton = document.querySelector("#myBtn");
-console.log({ select, submitButton });
+const submitButton = document.getElementById("myBtn")
 
 submitButton.disabled = true;
 
-let selectValue;
-let labelValue;
+let selectValue = 0;
+let labelValue = 0;
 
 select.addEventListener("change", (e) => {
-  selectValue = e.target.value;
+  selectValue = e.target.value.length;
+  // console.log(selectValue.length)
+  // console.log(selectValue)
   checkButtonEnabled();
+  // console.log(selectValue)
 });
 
-label.addEventListener("change", (e) => {
-  labelValue = e.target.value;
+label.addEventListener("input", (e) => {
+  labelValue = e.target.value.length;
+  // console.log(labelValue)
+  // console.log(labelValue.length)
   checkButtonEnabled();
 });
 
 function checkButtonEnabled() {
-  if (selectValue && labelValue) {
-    submitButton.disabled = true;
-  } else if (selectValue || labelValue) {
+  if ((selectValue != 0) && (labelValue === 0) || ((selectValue === 0) && (labelValue != 0))){
     submitButton.disabled = false;
   }
+  else {
+    submitButton.disabled = true;
+  }
+}
+
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+
+console.log(minutesLabel)
+console.log(secondsLabel)
+
+setInterval(setTime, 1000);
+
+function setTime()
+{
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds%60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+}
+
+function pad(val)
+{
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+        return "0" + valString;
+    }
+    else
+    {
+        return valString;
+    }
 }

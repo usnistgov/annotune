@@ -86,13 +86,61 @@
     "danielsdanystevo@gmail.com": {
         "username": "danielsdanystevo@gmail.com",
         "id": 151,
-        "labels": ",science",
-        "labelled_document": ",0"
+        "labels": ",science,science,science",
+        "labelled_document": ",0,236,142"
     },
     "daniel2danystevo@gmail.com": {
         "username": "daniel2danystevo@gmail.com",
         "id": 152,
-        "labels": ",science,science",
-        "labelled_document": ",19,227"
+        "labels": ",science,science,food,daniel",
+        "labelled_document": ",19,227,222,234"
+    },
+    "danieladanystevo@gmail.com": {
+        "username": "danieladanystevo@gmail.com",
+        "id": 153,
+        "labels": ",daniel,science,science,covid,disease",
+        "labelled_document": ",74,179,109,222,234"
+    },
+    "danieldaste19@morgan.edu": {
+        "username": "danieldaste19@morgan.edu",
+        "id": 154,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "daniel3danystevo@gmail.com": {
+        "username": "daniel3danystevo@gmail.com",
+        "id": 155,
+        "labels": ",active,science",
+        "labelled_document": ",239,239"
+    },
+    "Daniel1danystevo@gmail.com": {
+        "username": "Daniel1danystevo@gmail.com",
+        "id": 156,
+        "labels": ",science,food,science",
+        "labelled_document": ",22,39,39"
+    },
+    "Danieldanystevo@gmail.com": {
+        "username": "Danieldanystevo@gmail.com",
+        "id": 157,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "katedanystevo@gmail.com": {
+        "username": "katedanystevo@gmail.com",
+        "id": 158,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user1danystevo@gmail.com": {
+        "username": "user1danystevo@gmail.com",
+        "id": 159,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "emekadanystevo@gmail.com": {
+        "username": "emekadanystevo@gmail.com",
+        "id": 160,
+        "labels": "",
+        "labelled_document": ""
     }
 }

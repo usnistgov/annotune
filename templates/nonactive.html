@@ -25,26 +25,41 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+          rel="stylesheet"
+        />
     <title>Document</title>
   </head>
 
   <body>
     <nav class="topnav">
-      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+      <a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
         >Home</a
       >
-      <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
       {% if docs_len != 1 %}
-      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      
+      <!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
       {% endif %}
-      <a href="{{url_for('finish')}}"> Finish</a>
-      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+      <a id="demo" href="#">Demo</a>
+      <div>
+      <label id="minutes">00</label>
+      <label id="colon">:</label>
+      <label id="seconds">00</label>
+      </div>
+
+      
+
+
+      <a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a>
     </nav>
     <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div>
     <main class="non-active-list">
 
       <div class="all_topics">
-        <div class="topic">
+        <div id="topicblock" class="topic">
         <h5 style="text-align: center;">Topic {{recommended_topic}}</h5>
 
         <div class="keywords__list">
@@ -54,7 +69,7 @@
         </div>
         <div class="table-wrapper active-list-table">
           Recommended Document
-          <table>
+          <table id="recommended_table">
             <thead>
               <tr>
                 <th>Number</th>
@@ -89,7 +104,9 @@
         
             <tbody>
 
-              {% for b in recommended_block[recommended_topic].keys() %}    
+              {% for b in recommended_block[recommended_topic].keys() %} 
+
+              {% if b != recommended%}   
               <tr >
                 <td>{{b}}</td>
                 <td>
@@ -101,6 +118,7 @@
                   </div>
                 </td>
               </tr>
+              {% endif %}
               {% endfor %}
             </tbody>
          
@@ -111,7 +129,9 @@
 
 
         {% for a in sliced_results.keys()%}
-        {% if a != recommended_topic%}
+  
+        {% if a != recommended_topic %}
+        
 
         
         
@@ -133,6 +153,7 @@
               </tr>
             </thead>
             {% for b in sliced_results[a].keys() %}
+            
             <tbody>
               <tr>
                 <td>{{b}}</td>
@@ -171,6 +192,9 @@
       </div>
     </main>
     <script src="{{ url_for('static', filename='label.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+    <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+
   </body>
 </html>
 

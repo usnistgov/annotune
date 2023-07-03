@@ -15,6 +15,11 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous"
         />
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+          rel="stylesheet"
+        />
+        
         <title>Label</title>
       </head>
 
@@ -23,12 +28,18 @@
         <nav class="topnav">
             <a class="active" href="{{url_for('home_page', name=session['name'])}}"
               >Home</a>
-              <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+              <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
               {% if docs_len != 1 %}
-              <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+              <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
               {% endif %}
-            <a href="{{url_for('finish')}}"> Finish</a>
-            <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+            <a id="demo" href="#">Demo</a>
+            <div>
+              <label id="minutes">00</label>
+              <label id="colon">:</label>
+              <label id="seconds">00</label>
+            </div>
+
+            <a class="logout" href="{{url_for('finish')}}"> Finish</a>
           </nav>
         <div class="heading"> <h2>LABEL THE DOCUMENT</h2></div>
         <div class="heading" style="background-color: rgb(233, 247, 244);">
@@ -44,10 +55,10 @@
         </div>
         <div id ="original_text" hidden="1">{{text}}</div>
         <br>
-        <div> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div>
+        <div id="model_suggestion"> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div>
         <form method="POST">
-            <div name="responses">
-              <select class="suggestion" name="suggestion">
+            <div id="model_sugges" name="responses">
+              <select id="old_labels" class="suggestion" name="suggestion">
                 <option></option>
                 {% for c in predictions %}
                 <option value="{{c}}">{{c}}</option>
@@ -76,7 +87,7 @@
 
         <div class="right_topics">
             {% for a in response['topic_order'] %}
-            <div class="predicted_topics" id="{{a[0]}}">
+            <div class="predicted_topics" id="topic11">
                 <div class="viewing">
                 <div class="topic_prediction" > <h5>Topic {{a[0]}} Keywords</h5></div>
                 <button id="buttons" class="view" type="button">Highlight</button>
@@ -92,7 +103,7 @@
                         <span >{{c}}</span>
                     {% endfor %}
                 </div>
-                <div class="predicted-keywords">
+                <div id="pred_key" class="predicted-keywords">
                   {% for c in response["topic"][a[0]]["keywords"] %}
                         <span >{{c}}</span>
                     {% endfor %}
@@ -103,6 +114,13 @@
     </div>
 </div>
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+<script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
+
+
+
+"
+
 <!-- <script src = "{{ url_for('static', filename='label.js') }}"></script> -->
     </body>
 </html>

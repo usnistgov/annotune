@@ -22,9 +22,14 @@
   <body class="body">
     <nav class="topnav">
         <a class="active" href="{{url_for('home_page', name=session['name'])}}">Home</a>
-        <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-        <a href="{{url_for('finish')}}"> Finish</a>
-        <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+        <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
+        <!-- <a href="{{url_for('finish')}}"> Finish</a> -->
+        <div>
+          <label id="minutes">00</label>
+          <label id="colon">:</label>
+          <label id="seconds">00</label>
+        </div>
+        <a class="logout" href="{{url_for ('finish')}}"> Finish</a>
       </nav>
     <div class="welcome">Welcome to this User Study</div>
     <br />
@@ -100,5 +105,6 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <script src="{{ url_for('static', filename='label.js') }}"></script>
   </body>
 </html>

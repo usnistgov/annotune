@@ -23,8 +23,14 @@
         >Home</a
       >
       <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-      <a href="{{url_for('finish')}}"> Finish</a>
-      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+      <!-- <a href="{{url_for('finish')}}"> Finish</a> -->
+      <a id="demo" href="#">Demo</a>
+      <div>
+        <label id="minutes">00</label>
+        <label id="colon">:</label>
+        <label id="seconds">00</label>
+      </div>
+      <a class="logout" href="{{url_for ('finish')}}"> Finish</a>
     </nav>
     <main>
       <h1 class="heading">LABELED DOCUMENTS </h1>
