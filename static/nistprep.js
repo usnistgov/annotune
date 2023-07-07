@@ -1,81 +1,3 @@
-let wordsToHighlight = []
-const acc = document.querySelectorAll(".right_topics");
-// console.log(acc)
-
-
-textElement=document.getElementById("text");
-oritextElement=document.getElementById("original_text");
-// console.log(textElement.innerText)
-const original_text = oritextElement.innerText;
-const viewButtons = document.querySelectorAll(".view");
-
-// const REGEXP_SPECIAL_CHAR = /[\!\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
-// const REGEXP_SPECIAL_CHAR = /[\&\*\)\(\+\=\.\<\>]/g;
-const REGEXP_SPECIAL_CHAR = /[\<\>]/g;
-num = 0
-
-viewButtons.forEach((btn, index) => {
-    btn.addEventListener("click", function (event) {
-        // removeAllActive()
-        let topic_el = btn.parentElement.nextElementSibling.getElementsByTagName("span");
-        
-        const wordsArr = [];
-        Array.from(topic_el).forEach(function (ele) {
-            wordsArr.push(ele.innerText);
-        });
-        // console.log(wordsArr)
-        if (num % 2 === 0){
-          highlighWords(wordsArr);
-        }
-        else {
-          textElement.innerHTML = original_text;
-        }
-        num = num + 1
-        
-
-    });
-});
-
-
-
-// function highlighWords(words) {
-//     var text = original_text;
-//     words.forEach((word) => {
-//       if (word.length>2){
-
-//         // const escapedQuery = word.replace(REGEXP_SPECIAL_CHAR, '\\$&');
-
-//         const pattern = new RegExp(escapedQuery, "gi");
-//         text = text.replace(
-//           pattern,
-//           "<mark class='highlighted-word'>" + escapedQuery + "</mark>"
-//         );
-//         textElement.innerHTML = text;
-//         // console.log(textElement)
-//       }
-//     });
-//  }
-
-function highlighWords(words) {
-  var text = original_text;
-  words.forEach((word) => {
-    if (word.length > 2) {
-      const pattern = new RegExp(word, "gi");
-      text = text.replace(
-        pattern,
-        "<span class='highlighted-word' >" + word + "</span>"
-      );
-      textElement.innerHTML = text;
-      // console.log(textElement)
-    }
-  });
-}
-
-
-
-
-  
-
 
 const select = document.querySelector(".suggestion");
 const label = document.querySelector(".text_input");
@@ -112,10 +34,11 @@ function checkButtonEnabled() {
 
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
+// var totalSeconds = 0;
+var totalSeconds = document.getElementById("secs").innerText;
 
-console.log(minutesLabel)
-console.log(secondsLabel)
+console.log(minutesLabel.innerText)
+console.log(secondsLabel.innerText)
 
 setInterval(setTime, 1000);
 

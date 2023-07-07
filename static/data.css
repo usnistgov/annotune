@@ -348,3 +348,18 @@ thead {
   background-color: yellow;
   text-transform: none;
 }
+
+
+span{
+  background-color: rgb(236, 244, 244);
+  padding: 0.1rem;
+  margin: 0.1rem;
+  border-radius: 10%;
+}
+
+.time{
+  float: right;
+  font-weight: 300;
+  font-size: larger;
+  background-color: rgb(72, 139, 181);
+}

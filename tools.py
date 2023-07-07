@@ -132,6 +132,13 @@ def save_labels(session):
         names[session["name"]]["labelled_document"] = session["labelled_document"]
         json.dump(names, name_json, indent=4)
 
+# def save_time(session, current_time):
+#     import json
+#     with open('.\\static\\users\\users.json') as user_file:
+#         name_string = user_file.read()
+#         names = json.loads(name_string)
+
+
 
 def labelled_docs(labe, all_texts):
     results = {}
@@ -197,3 +204,12 @@ def get_recommended_topic(recommended, topics, all_texts):
                 results[a] = sub_results
                 recommended_topic = a
     return recommended_topic,  results
+
+
+def save_time(name):
+    from csv import writer
+    import datetime
+    with open ("C:\\Users\\Stephens\\Desktop\\community_resilience\\static\\responses\\"+name+"\\time.csv", 'a', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow([datetime.datetime.now()])
+        f_object.close()

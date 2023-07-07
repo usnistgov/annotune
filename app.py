@@ -21,8 +21,9 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("congressional_bills.json"))
-# url = 'https://nist-topic-model.umiacs.umd.edu'
-url = "http://54.87.190.90:5001"
+url = 'https://nist-topic-model.umiacs.umd.edu'
+# url = "https://nist-topic-model.umiacs.umd.edu"
+# url = "http://54.87.190.90:5001"
 
 global predicitons
 predictions = []
@@ -49,11 +50,11 @@ def login():
             name_string = user_file.read()
             names = json.loads(name_string)
         name = request.form["name"]
-        email = request.form["email"]
+        # email = request.form["email"]
 
-        identity = name+email
+        identity = name
         session["name"] = identity
-
+        session['time_started'] = True
         session["begin"] = datetime.now()
         print(session["begin"])
 
@@ -108,6 +109,13 @@ def home_page(name):
         # if not there in the session then redirect to the login page
         return redirect("/login")
     if request.method =="POST":
+        if session["time_started"] == True:
+            session["begin"] = datetime.now()
+            session["time_started"] = False
+        save_time(session["name"])
+
+
+
         return redirect(url_for("active_check", name=name))
     return render_template("first.html", name=name, time=session["begin"])
 
@@ -144,6 +152,8 @@ def active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
+    save_time(session["name"])
+
 
     rec = str(topics["document_id"])
     docs = list(set(session["labelled_document"].strip(",").split(",")))
@@ -152,9 +162,12 @@ def active_list(name):
 
     results = get_single_document(topics["cluster"]["1"], all_texts, docs)
 
+    elapsed_time = datetime.now() - session["begin"]
+    secs = round(elapsed_time.total_seconds())
+
     if request.method =="POST":
         return redirect(url_for("finish"))
-    return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len, time=session["begin"])
+    return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len, elapsed_time=str(elapsed_time), secs=secs)
 
     
 
@@ -189,10 +202,15 @@ def non_active_list(name):
     keywords = topics["keywords"] 
     # print(keywords)
 
+    elapsed_time = datetime.now() - session["begin"]
+    secs = round(elapsed_time.total_seconds())
+    save_time(session["name"])
+
+
     if request.method =="POST":
         return redirect(url_for("finish"))
 
-    return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic, time=session["begin"])
+    return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic, elapsed_time=str(elapsed_time), secs=secs)
 
  
 @app.route("//active//<name>//<document_id>/", methods=["GET", "POST"])
@@ -207,6 +225,10 @@ def active(name, document_id):
     docs_len = len(docs)
     total = len(all_texts["text"])
 
+    elapsed_time = datetime.now() - session["begin"]
+    secs = round(elapsed_time.total_seconds())
+    save_time(session["name"])
+
     if request.method =="POST":
         label = request.form.get("label").lower()
         drop = request.form.get("suggestion").lower()
@@ -220,7 +242,8 @@ def active(name, document_id):
         et = datetime.strptime(session["start_time"].strip("+").split("+")[-1], "%H:%M:%S")
 
         response_time = str(et-st)
-        
+        elapsed_time = datetime.now() - session["begin"]
+        secs = round(elapsed_time.total_seconds())
         
         save_response(name, label, response_time, document_id, user_id)
         recommend_document = url + "//recommend_document"
@@ -244,9 +267,10 @@ def active(name, document_id):
         docs_len = len(docs)
         # print(label) 
         flash("Response has been submitted")
+        save_time(session["name"])
         
-        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total, time=session["begin"]))
-    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total, time=session["begin"] ) 
+        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total, elapsed_time=str(elapsed_time), secs=secs))
+    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total,elapsed_time=str(elapsed_time), secs=secs)
 
     
 
@@ -262,6 +286,7 @@ def get_label(document_id):
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
                                                          }).json()
+    save_time(session["name"])
                                                          
     return redirect( url_for("label", response=data, name=session["name"], document_id=document_id))
     
@@ -272,6 +297,7 @@ def get_label(document_id):
 @app.route("/logout", methods=["POST", "GET"])
 def finish():
     name = session['name']
+    save_time(session["name"])
     session.pop(name, None)
     return redirect(url_for("login"))
 
@@ -298,7 +324,11 @@ def non_active_label(name, document_id):
     labels = list(set(session["labels"].strip(",").split(",")))
     # print("start time")
     session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
-    # print(session["start_time"])
+    
+    elapsed_time = datetime.now() - session["begin"]
+    secs = round(elapsed_time.total_seconds())
+    
+    print(elapsed_time.total_seconds())
     total = len(all_texts["text"].keys())
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
@@ -321,8 +351,8 @@ def non_active_label(name, document_id):
 
         response_time = str(et-st)
 
-        
-        
+        elapsed_time = datetime.now() - session["begin"]
+        secs = round(elapsed_time.total_seconds())
         recommend_document = "https://nist-topic-model.umiacs.umd.edu/recommend_document"
         recommend_document = url + "//recommend_document"
         posts = requests.post(recommend_document, json={
@@ -353,9 +383,9 @@ def non_active_label(name, document_id):
         
         total = len(all_texts["text"].keys())
         done = len(docs)
-        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len))
+        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs))
 
-    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len)
+    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs)
 
   
 # @app.route("/try") 

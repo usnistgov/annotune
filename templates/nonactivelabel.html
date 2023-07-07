@@ -19,7 +19,13 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
           rel="stylesheet"
         />
-        
+        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
+        <style> 
+            mark {
+              padding: 0;
+              background-color: yellow;
+            }
+        </style>
         <title>Label</title>
       </head>
 
@@ -33,10 +39,11 @@
               <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
               {% endif %}
             <a id="demo" href="#">Demo</a>
-            <div>
-              <label id="minutes">00</label>
+            <div class="time">
+              <label id="minutes">{{elapsed_time[2:4] | int}}</label>
               <label id="colon">:</label>
-              <label id="seconds">00</label>
+              <label id="seconds">{{elapsed_time[5:] | int}}</label>
+              <label id="secs" hidden>{{secs}}</label>
             </div>
 
             <a class="logout" href="{{url_for('finish')}}"> Finish</a>
@@ -113,14 +120,15 @@
         </div>
     </div>
 </div>
-<script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js" charset="UTF-8"></script>
+<script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
-
-
-
-"
-
 <!-- <script src = "{{ url_for('static', filename='label.js') }}"></script> -->
     </body>
 </html>
