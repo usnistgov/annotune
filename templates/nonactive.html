@@ -44,10 +44,11 @@
       <!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
       {% endif %}
       <a id="demo" href="#">Demo</a>
-      <div>
-      <label id="minutes">00</label>
-      <label id="colon">:</label>
-      <label id="seconds">00</label>
+      <div class="time">
+        <label id="minutes">{{elapsed_time[2:4] | int}}</label>
+        <label id="colon">:</label>
+        <label id="seconds">{{elapsed_time[5:] | int}}</label>
+        <label id="secs" hidden>{{secs}}</label>
       </div>
 
       
@@ -83,8 +84,9 @@
                 <td>
                   <div id="{{recommended}}" class="table-data">
                     <a
-                      href="{{url_for('non_active_label', document_id=recommended, name=name)}}"
-                      >{{recommended_block[recommended_topic][recommended]}}</a
+                      href="{{url_for('non_active_label', document_id=recommended, name=name)}}">
+                      {{recommended_block[recommended_topic][recommended]}}
+                    </a
                     >
                   </div>
                 </td>

@@ -1,6 +1,7 @@
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
+// var totalSeconds = 0;
+var totalSeconds = document.getElementById("secs").innerText;
 
 console.log(minutesLabel)
 console.log(secondsLabel)

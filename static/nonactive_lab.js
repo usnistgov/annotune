@@ -46,3 +46,75 @@ document.getElementById("demo").addEventListener('click', function(){
     intro.start();
 
 })
+
+
+const viewButtons = document.querySelectorAll(".view");
+textcontents= document.getElementById("text")
+oritextElement=document.getElementById("original_text");
+oritextElements=document.getElementById("original_text");
+// console.log(textElement.innerText)
+const original_texts = oritextElement.innerText;
+var markInstance = new Mark(document.querySelector(".label"));
+const getButtons = document.querySelectorAll(".view");
+// var  = btn.parentElement.nextElementSibling.getElementsByTagName("span");
+// var keyword = btn.parentElement.nextElementSibling.getElementsByTagName("span");
+
+function performMark(keywords) {
+
+  // Read the keyword
+//   var keywords = btn.parentElement.nextElementSibling.getElementsByTagName("span");
+//   console.log(keywords)
+
+  // Determine selected options
+  var options = {
+    "separateWordSearch": false,
+    "diacritics": true
+  };
+  
+
+  // Remove previous marked elements and mark
+  // the new keyword inside the context
+  markInstance.unmark({
+  	done: function(){
+    	markInstance.mark(keywords);
+    }
+  });
+};
+var options = {
+    "separateWordSearch": false,
+    "diacritics": true
+  };
+
+// Listen to input and option changes
+num = 0
+viewButtons.forEach((btn, index) => {
+  btn.addEventListener("click", function(event){
+    var keywords = btn.parentElement.nextElementSibling.getElementsByTagName("span");
+    const wordsArr = [];
+    Array.from(keywords).forEach(function (ele) {
+        if (ele.innerText.length > 3){
+            wordsArr.push(ele.innerText);
+            // console.log(ele.innerText)
+        }
+    });
+    let joint_keywords = wordsArr.join(" ")
+    if (num % 2 == 0){
+        markInstance.mark(wordsArr, options);
+    }
+    else{
+        markInstance.unmark(wordsArr, options);
+        textcontents.innerText = original_texts
+        
+    }
+    num = num +1
+    // console.log(wordsArr.join(" "))
+    
+    // console.log(joint_keywords)
+    
+
+  });
+});
+
+
+
+

@@ -32,10 +32,11 @@
       <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
       {% endif %}
       <a id="demo" href="#">Demo</a>
-      <div>
-        <label id="minutes">00</label>
+      <div class="time">
+        <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
-        <label id="seconds">00</label>
+        <label id="seconds">{{elapsed_time[5:] | int}}</label>
+        <label id="secs" hidden>{{secs}}</label>
       </div>
 
       
