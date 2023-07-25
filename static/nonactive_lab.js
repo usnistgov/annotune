@@ -54,7 +54,7 @@ oritextElement=document.getElementById("original_text");
 oritextElements=document.getElementById("original_text");
 // console.log(textElement.innerText)
 const original_texts = oritextElement.innerText;
-var markInstance = new Mark(document.querySelector(".label"));
+var markInstance = new Mark(document.getElementById("text"));
 const getButtons = document.querySelectorAll(".view");
 // var  = btn.parentElement.nextElementSibling.getElementsByTagName("span");
 // var keyword = btn.parentElement.nextElementSibling.getElementsByTagName("span");

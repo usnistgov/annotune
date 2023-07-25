@@ -45,8 +45,8 @@
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
-      
-      <a class="logout" href="{{url_for('finish')}}"> Finish</a>
+      <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+      <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
     </nav>
     <h1 class="heading" style="margin-top: 2px;">LABEL THE DOCUMENT</h1>
     
@@ -76,6 +76,7 @@
             placeholder="Enter a label"
           />
           <button id="myBtn" disabled>submit</button>
+          <a href="{{url_for('active', name=session['name'], document_id=skip)}}">skip document</a>
         </div>
           </form>
       <!-- <div> Type a label or select one from the dropdown</div> -->
@@ -87,7 +88,30 @@
 
           {% endif %}
     </main>
+    <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to exit? </p>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
+      </div>
+    </div>
+    
+  </div>
+</div>
 
+</div>
+    <div id="loader" class="loader"></div>
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>

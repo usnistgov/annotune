@@ -2,46 +2,35 @@
 <html>
 
 <head>
-	<title>
-		How to scroll automatically to a particular element.
-	</title>
-	<style>
-		#GFG_DOWN {
-			margin-top: 370px;
-		}
-	</style>
-	<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-	</script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='data.css') }}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
-<body style="text-align:center;">
-	<h1 style="color:green;">
-			GeeksForGeeks
-		</h1>
-	<p id="GFG_UP"
-	style="font-size: 15px;
-			font-weight: bold;">
-	</p>
-	<button onclick="gfg_Run()">
-		Click Here
-	</button>
-	<p id="GFG_DOWN"
-	style="color:green;
-			font-size: 30px;
-			font-weight: bold;">
-		This is element.
-	</p>
-	<script>
-		var el_up = document.getElementById("GFG_UP");
-		var el_down = document.getElementById("GFG_DOWN");
-		el_up.innerHTML =
-"Click on the button to scroll to the particular element.";
-
-		function gfg_Run() {
-			$(window).scrollTop($('#GFG_DOWN').position().top);
-		}
-	</script>
+<body>
+	<nav class="topnav">
+		<a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
+		  >Home</a
+		>
+		<!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
+	
+		<a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+		
+		<!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
+		
+		<a id="demo" href="#">Demo</a>
+		<div class="logout">
+		  <label id="minutes">00</label>
+		  <label id="colon">:</label>
+		  <label id="seconds">00</label>
+		  <label id="secs" hidden>00</label>
+		</div>
+  
+		
+  
+  
+		<a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a>
+	  </nav>
+	 
 </body>
 
 </html>
