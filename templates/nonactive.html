@@ -29,17 +29,22 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
           rel="stylesheet"
         />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
+
     <title>Document</title>
   </head>
 
   <body>
     <nav class="topnav">
       <a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
-        >Home</a
+        >Instructions</a
       >
       <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
       {% if docs_len != 1 %}
-      <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+      <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
       
       <!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
       {% endif %}
@@ -53,8 +58,9 @@
 
       
 
-
-      <a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a>
+      <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+            
+      <!-- <a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a> -->
     </nav>
     <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div>
     <main class="non-active-list">
@@ -176,7 +182,7 @@
 
           <a
             href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}"
-            ><button class="view_more" style="background-color: rgb(235, 241, 245);" name="Show more" type="“button”">
+            ><button class="view_more" style="background-color: rgb(235, 241, 245); height: 3rem;" name="Show more" type="“button”">
               View all
             </button>
           </a>
@@ -193,6 +199,31 @@
         </form>
       </div>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to exit? </p>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button> -->
+            <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    </div>
+    
+
     <script src="{{ url_for('static', filename='label.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>

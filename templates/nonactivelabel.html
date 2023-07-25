@@ -19,6 +19,9 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
           rel="stylesheet"
         />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
         <style> 
             mark {
@@ -31,12 +34,13 @@
 
 
     <body class="body">
+      
         <nav class="topnav">
             <a class="active" href="{{url_for('home_page', name=session['name'])}}"
-              >Home</a>
+              >Instructions</a>
               <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
               {% if docs_len != 1 %}
-              <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
+              <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
               {% endif %}
             <a id="demo" href="#">Demo</a>
             <div class="time">
@@ -46,8 +50,11 @@
               <label id="secs" hidden>{{secs}}</label>
             </div>
 
-            <a class="logout" href="{{url_for('finish')}}"> Finish</a>
+            
+            <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+            <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
           </nav>
+        
         <div class="heading"> <h2>LABEL THE DOCUMENT</h2></div>
         <div class="heading" style="background-color: rgb(233, 247, 244);">
           {% for message in get_flashed_messages() %}
@@ -57,7 +64,12 @@
         <div class="overall">
         <div class="left">
           <h6>Document Number: {{document_id}}</h6>
-        <div id ="text" class="label">
+        <div id ="text" style="  background-color: white; padding: 1rem;
+            font-size: large;
+            height: 40rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-right: 1px solid rgb(72, 139, 181);">
             {{text}}
         </div>
         <div id ="original_text" hidden="1">{{text}}</div>
@@ -79,6 +91,7 @@
                 placeholder="Enter a label"
               />
               <button id="myBtn" disabled>submit</button>
+              <a href="{{url_for('non_active_label', document_id=skips, name=name)}}"> skip this document </a>
             </div>
           </form>
 
@@ -91,12 +104,12 @@
           {% endif %}
         </div>
 
-
         <div class="right_topics">
+        <div >
             {% for a in response['topic_order'] %}
             <div class="predicted_topics" id="topic11">
                 <div class="viewing">
-                <div class="topic_prediction" > <h5>Topic {{a[0]}} Keywords</h5></div>
+                <div class="topic_prediction" > <h5>Keyword Groups {{a[0]}}</h5></div>
                 <button id="buttons" class="view" type="button">Highlight</button>
                 <!-- <button id="buttons" class="view" type="button">Off</button> -->
                 
@@ -117,8 +130,40 @@
                 </div>
             </div>
             {% endfor %}
+            
+            
         </div>
+        
+      </div>
     </div>
+
+</div>
+<div id="loader" class="loader"></div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to exit? </p>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
+      </div>
+    </div>
+    
+  </div>
+</div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
@@ -129,6 +174,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js" charset="UTF-8"></script>
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
-<!-- <script src = "{{ url_for('static', filename='label.js') }}"></script> -->
+<script src = "{{ url_for('static', filename='modal.js') }}"></script>
     </body>
 </html>

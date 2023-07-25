@@ -123,7 +123,7 @@ def get_single_document( top, all_texts, docs):
 
 def save_labels(session):
     import json
-    with open('.\\static\\users\\users.json') as user_file:
+    with open('./static/users/users.json') as user_file:
         name_string = user_file.read()
         names = json.loads(name_string)
 
@@ -148,7 +148,7 @@ def labelled_docs(labe, all_texts):
     return results
 
 def extract_label (name, number):
-    responses_path =(".\\static\\responses\\" + name + "\\" + number +".xml" )
+    responses_path =("./static/responses/" + name + "/" + number +".xml" )
     doc = minidom.parse(responses_path)
     root = doc.getElementsByTagName("label")
     label = None
@@ -159,7 +159,7 @@ def extract_label (name, number):
 def completed_json_ (name):
     import pandas as pd
     import glob
-    path = "./static/responses/" + name+"/*"
+    path = "./static/responses/" + name+"/*.xml"
     doc_id = []
     doc_label = []
     res = []
@@ -206,10 +206,25 @@ def get_recommended_topic(recommended, topics, all_texts):
     return recommended_topic,  results
 
 
-def save_time(name):
+def save_time(name, page):
     from csv import writer
     import datetime
-    with open ("C:\\Users\\Stephens\\Desktop\\community_resilience\\static\\responses\\"+name+"\\time.csv", 'a', newline='') as f_object:
+    with open ("./static/responses/"+name+"/time.csv", 'a', newline='') as f_object:
         writer_object = writer(f_object)
-        writer_object.writerow([datetime.datetime.now()])
+        writer_object.writerow([page, datetime.datetime.now()])
         f_object.close()
+
+def save_first_time(name, page):
+    from csv import writer
+    import datetime
+    with open ("./static/responses/"+name+"/time.csv", 'w', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow([page, datetime.datetime.now()])
+        f_object.close()
+
+def make_folder(name):
+    import os
+    parent_dir= "./static/responses/"
+    mode = 0o666
+    path = os.path.join(parent_dir, name)
+    os.mkdir(path, mode)

@@ -10,6 +10,7 @@ import time
 from datetime import datetime
 import os
 import ast
+import random
 
 
 received_data = json.load(open('dataset.json'))
@@ -26,6 +27,7 @@ url = 'https://nist-topic-model.umiacs.umd.edu'
 # url = "http://54.87.190.90:5001"
 
 global predicitons
+global skip
 predictions = []
 
 
@@ -46,7 +48,7 @@ def home():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method =="POST":
-        with open('.\\static\\users\\users.json') as user_file:
+        with open('./static/users/users.json') as user_file:
             name_string = user_file.read()
             names = json.loads(name_string)
         name = request.form["name"]
@@ -56,11 +58,8 @@ def login():
         session["name"] = identity
         session['time_started'] = True
         session["begin"] = datetime.now()
-        print(session["begin"])
-
-
+        # print(session["begin"])
         session["start_time"] = ""
-        
         
 
         if identity in list(names.keys()):
@@ -71,10 +70,13 @@ def login():
             
             user_id = session["user_id"]
             print('user id is {}'.format(user_id))
-            return redirect(url_for("active_check", name=identity))
+            # save_time(session["name"], "home_page")
+            return redirect(url_for("home_page", name=identity, user_id=user_id))
+            # return redirect(url_for("active_check", name=identity))
             
         else:
             user = requests.post(url + "//create_user", {"user_session": identity})
+            print(user)
             user_id = user.json()["user_id"] 
             session["user_id"] = user_id
             session["labels"] = ""
@@ -89,12 +91,16 @@ def login():
             session["user_id"] = user_id  
             names[identity]=data
             
-            with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
+            with open('./static/users/users.json', mode='w', encoding='utf-8') as name_json:
                 # names = json.loads(name_string)
                 names[identity] = data
                 json.dump(names, name_json, indent=4)
 
-            
+            try:
+                make_folder(identity)
+            except:
+                pass
+            save_first_time(session["name"], "home_page")
             
             return redirect(url_for("home_page", name=identity, user_id=user_id))
     return render_template("login.html") 
@@ -112,7 +118,7 @@ def home_page(name):
         if session["time_started"] == True:
             session["begin"] = datetime.now()
             session["time_started"] = False
-        save_time(session["name"])
+        save_time(session["name"], "to_list")
 
 
 
@@ -152,15 +158,23 @@ def active_list(name):
     topics = requests.post(get_topic_list, json={
                             "user_id": session['user_id']
                             }).json()
-    save_time(session["name"])
+    save_time(session["name"], "active_list")
 
 
     rec = str(topics["document_id"])
     docs = list(set(session["labelled_document"].strip(",").split(",")))
-    # print(docs)
+    
     docs_len= len(docs)
 
     results = get_single_document(topics["cluster"]["1"], all_texts, docs)
+
+
+
+    # print(len(topics["cluster"]["1"]))
+
+    session["rec_block"] = [x for x in topics["cluster"]["1"] if x != rec]
+    print(session["rec_block"])
+    
 
     elapsed_time = datetime.now() - session["begin"]
     secs = round(elapsed_time.total_seconds())
@@ -169,7 +183,6 @@ def active_list(name):
         return redirect(url_for("finish"))
     return render_template("active_list.html", results=results, name=name, rec = rec , docs_len=docs_len, elapsed_time=str(elapsed_time), secs=secs)
 
-    
 
  
  
@@ -187,25 +200,32 @@ def non_active_list(name):
 
     recommended = int(topics["document_id"])
 
+    save_time(session["name"], "non_active_list")
+
+
+
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
     # print(recommended)
 
     recommended_topic, recommended_block = get_recommended_topic(recommended, topics, all_texts)
-    # print(recommended_block)
 
     results = get_texts(topic_list=topics, all_texts=all_texts, docs=docs)
 
     sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts, docs=docs)
-    # print(sliced_results)
  
     keywords = topics["keywords"] 
-    # print(keywords)
-
     elapsed_time = datetime.now() - session["begin"]
     secs = round(elapsed_time.total_seconds())
-    save_time(session["name"])
+    all_available_documents = [list(results[t].keys()) for t in [p for p in list(results.keys())]]
+    long_list = []
+    for y in all_available_documents:
+        for e in y:
+            long_list.append(e)
+    # print(long_list)
 
+    session["rec_block"] = list(recommended_block[list(recommended_block.keys())[0]].keys()) + long_list
+    print(session['rec_block'])
 
     if request.method =="POST":
         return redirect(url_for("finish"))
@@ -213,7 +233,7 @@ def non_active_list(name):
     return render_template("nonactive.html", sliced_results=sliced_results, results=results, name=name, keywords=keywords, recommended=str(recommended), document_list = topics["cluster"], docs_len = docs_len, recommended_block=recommended_block, recommended_topic=recommended_topic, elapsed_time=str(elapsed_time), secs=secs)
 
  
-@app.route("//active//<name>//<document_id>/", methods=["GET", "POST"])
+@app.route("//active//<name>//<document_id>", methods=["GET", "POST"])
 def active(name, document_id):
 
     text = all_texts["text"][str(document_id)]
@@ -227,7 +247,9 @@ def active(name, document_id):
 
     elapsed_time = datetime.now() - session["begin"]
     secs = round(elapsed_time.total_seconds())
-    save_time(session["name"])
+    save_time(session["name"], str(document_id))
+
+    skip = random.choice([x for x in session["rec_block"] if x != document_id])
 
     if request.method =="POST":
         label = request.form.get("label").lower()
@@ -265,12 +287,12 @@ def active(name, document_id):
         save_labels(session)
         docs = list(set(session["labelled_document"].strip(",").split(",")))
         docs_len = len(docs)
-        # print(label) 
+         # print(label) 
         flash("Response has been submitted")
-        save_time(session["name"])
+        save_time(session["name"], str(document_id)+"labelled")
         
-        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total, elapsed_time=str(elapsed_time), secs=secs))
-    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total,elapsed_time=str(elapsed_time), secs=secs)
+        return redirect(url_for("active", name=name, document_id=next, predictions=labels, docs_len = docs_len, total=total, elapsed_time=str(elapsed_time), secs=secs, skip=skip))
+    return render_template("activelearning.html", text =text, predictions=labels, docs_len=docs_len, document_id=document_id, total=total,elapsed_time=str(elapsed_time), secs=secs, skip=skip)
 
     
 
@@ -286,7 +308,8 @@ def get_label(document_id):
     data = requests.post(get_document_information, json={ "document_id": document_id,
                                                         "user_id":user_id
                                                          }).json()
-    save_time(session["name"])
+    save_time(session["name"], "relabel")
+
                                                          
     return redirect( url_for("label", response=data, name=session["name"], document_id=document_id))
     
@@ -297,7 +320,7 @@ def get_label(document_id):
 @app.route("/logout", methods=["POST", "GET"])
 def finish():
     name = session['name']
-    save_time(session["name"])
+    save_time(session["name"], "finish")
     session.pop(name, None)
     return redirect(url_for("login"))
 
@@ -322,18 +345,17 @@ def non_active_label(name, document_id):
     text = all_texts["text"][str(document_id)]
     words = get_words(response["topic"],  text)
     labels = list(set(session["labels"].strip(",").split(",")))
-    # print("start time")
     session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
     
     elapsed_time = datetime.now() - session["begin"]
     secs = round(elapsed_time.total_seconds())
     
-    print(elapsed_time.total_seconds())
+
     total = len(all_texts["text"].keys())
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
-    # print(docs_len)
-    # print(response)
+    
+    skips = random.choice([x for x in session["rec_block"] if x != document_id])
 
 
 
@@ -364,6 +386,7 @@ def non_active_label(name, document_id):
 
         next = posts["document_id"]
         predictions.append(label.lower())
+        # print(posts["prediction"])
         
         
         session["labelled_document"] = session["labelled_document"]+","+str(document_id)
@@ -378,31 +401,27 @@ def non_active_label(name, document_id):
         response = requests.post(get_document_information, json={ "document_id": posts["document_id"],
                                                         "user_id":session["user_id"]
                                                          }).json()
-        print(docs_len)
+    
         flash("Response has been submitted")
-        
+        save_time(session["name"], str(document_id)+"finish")
         total = len(all_texts["text"].keys())
         done = len(docs)
-        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs))
+        return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips))
 
-    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs)
+    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips)
 
   
-# @app.route("/try") 
-# def trial():
-#     labe = ",133,0,1,2,6,82,233,194,107"
-#     print(all_texts["text"]["0"]) 
-
-#     docss = labelled_docs(labe, all_texts)
-#     return render_template("completed.html", docss = docss)
+@app.route("/try")  
+def trial():
+    return render_template("try.html")
 
 
 
-    
+
 
 @app.route("/non_active/<name>/<topic_id>//<documents>//<keywords>")
 def topic(name, topic_id, documents, keywords): 
-    print(topic_id)
+    # print(topic_id)
     # res = get_single_document(documents, all_texts)
     keywords = keywords.strip("'[]'").split("', '")
     docs = list(set(session["labelled_document"].strip(",").split(",")))
@@ -426,11 +445,14 @@ def view_labeled(name,document_id):
 @app.route("/<name>/labeled_list/")
 def labeled_list(name):
     labe = session["labelled_document"]
-    
+    docs = list(set(session["labelled_document"].strip(",").split(",")))
+    docs_len = len(docs)
     docss = labelled_docs(labe, all_texts)
     completed = completed_json_(name)
     completed_docs = get_completed(completed, all_texts)
-    return render_template("completed.html", completed_docs=completed_docs, docss=docss)
+    elapsed_time = datetime.now() - session["begin"]
+    secs = round(elapsed_time.total_seconds())
+    return render_template("completed.html", completed_docs=completed_docs, docss=docss, secs=secs, elapsed_time=str(elapsed_time), docs_len=docs_len)
  
 
 @app.route("/<name>/edit_response/<document_id>")
@@ -440,3 +462,10 @@ def edit_labels(name, document_id):
 
     if session["is_active"] == False:
         return redirect(url_for("non_active_label", name=name, document_id=document_id))
+
+
+@app.route("/modal")
+def modal():
+    return render_template("modal.html")
+
+    
