@@ -1,69 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="{{ url_for('static', filename='data.css') }}"/>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-      <title>Document</title>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='data.css') }}"
+    />
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/non-active-list.css') }}"
+    /> -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/non-active-label.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+          rel="stylesheet"
+        />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
 
-    <body class="body">
-        <div class="welcome"> EXPLORE THE VARIOUS TOPICS </div>
-        <br>
-    
-        <div class="about">
-            <section>
-            These are the various topics from the LDA model. <br>
-            You can feel free to explore them to get a better understanding of what each one represents
-            </section>
-            <br>
-            <div class="all_topics">
-            {% for a in sliced_results.keys()%}
-            <div class="topics">
-                
-                <h5>Topic {{a}}</h5>
-                
-                <div class="keywords">
-                    {% for k in keywords[a] %}
-                    <span> {{k}}</span> 
-                    {% endfor %}
-                </div>
-                <div class="documents">
-                
-                    
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Number</th>
-                            <th>Document</th>
-                            <th>status</th>
-                        </tr>
-                        </thead>
-                        {% for b in sliced_results[a].keys() %}
-                        <tbody>
-                        <tr>
-                          <td>{{b}}</td>
-                          <td><div id="{{b}}" class="each_document"><a href="{{url_for('non_active_label', document_id=b, name=name)}}">{{results[a][b]}}</a></div></td>
-                          <td>{{b}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                      </table>   
+    <title>Document</title>
+  </head>
 
-            </div >
-                <button class="view_more" name="Show more" type=“button”>  view more </button>
-            </div>
+  <body>
+    <nav class="topnav">
+      <a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Instructions</a
+      >
+      <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
+      {% if docs_len != 1 %}
+      <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
+      
+      <!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
+      {% endif %}
+      <a id="demo" href="#">Demo</a>
+      <div class="time">
+        <label id="minutes">{{elapsed_time[2:4] | int}}</label>
+        <label id="colon">:</label>
+        <label id="seconds">{{elapsed_time[5:] | int}}</label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+
+      
+
+      <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+            
+      <!-- <a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a> -->
+    </nav>
+    <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div>
+    <main class="non-active-list">
+
+      <div class="all_topics">
+        <div id="topicblock" class="topic">
+        <h5 style="text-align: center;">Topic {{recommended_topic}}</h5>
+
+        <div class="keywords__list">
+          {% for k in keywords[recommended_topic] %}
+          <p class="keyword">{{k}}</p>
+          {% endfor %}
+        </div>
+        <div class="table-wrapper active-list-table">
+          Recommended Document
+          <table id="recommended_table">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr >
+                <td>{{recommended}}</td>
+                <td>
+                  <div id="{{recommended}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=recommended, name=name)}}">
+                      {{recommended_block[recommended_topic][recommended]}}
+                    </a
+                    >
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+         
+          </table>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            
+        
+            <tbody>
+
+              {% for b in recommended_block[recommended_topic].keys() %} 
+
+              {% if b != recommended%}   
+              <tr >
+                <td>{{b}}</td>
+                <td>
+                  <div id="{{b}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=b, name=name)}}"
+                      >{{recommended_block[recommended_topic][b]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+         
+          </table>
+        </div>
+
+      </div>
+
+
+        {% for a in sliced_results.keys()%}
+  
+        {% if a != recommended_topic %}
+        
+
+        
+        
+        <div class="topic">
+          <h5 style="text-align: center;">Topic {{a}}</h5>
+
+          <div class="keywords__list">
+            {% for k in keywords[a] %}
+            <p class="keyword">{{k}}</p>
             {% endfor %}
-            </div>
+          </div>
+          <br>
+          <div class="table-wrapper active-list-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Document</th>
+              </tr>
+            </thead>
+            {% for b in sliced_results[a].keys() %}
+            
+            <tbody>
+              <tr>
+                <td>{{b}}</td>
+                <td>
+                  <div id="{{b}}" class="table-data">
+                    <a
+                      href="{{url_for('non_active_label', document_id=b, name=name)}}"
+                      >{{results[a][b][:200]}}</a
+                    >
+                  </div>
+                </td>
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-          
-        <div class="center">
-            <form method="POST">
-                <button name="finish" class="next_button" type=“button”><h3>Finish</h3></button>
-            </form>
+
+          <a
+            href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}"
+            ><button class="view_more" style="background-color: rgb(235, 241, 245); height: 3rem;" name="Show more" type="“button”">
+              View all
+            </button>
+          </a>
         </div>
-        <script src = "{{ url_for('static', filename='label.js') }}"></script>
-    </body>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="center">
+        <form method="POST">
+          <button name="finish" class="next_button"style="width: 70%; background-color: rgb(208, 219, 230); font-size: large;"type="“button”">
+            Finish
+          </button>
+        </form>
+      </div>
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to exit? </p>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button> -->
+            <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    </div>
+    
+
+    <script src="{{ url_for('static', filename='label.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+    <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+
+  </body>
 </html>
+
+

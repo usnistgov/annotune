@@ -1,61 +1,73 @@
-let wordsToHighlight = []
-const acc = document.querySelectorAll(".right_topics");
-console.log(acc)
 
+const select = document.querySelector(".suggestion");
+const label = document.querySelector(".text_input");
+const submitButton = document.getElementById("myBtn")
 
-textElement=document.getElementById("text");
-// console.log(textElement.innerText)
-const original_text = textElement.innerText;
-const viewButtons = document.querySelectorAll(".view");
+submitButton.disabled = true;
 
+let selectValue = 0;
+let labelValue = 0;
 
-
-viewButtons.forEach((btn, index) => {
-    btn.addEventListener("click", function (event) {
-        // removeAllActive()
-        let topic_el = btn.parentElement.nextElementSibling.getElementsByTagName("span");
-        
-        const wordsArr = [];
-        Array.from(topic_el).forEach(function (ele) {
-            wordsArr.push(ele.innerText);
-        });
-        console.log(wordsArr)
-        highlighWords(wordsArr);
-
-    });
+select.addEventListener("change", (e) => {
+  selectValue = e.target.value.length;
+  // console.log(selectValue.length)
+  // console.log(selectValue)
+  checkButtonEnabled();
+  // console.log(selectValue)
 });
 
+label.addEventListener("input", (e) => {
+  labelValue = e.target.value.length;
+  // console.log(labelValue)
+  // console.log(labelValue.length)
+  checkButtonEnabled();
+});
 
-
-function highlighWords(words) {
-    var text = original_text;
-    words.forEach((word) => {
-      if (word.length>2){
-        const pattern = new RegExp(word, "gi");
-        text = text.replace(
-          pattern,
-          "<span style='background-color:yellow'>" + word + "</span>"
-        );
-        textElement.innerHTML = text;
-        // console.log(textElement)
-      }
-    });
+function checkButtonEnabled() {
+  if ((selectValue != 0) && (labelValue === 0) || ((selectValue === 0) && (labelValue != 0))){
+    submitButton.disabled = false;
   }
-
-
-
-  function openForm() {
-    document.getElementById("loginPopup").style.display = "block";
+  else {
+    submitButton.disabled = true;
   }
-  function closeForm() {
-    document.getElementById("loginPopup").style.display = "none";
-  }
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    let modal = document.getElementById('loginPopup');
-    if (event.target == modal) {
-      closeForm();
+}
+
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+// var totalSeconds = 0;
+var totalSeconds = document.getElementById("secs").innerText;
+
+console.log(minutesLabel.innerText)
+console.log(secondsLabel.innerText)
+
+setInterval(setTime, 1000);
+
+function setTime()
+{
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds%60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+}
+
+function pad(val)
+{
+    var valString = val + "";
+    if(valString.length < 2)
+    {
+        return "0" + valString;
     }
-  }
-  
+    else
+    {
+        return valString;
+    }
+}
 
+setTimeout(() => {
+  const box = document.getElementById('loader');
+
+  // 👇️ removes element from DOM
+  box.style.display = 'none';
+
+  // 👇️ hides element (still takes up space on page)
+  // box.style.visibility = 'hidden';
+}, 1000);

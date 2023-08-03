@@ -1,5 +1,4 @@
 import re, numpy as np, pandas as pd
-from pprint import pprint
 import pickle
 from xml.dom import minidom
 import os
@@ -7,6 +6,7 @@ import os
 
 def read_data(path):
     return pd.read_json(path)
+
 
 def filter_data(json_data, probability):
     filtered_topics = {}
@@ -67,7 +67,7 @@ def save_response(name, label, response_time, document_id, user_id):
 
     xml_str = root.toprettyxml(indent ="\t")
 
-    directory = "./static/"+name
+    directory = "./static/responses/"+name
 
     save_path_file = directory + "/"+ str(document_id) +".xml"
     try:
@@ -76,25 +76,155 @@ def save_response(name, label, response_time, document_id, user_id):
         print("all_good")
     with open(save_path_file, "w") as f:
         f.write(xml_str)
-
-
     return xml_str
 
 
-def get_texts (topic_list, all_texts):
+
+def get_texts (topic_list, all_texts, docs):
     results = {}
     for a in topic_list["cluster"].keys():
         sub_results = {}
         for b in topic_list["cluster"][a]:
+            if str(b) in docs:
+                continue
             sub_results[str(b)] = all_texts["text"][str(b)]
         results[a]= sub_results
     return results
 
-def get_sliced_texts(topic_list, all_texts):
+
+
+def get_sliced_texts(topic_list, all_texts, docs):
     results = {}
     for a in topic_list["cluster"].keys():
         sub_results = {}
-        for b in topic_list["cluster"][a][:6]:
-            sub_results[str(b)] = all_texts["text"][str(b)]
-        results[a]= sub_results
+        counter = 0
+        # print(a, len(topic_list["cluster"][a]))
+        if len(topic_list["cluster"][a]) == 0:
+            continue
+        for b in topic_list["cluster"][a]:
+            if str(b) in docs:
+                continue
+            if counter < 6:
+                sub_results[str(b)] = all_texts["text"][str(b)]
+            counter+=1
+        if len(sub_results) != 0:   
+            results[a]= sub_results
+    return results 
+
+
+def get_single_document( top, all_texts, docs):
+    results = {}
+    for a in top:
+        if str(a) in docs:
+                continue
+        results[str(a)] = all_texts["text"][str(a)]
+    return results 
+
+
+def save_labels(session):
+    import json
+    with open('./static/users/users.json') as user_file:
+        name_string = user_file.read()
+        names = json.loads(name_string)
+
+    with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
+        names[session["name"]]["labels"] = session["labels"]
+        names[session["name"]]["labelled_document"] = session["labelled_document"]
+        json.dump(names, name_json, indent=4)
+
+# def save_time(session, current_time):
+#     import json
+#     with open('.\\static\\users\\users.json') as user_file:
+#         name_string = user_file.read()
+#         names = json.loads(name_string)
+
+
+
+def labelled_docs(labe, all_texts):
+    results = {}
+    labelled = [x for x in labe.strip(",").split(",")][: : -1]
+    for a in labelled:
+        results[a] = all_texts["text"][a]
     return results
+
+def extract_label (name, number):
+    responses_path =("./static/responses/" + name + "/" + number +".xml" )
+    doc = minidom.parse(responses_path)
+    root = doc.getElementsByTagName("label")
+    label = None
+    for a in root:
+        label = a.getAttribute("label")
+    return label
+
+def completed_json_ (name):
+    import pandas as pd
+    import glob
+    path = "./static/responses/" + name+"/*.xml"
+    doc_id = []
+    doc_label = []
+    res = []
+    for a in glob.glob(path):
+        doc = minidom.parse(a)
+        user_label = doc.getElementsByTagName("label")
+        document_id = doc.getElementsByTagName("document_id")
+        for a in document_id:
+            doc = a.getAttribute("document_id")
+            doc_id.append(doc)
+        for b in user_label:
+            label = b.getAttribute("label")
+            doc_label.append(label)
+    for c in zip(doc_id, doc_label):
+        res.append(c)
+    df = pd.DataFrame(res, columns=["document_id", "label"])
+    completed_json = {}
+    for a in set(df["label"]):
+        completed_json[a]=list(df[df["label"]==a]["document_id"])
+    return completed_json
+
+
+def get_completed(completed_json, all_texts):
+    results = {}
+    for a in completed_json.keys():
+        sub_results = {}
+        for b in completed_json[a]:
+            sub_results[str(b)] = all_texts["text"][str(b)]
+            results[a]= sub_results
+            
+    return results
+
+
+def get_recommended_topic(recommended, topics, all_texts):
+    results = {}
+    for a in topics["cluster"].keys():
+        sub_results = {}
+        for b in topics["cluster"][a]:
+            if b == recommended:
+                for c in topics["cluster"][a]:
+                    sub_results[str(c)] = all_texts["text"][str(c)]
+                results[a] = sub_results
+                recommended_topic = a
+    return recommended_topic,  results
+
+
+def save_time(name, page):
+    from csv import writer
+    import datetime
+    with open ("./static/responses/"+name+"/time.csv", 'a', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow([page, datetime.datetime.now()])
+        f_object.close()
+
+def save_first_time(name, page):
+    from csv import writer
+    import datetime
+    with open ("./static/responses/"+name+"/time.csv", 'w', newline='') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow([page, datetime.datetime.now()])
+        f_object.close()
+
+def make_folder(name):
+    import os
+    parent_dir= "./static/responses/"
+    mode = 0o666
+    path = os.path.join(parent_dir, name)
+    os.mkdir(path, mode)
