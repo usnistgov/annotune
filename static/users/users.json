@@ -70,5 +70,17 @@
         "id": 237,
         "labels": ",science",
         "labelled_document": ",136"
+    },
+    "Daniel": {
+        "username": "Daniel",
+        "id": 239,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Daniels": {
+        "username": "Daniels",
+        "id": 240,
+        "labels": "",
+        "labelled_document": ""
     }
 }
