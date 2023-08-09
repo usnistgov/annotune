@@ -1,0 +1,224 @@
+{
+    "Sarah-LDA-001": {
+        "username": "Sarah-LDA-001",
+        "id": 1,
+        "labels": ",transportation planning,transportation,planning,operating costs,land,cost,funds,funds,transportation,bill,funds,bill,covid,transportation planning,operating costs,transportation fee,transportation construction,transportation grants,transportation funds,passenger safety,transportation project,transportation project,project funds,transportation infrastructure,transportation,train,baseball,surface transportation,safety,storage,highway,bicycles,transportation,railroad,bicycles,highway standards,bicycle,bicycles,operating costs,transportation",
+        "labelled_document": ",3681,3998,2130,3454,226,3454,3473,1997,1996,4656,5782,1414,4204,2431,3178,5848,2035,2336,2186,3867,5790,1302,5802,1758,5469,2830,2479,300,1355,5809,107,3708,481,3952,1947,1325,3708,1687,5537,3160"
+    },
+    "Ben-SLDA-002": {
+        "username": "Ben-SLDA-002",
+        "id": 2,
+        "labels": ",bill,program,u.s. fish and wildlife service,water,basin,wildlife,water,island,project,facility,energy,docket,the nist voting program performs technical research to support the development of standards and guidelines for current and future voting systems.,state,vulnerable,railway",
+        "labelled_document": ",5797,4265,1492,5797,4355,3833,4557,3466,2130,5153,5197,3473,4492,4656,1414,1997"
+    },
+    "Juan-ETM-003": {
+        "username": "Juan-ETM-003",
+        "id": 3,
+        "labels": ",civil rights,national security,domestic manufacturing,mandatory requirements,natural resources,criminal law,mandatory requirements,mandatory requirements,mandatory requirements,criminal law,benefits,mandatory requirements,natural resources,national security,economic development,economic development,equity,mandatory requirements,mandatory requirements,economic development,natural resources,civil rights,mandatory requirements,mandatory requirements,mandatory requirements,employment,equity,national security,mandatory requirements,infrastructure,economic development,mandatory requirements,mandatory requirements,economic development,natural resources,natural resources,employment,employment,statutory program,employment,grants,grants,student loans,economic development,mandatory requirements,natural resources,mandatory requirements,grants,economic development,designation,grants,student loans,mandatory requirements,grants,criminal law,natural resources,employment,standards,natural resources,benefits,natural resources,natural resources,employment,mandatory requirements,employment,mandatory requirements,national security",
+        "labelled_document": ",588,5105,2447,976,5306,5756,3276,4941,445,1828,3564,2151,5326,1001,3673,2151,4580,4790,6189,3575,5229,2129,5848,4093,3704,3941,5901,5772,6285,3713,2206,5053,1184,811,5574,6174,2589,4007,5278,5256,757,4357,2726,4014,521,680,457,1975,3614,4203,1238,4162,1436,2072,61,4650,4562,5355,1630,4829,3757,6155,9,5794,5924,4953,5201"
+    },
+    "Daniel-004": {
+        "username": "Daniel-004",
+        "id": 4,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Emily-LDA-005": {
+        "username": "Emily-LDA-005",
+        "id": 5,
+        "labels": ",energy,transport,transport,transport,energy,transport,transport,transport,transport,transport,highways,highways,transport,transport,transport,highways,highways,transport,transport,transport,transport,transport,highways,trains,trains,transport,trains,trains,nuclear,trains,trains,alternative transit,transport,trains,alternative transit,material standards,spanning projects,transport,cost sharing,trains,transport,transport,highways,energy,energy",
+        "labelled_document": ",5197,3998,2130,3448,5153,3454,3473,1997,1996,5782,4656,1414,3715,3178,5848,5782,2035,2336,5790,3867,1302,2830,1758,2186,5802,5469,3867,3178,205,5809,107,3708,481,3952,1947,1325,5523,5795,5537,3160,2417,891,29,1595,5373"
+    },
+    "Alden-SLDA-006": {
+        "username": "Alden-SLDA-006",
+        "id": 6,
+        "labels": ",greenhouse gas,water,water,water,water,water,water,fishing,water,water,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,greenhouse gas,greenhouse gas,greenhouse gas,greenhouse gas,greenhouse gas,transportation,pollution,transportation,transportation,telecom,transportation,transportation,transportation,transportation,water,transportation,transportation",
+        "labelled_document": ",5058,4265,1492,5797,4355,3833,4557,3466,467,4743,2130,1947,5153,4260,5469,300,5790,4492,1997,1996,1170,997,5795,107,1758,4681,1302,2321,3454,568,400,400,78,1414,2035,3160,2431,2830,3715,4656,1355,3425,3782,2336,921,1623,1623,3487,3124,601,2186,125,3132,2336,4590,5067,2499,891,921"
+    },
+    "zongxia-ETM": {
+        "username": "zongxia-ETM",
+        "id": 7,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "zongxia-active": {
+        "username": "zongxia-active",
+        "id": 8,
+        "labels": ",resources,forest",
+        "labelled_document": ",60,4499"
+    },
+    "zongxia-LDA": {
+        "username": "zongxia-LDA",
+        "id": 9,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "zongxia-SLDA": {
+        "username": "zongxia-SLDA",
+        "id": 10,
+        "labels": ",water,water,water,water,flood,water,water,conservation management,water,invasive species,water,water,water,restoration,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,transportation,railroad transportation,transportation,railroad transportation,railroad transportation,metropolitan transportation,transportation,railroad transportation,railroad transportation,land wilderness,land wilderness,land wilderness,land wilderness,land wilderness,khui,event,transportation,transportation,transportation,transportation",
+        "labelled_document": ",1817,4265,1492,5797,4355,3833,4557,3466,467,4743,2504,1239,3291,5969,3708,1947,2130,300,4260,3473,5153,5469,1302,5790,3681,3998,3715,3448,2830,1996,107,1997,78,1758,2336,3867,3121,226,679,2788,4698,1792,1170,5523,4492,1414,2186"
+    },
+    "local-user4": {
+        "username": "local-user4",
+        "id": 11,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "local-user5": {
+        "username": "local-user5",
+        "id": 12,
+        "labels": ",repoty",
+        "labelled_document": ",1"
+    },
+    "local-user6": {
+        "username": "local-user6",
+        "id": 13,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "local-user7": {
+        "username": "local-user7",
+        "id": 14,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "local-user8": {
+        "username": "local-user8",
+        "id": 15,
+        "labels": ",employee,homeland security,transportation",
+        "labelled_document": ",588,5105,2447"
+    },
+    "local-user9": {
+        "username": "local-user9",
+        "id": 16,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "server-user1": {
+        "username": "server-user1",
+        "id": 17,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "hella": {
+        "username": "hella",
+        "id": 18,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "bella1": {
+        "username": "bella1",
+        "id": 19,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name1": {
+        "username": "name1",
+        "id": 20,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name2": {
+        "username": "name2",
+        "id": 21,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name3": {
+        "username": "name3",
+        "id": 22,
+        "labels": ",water",
+        "labelled_document": ",1817"
+    },
+    "name4": {
+        "username": "name4",
+        "id": 23,
+        "labels": ",emploee",
+        "labelled_document": ",588"
+    },
+    "name5": {
+        "username": "name5",
+        "id": 24,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name6": {
+        "username": "name6",
+        "id": 25,
+        "labels": ",transportation",
+        "labelled_document": ",3998"
+    },
+    "name7": {
+        "username": "name7",
+        "id": 26,
+        "labels": ",water infrastructure system,environment restoration,restoration and protection,water infrastructure system,restoration and protection,water acquisition,water infrastructure system,public transportation,public transportation,air poisoning,air poisoning prevention,public transportation,transportation infrastructure,transportation infrastructure,transportation,surface transportation,surface transportation,surface transportation,transportation investment,transportation investment,transportation infrastructure,transportation safety,transportation planning,transportation planning,transportation safety,transportation infrastructure",
+        "labelled_document": ",1817,4265,1492,5797,4355,3833,4557,3708,4260,3790,3790,5153,2130,5153,3473,78,3473,300,1996,1302,1758,4656,3715,2431,107,997"
+    },
+    "name8": {
+        "username": "name8",
+        "id": 27,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name9": {
+        "username": "name9",
+        "id": 28,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name10": {
+        "username": "name10",
+        "id": 29,
+        "labels": ",transportation,transportation,transportation",
+        "labelled_document": ",3681,3998,2130"
+    },
+    "name11": {
+        "username": "name11",
+        "id": 30,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "name12": {
+        "username": "name12",
+        "id": 31,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "07-19-01": {
+        "username": "07-19-01",
+        "id": 32,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "07-19-02": {
+        "username": "07-19-02",
+        "id": 33,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "07-19-003": {
+        "username": "07-19-003",
+        "id": 34,
+        "labels": ",school students,school students,school students,education,education,school students,teacher training,education,teacher training,school students,teacher training,patient protection,cable franchising,termination of vehicle,government costs,health,education,school students,education,school students,education,education,teacher training,teacher training,education,education,school students,education,medicare,transportation,wilderness plans,housing,fundings,revenue,employee",
+        "labelled_document": ",4536,7350,8731,3580,7429,9480,6758,7315,3117,6487,7746,621,2157,2235,6506,4454,3583,7215,9274,799,7241,2409,8470,253,2784,3482,4896,3679,2236,9243,5969,7528,6716,3848,8215"
+    },
+    "07-19-05": {
+        "username": "07-19-05",
+        "id": 36,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "07-19-06": {
+        "username": "07-19-06",
+        "id": 37,
+        "labels": ",commission,environment,facilities",
+        "labelled_document": ",8584,6175,8954"
+    },
+    "07-19-07": {
+        "username": "07-19-07",
+        "id": 38,
+        "labels": ",transportation,metropolitan transportation,metropolitan transportation,commercial vehicles,metropolitan transportation,metropolitan transportation,commercial vehicles,transportation,commercial vehicles,commercial vehicles,finiance, bonds,agriculture loans,rural business,land preservation,land preservation,land preservation,land preservation,metropolitan transportation,commercial vehicles,metropolitan transportation,metropolitan transportation,metropolitan transportation,commercial vehicles,metropolitan transportation,metropolitan transportation,medicare",
+        "labelled_document": ",1241,2215,581,3099,2255,3839,1491,3207,3074,3598,2603,1066,2833,1168,2283,81,3541,362,2880,594,3572,483,2948,3518,2585,1922"
+    }
+}

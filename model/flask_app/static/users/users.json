@@ -1,0 +1,332 @@
+{
+    "zongxia-active": {
+        "username": "zongxia-active",
+        "id": 1,
+        "labels": ",land,land,land management,national park,agriculture,transportation,agriculture,land",
+        "labelled_document": ",1676,4679,3217,2495,501,4119,10546,10806"
+    },
+    "zongxia-SLDA": {
+        "username": "zongxia-SLDA",
+        "id": 2,
+        "labels": ",tax,recreation,recreation,tax,transportation,transportation,land,land",
+        "labelled_document": ",8979,7368,1230,11351,5869,6129,1963,2495"
+    },
+    "zongxia-ETM": {
+        "username": "zongxia-ETM",
+        "id": 3,
+        "labels": ",housing,housing,worker safety,security",
+        "labelled_document": ",6927,10348,9967,6016"
+    },
+    "zongxia-4": {
+        "username": "zongxia-4",
+        "id": 4,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Emily-LDA": {
+        "username": "Emily-LDA",
+        "id": 5,
+        "labels": ",parks,parks,parks,parks,parks,parks,parks,parks,energy,parks,farms,parks,farms,farms,farms,farms,farms,energy,farms,farms,farms,taxes,parks,parks,parks,farms,farms,taxes,taxes,taxes,taxes,taxes,taxes,taxes,taxes,education,parks,parks,parks,farms,farms,farms,farms,farms,farms,student loans,parks",
+        "labelled_document": ",2828,1676,4679,3217,2495,872,2053,2796,5056,10148,10546,3613,6900,10806,11273,501,6576,1691,633,1612,5168,5677,2432,4613,1780,7961,7624,11078,2456,11351,11464,7216,11141,3748,3996,4418,3045,4625,3500,1976,2687,8168,11058,8194,7950,6686,3321"
+    },
+    "Juan-SLDA": {
+        "username": "Juan-SLDA",
+        "id": 6,
+        "labels": ",income tax,income tax,research and development,controlled substances,river project,irrigation project,construction project,construction project,national park,national park,national park,research and development,national park,national park,national park,national park",
+        "labelled_document": ",8979,557,1838,6763,4800,1230,5869,1544,2828,0,1676,5582,3217,2495,1497,2796"
+    },
+    "Alden-ETM": {
+        "username": "Alden-ETM",
+        "id": 7,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Emily-active": {
+        "username": "Emily-active",
+        "id": 8,
+        "labels": ",nuclear waste,legal system,legal system,clean air,farms,nacrotics,guns,clean energy,legal system,science education,housing,waste,clean air,clean energy,pollution,cemeteries,highways,debt,parks,energy,holidays,farms,taxes,parks,parks,taxes,education,home loans,health care,health care,parks,scientific education,parks",
+        "labelled_document": ",9,6518,2,4789,5255,401,4733,2906,125,12055,12757,11785,7788,7038,7468,12339,5835,7911,240,11435,4708,9190,5923,2013,2061,9053,3027,11502,9679,5685,8704,7391,4534"
+    },
+    "user1-LDA": {
+        "username": "user1-LDA",
+        "id": 9,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user1-SLDA": {
+        "username": "user1-SLDA",
+        "id": 10,
+        "labels": ",\u7eb3\u7a0e\u4eba,income-tax,\u7eb3\u7a0e\u4eba,\u7eb3\u7a0e\u4eba,increase,personal,increase,personal,comprehensive,income-tax,authorize,redesignate,designate,gulf islands national seashore,establishment,dunes national park preserve,dunes national park preserve,national monument,clark national historic trail,wilderness study,social security trust fund receipts,congressional budget,discretionary budget caps,net budget receipts,net budget receipts,rave national emergency declared,president shall include,amounts remaining,expenditures shall,price support based,commodity credit corporation,price support program,secretary of agriculture,soybean products,tobacco production control corporation,reclamation,authorize,authorize,missouri river basin project,municipal bridge,provide,provide,maintain,wheat producers,feed grain surpluses,maintaining commodity credit corporation stocks,each year thereafter,achieve significant deficit reduction,reconciliation pursuant to section,budget authority proposed,special message transmitted,special message transmitted,impoundment control,special message transmitted,special message transmitted,special message transmitted,special message transmitted,federally owned land,united states,recreation area,land designated,national wilderness preservation system,national conservation area,federally owned lands,islands national conservation area,school board land,national conservation areas,national monument,national cemetery,real property known,mountain reservation,real property situated,river valley national heritage corridor,national wildlife refuge,indian reservation,national monument,project mississippi river,shore damages,national recreation area,blue ridge parkway,national memorial park,national memorial park,construction,amend railroad act,bill to authorize agricultural assistance,agricultural disaster assistance,acreage allotment assigned,asic agricultural commodities,establish acreage limitation programs,agriculture,mandatory price supports,increase farm income,controlled emergency reserves,price support,agricultural trade,acreage reserve program,conservation reserve acreage,tobacco acreage allotments,national forest lands known,land management,price support programs,property near,agricultural commodities,amend section,increase personal income tax exemptions,income tax exemptions allowed,conveyance,fort columbia state parks,historic site,indian tribe,excess real property,commodity credit corporation inventory,excessive dairy cattle,production adjustment program,california coastal national monument,chafee coastal barrier resources system,chafee coastal barrier resources system unit l06,national forests, california,national memorial,coastal barrier resources system,national recreation area,chafee coastal barrier resources system,national memorial park,chafee coastal barrier resources system unit,national historic site,national monument,national forests,national wildlife refuge,oregon dunes national,great basin national heritage,wilderness,rocky mountain national park,national forest lands known,special message transmitted,special message transmitted,administration site,national historical park,national park,national historical park,national forest,smithsonian institution,chafee coastal barrier resources system units,mountains wilderness area,national historic trail,establishment,new jersey,memorial fine arts center,budget authority proposed,national seashore recreational area,grave national emergency declared,memorial national military park,promote progress,bay national wildlife,river valley national heritage area,national historic site,north carolina,virgin islands national park,south carolina,national monument,expenditure shall,grave national emergency declared,house national historic site,establish emergency procedures,smithsonian institution,king range national conservation area,national historic site,rocky mountain national park,national historical park,rocky mountain national park,national forest system,historic site,tobacco production control corporation,maintaining commodity credit corporation stocks,farm program payment yields,market,reasonable prices,reasonable prices,affected,affected,assuring consumers,flood control projects,agricultural commodities owned,agricultural commodities owned,hydroelectric power,rio grande near,survey to determine feasibility of river improvements,flood control survey of pantego creek and cucklers creek,rice acreage allotments,missouri river basin project,production,flood control,hurricane-flood protection,construction,ship channel,national trail,connecticut river national parkway,boundary,pennsylvania,establishment,administration,establishment,national wildlife refuge,conveyance,wilderness,national monument,gorge national recreation area,national historic trail,valley national heritage area,national historic site,mountains national recreation area,columbia,gateway national heritage area,establishment,national park,lake national park,national monument,new mexico,national recreation area,smithsonian institution,national wildlife refuge,national wildlife refuge,emergency feed,assure consumers,minimum acreage allotment,protect producers income,protect producers' incomes,emergency assistance,national historic site,farm acreage allotments,forest national park",
+        "labelled_document": ",557,3816,557,557,6247,9074,9794,12321,6763,2625,4800,2828,1676,4679,3217,2495,452,4648,1544,3789,7152,10936,4340,12095,3593,4204,10813,10688,10787,4879,9415,5688,9855,6576,7476,1230,6129,7699,1406,4796,3616,2348,6149,10546,9937,7961,8645,12140,10761,673,7460,4903,7335,9979,8713,9091,11019,2383,4739,1568,2053,2796,872,519,1614,1910,4805,2478,4613,240,3427,4541,4107,1809,3414,3580,768,54,2379,1963,4625,755,3536,11916,10806,8201,173,3221,2687,6464,1612,5439,1976,5754,3309,5221,3212,10061,4677,1286,1293,757,9314,3305,11351,4196,2308,1497,1350,2104,4171,7492,8168,9481,2429,4072,472,1659,2432,4589,3151,4588,5884,1780,3094,3321,2583,4108,2935,1399,189,2703,2970,6346,12154,379,1204,2494,3577,1057,4078,8950,3844,595,3910,554,3500,3044,4400,7696,185,2818,3190,548,888,186,1392,4798,1975,7937,1527,4140,10094,2023,2898,3373,3004,4758,3213,1960,1130,9664,7624,7897,9862,9131,8782,10078,2241,6099,4565,10709,7458,9601,7515,1420,626,9171,4150,4911,1929,2587,3880,4715,3613,1931,11979,8969,7053,4119,3824,3905,2438,1549,326,271,1692,5922,2832,1332,3496,624,4785,256,1878,625,3230,777,3056,3923,8840,9604,1564,4615,9316,1737,10811,3696,9326,2956"
+    },
+    "user1-ETM": {
+        "username": "user1-ETM",
+        "id": 11,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Juan-active": {
+        "username": "Juan-active",
+        "id": 12,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user2-LDA": {
+        "username": "user2-LDA",
+        "id": 13,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user2-SLDA": {
+        "username": "user2-SLDA",
+        "id": 14,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user2-ETM": {
+        "username": "user2-ETM",
+        "id": 15,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "Alden-active": {
+        "username": "Alden-active",
+        "id": 16,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user3-LDA": {
+        "username": "user3-LDA",
+        "id": 17,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user3-SLDA": {
+        "username": "user3-SLDA",
+        "id": 18,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user3-ETM": {
+        "username": "user3-ETM",
+        "id": 19,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user3-active": {
+        "username": "user3-active",
+        "id": 20,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test1": {
+        "username": "test1",
+        "id": 26,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test2": {
+        "username": "test2",
+        "id": 27,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test3": {
+        "username": "test3",
+        "id": 28,
+        "labels": ",war,revenue,recreation,research,tax,flood",
+        "labelled_document": ",6520,6519,0,3,18,32"
+    },
+    "test4": {
+        "username": "test4",
+        "id": 29,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test5": {
+        "username": "test5",
+        "id": 30,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test6": {
+        "username": "test6",
+        "id": 31,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "test7": {
+        "username": "test7",
+        "id": 32,
+        "labels": ",war,nuclear",
+        "labelled_document": ",6520,6519"
+    },
+    "user4-LDA": {
+        "username": "user4-LDA",
+        "id": 33,
+        "labels": ",bay national wildlife refuges,national wildlife refuge,islands national seashore,islands national seashore,establishment,national monument,wildlife refuge,national forest system lands,coastal barrier resources system,wilderness areas,islands national conservation area,administration,chafee coastal barrier resources system unit,national trails system,national historical park,national memorial,national wildlife refuge,new river gorge national river,national memorial park,boundaries,memorial fine arts center,national historic site,national monument,oregon dunes national,national heritage route,river valley national heritage area,national historic site,ohio river national parkway,wheat producers,imported commodities,agriculture,commodity credit corporation,agriculture issues marketing order,farm program payment,protect domestic consumers,production adjust,national african american museum,national monument,national historical park,establishment,national historic site,bay national wildlife,establishment,rocky mountain national park,island national historical park,islands national park,rocky mountain national park,national forest system,national historic site,national historic site,national park,national wildlife refuge,conveyance,bay national marine sanctuary,designate,gorge national recreation area,livestock producers,national monument,valley national heritage area,conditions shall,basic agricultural commodities,maintaining commodity credit corporation stocks,mountains national recreation area,mandatory price supports,agricultural producers,controlled emergency reserves,farm price,national historic trail,protect farm prices,agricultural trade,reasonable prices,enable producers,commodity credit corporation inventory,conservation reserve acreage,agricultural adjustment,agricultural adjustment,agriculture,disaster assistance,agricultural commodities,agriculture,market prices,diversion payments,national heritage area,national monument,national heritage area,agricultural marketing agreement,agricultural adjustment,national park,minimum acreage allotment,reserve stocks,cotton acreage allotments,emergency assistance,reserve stocks,protect producers incomes,areas determined,price support program,assistance,subsequent years,agriculture,amended,cotton marketing quota provisions,national monument,designate,national memorial,national park,national recreation area,foreign countries,marketing assistance loans,agricultural,price support,voluntary agricultural,national park,orderly marketing,national wildlife refuge,disaster assistance,agricultural disaster assistance,agricultural adjustment,agricultural adjustment,national wildlife refuge,agricultural,milk products,excessive losses,price support,reasonable prices,parity price,agricultural marketing agreement,commodity credit corporation,commodity credit corporation,tobacco acreage allotments,commodity credit corporation,limitations applicable,adjust sugar quotas,connection,payments shall,acreage diversion program,marketing quotas,subsequent crops,increased cotton acreage allotments,agriculture,cotton acreage allotment,transitional program,transitional program,conservation reserve,domestic commodity distribution program,price support,acreage allotments,price support program,adjust agricultural production,marketing quota provisions,marketing quota provisions,expand markets,marketing year,designate,forest national park,national historic site,wildlife refuge lands,lake clark national park,bay national wildlife refuge,bay national wildlife refuge,national park,wilderness study areas,national museum,clark national historic park,smithsonian institution,lands located,national monument,national forest,agricultural,national forests,commodity credit corporation,agricultural adjustment,agricultural producers,corporate income taxes,national forest,internal revenue code,repeal marketing orders issued,internal revenue code,additional exemption,additional exemption,additional exemption,additional exemption,internal revenue code,reduce taxes,local real property taxes,personal income tax exemption,mountain wilderness,charitable organizations,upland cotton,valley national,establishment,charitable organizations,commonwealth,voluntary participation,marketing orders issued,national historic site,personal income tax exemption,price support applicable,national conservation area,personal income-tax exemptions,personal income tax exemption,personal income tax exemption,deductions,internal revenue code,additional exemption,additional exemptions,additional exemption,payment,residence shall,internal revenue code,exemptions,internal revenue code,additional exemption",
+        "labelled_document": ",1676,1676,4679,3217,2495,872,2053,2796,4072,4805,1614,10148,472,3613,4613,2432,1809,3045,4625,1780,3500,3094,3321,2935,1399,548,888,4119,10546,6900,10806,11273,501,7897,6576,7501,2023,1975,4758,4140,186,3190,2898,3004,4798,1392,3213,1960,3373,1130,3110,3905,2438,6825,1549,271,9937,326,5922,7041,633,7961,1332,1612,797,1976,7624,1692,5168,3309,8782,5221,8071,3212,10061,10047,9562,10078,9314,8168,10709,2687,624,4785,68,9865,7458,256,4615,9316,9171,10811,1737,11002,9415,5688,4474,9811,952,10257,2710,625,1878,3056,452,777,2836,9862,10956,1185,1312,3230,4930,8840,3809,8201,10428,11111,3923,4022,4605,5684,3412,1949,6464,2043,916,11184,9597,7057,3003,1455,1621,8670,11129,3702,8016,8789,2550,884,150,2500,10560,8779,10379,1090,8470,9022,4968,5398,5439,10231,664,2956,3696,6979,723,2451,8860,3772,3721,3061,1497,1064,1773,4258,3968,3231,2693,8393,6620,1564,5677,2674,11078,2912,2456,11351,5683,8225,11776,11464,11141,7216,8979,891,3748,6821,2894,415,3996,3966,9124,9368,4542,7892,2838,202,3816,557,12321,10910,7089,7368,6247,9074,3955,7154,4861,9467,11980,11793"
+    },
+    "user4-SLDA": {
+        "username": "user4-SLDA",
+        "id": 34,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user4-ETM": {
+        "username": "user4-ETM",
+        "id": 35,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user4-active": {
+        "username": "user4-active",
+        "id": 36,
+        "labels": ",wartime service,transuranic waste,recreation area,secretary of commerce,individual,strengthen democratic,preliminary examination,saint lawrence seaway development corp,strategic petroleum reserve,mission school,deductible portion,encourage,cross florida barge canal,americans,natural resources,securities protections,the medicare trust funds,personally identifiable information,comptroller general,district of columbia,powell residential plaza,prohibit brand,allocate conservation,government,enforcement agencies execute warrants,from customs bonded warehouse,cotton acreage allotment,rights of citizens,verrazano narrows bridge,regulating,mikulski kildee beilenson,terminate percentage depletion,slaughter cattle,property,monetary policy,tribal colleges,seed corn,arge-scale killing,iethylstilbestrol,route along,coast guard,dgar hoover foundation,emergency,rehabilitation,critical care medicine,construction,mathematics subjects,irs letter ruling,water from dams,nonnavigable gable streams,opportunity to develop their capabilities,perpetuate americanism,professional firefighters,crime syndicates,subsidy payments,investment through improvements,fifth amendment,representation,repealing bans,great lakes,manufacturers excise,strengthening,provide for the awarding,chronic diseases,asbestos exposure,environmental protection agency,continued,expeditious disclosure,south dakota,afford duly ordained ministers,reporting of tips,factors necessary,provide for the payment,trespass communications,urnishing of tools,aliens employed as dairy workers,offer incentives,criminal judgements,pueblo chemical depot,federal civil remedy for crimes,supreme court,organ procurement,emporary free importation,nondiscriminatory treatment,interethnic adoptions,prevention technologies,battle mountain,aquatic sediment contamination,portsmouth,fish hatchery,skilled nursing,ase of a minor seeking an abortion,informing,increasing opportunities,reclamation authorization,reimbursement,domesticbeet,assistant secretary,montana and wyoming,appointment,domestic production,feed grains,livestock grazing indemnification act,caliber bullets,public from traffickers,controlling inflation,chesapeake bay initiative act,original eleventh,congressional budget process,issuance,interest rates,state of texas,help consumers save money,revolutionary conspiracy,united states,long island sound,front panel,gulf of mexico,protection now accorded,new castle,provide,contribution,antitrust laws,integrated coastal,investigation,railroad to install,detect,framework,improved street lighting,fha mortgage insurance,integration,commonly,intelligence community,tansportation,immigration,supervise such teachers,make permanent,airport,federal cigarette labeling,manufacturers excise,act approved,provide national,investigations,preservation,fossil cycad national monument,allegheny river basin,three sisters wilderness,federal charter,voting rights,appropriate,highway safety act,mandatory expensing,united states outside alaska,manufacturer,other purposes,government,soda ash royalty reduction act,nondegradable plastic products,worldwide,project for mobile,other purposes,authorize closed conferences,fresh ginger,position of national diabetes coordinator,delinquent,game bird research,appropriations,visiting nurse association of america,purposes,workplace,english skills,frederick,international pacific halibut commission,species,provide,performance,penalty for trafficking,limitations,watch movements,tobacco,development,prohibit,school reports,exempting,veterans administration hospital,reaching,demonstration,welfare and pension plans discolsure act,ther purposes,corps of engineers,rescheduling,extortion,newborn screening saves lives act,former,healthcare,federal relationship",
+        "labelled_document": ",6520,6519,0,3,18,32,42,63,66,112,133,163,232,260,369,383,385,392,408,493,522,564,689,712,727,823,884,970,1066,1071,1165,1186,1308,1408,1533,1866,2112,2147,2210,2486,2694,2795,2892,3103,3311,3405,3501,4372,4617,5259,5513,6222,7088,7128,9789,10129,10657,10852,3301,6421,345,7603,1926,5916,8637,9251,3472,5975,1968,1850,1062,3859,6567,12487,9155,8196,8457,8618,1505,11698,6809,9688,11814,9706,4849,7252,3319,10946,6194,5600,7063,11342,10322,420,3804,3607,10670,6755,773,6443,6720,6807,6409,8984,4334,5316,10737,10337,9977,3264,5872,2760,2064,12525,7019,1884,1144,10999,6950,10939,5024,443,6041,5458,10647,630,7106,1391,7852,3952,9296,2460,227,6393,8573,6119,12303,5823,10168,12219,2659,2220,2473,4428,500,1862,2363,357,5062,2653,5201,10532,1258,7860,12874,9373,1861,11012,6575,6203,11306,6609,6866,1665,8274,8159,8584,10009,8409,7722,5379,3875,8320,11420,12524,2150,1208,12780,8469,4215,9193,5497,3445,914,8038,3597,13011,10099,10627,11237,799,10596,6872,2176,9926,3712"
+    },
+    "user5-LDA": {
+        "username": "user5-LDA",
+        "id": 37,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "u1": {
+        "username": "u1",
+        "id": 38,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "u2": {
+        "username": "u2",
+        "id": 39,
+        "labels": ",transportation,tax",
+        "labelled_document": ",7253,5368"
+    },
+    "u3": {
+        "username": "u3",
+        "id": 40,
+        "labels": ",war",
+        "labelled_document": ",6520"
+    },
+    "u4": {
+        "username": "u4",
+        "id": 41,
+        "labels": ",land,agriculture,land,agriculture,tax,tax,farm,water,agriculture",
+        "labelled_document": ",2828,4072,2935,3110,8071,2894,3955,7591,6848"
+    },
+    "u5": {
+        "username": "u5",
+        "id": 42,
+        "labels": ",tax,tax,land,land,agriculture,agriculture,river,agriculture,discrimination",
+        "labelled_document": ",8979,2625,4796,2053,140,10047,10811,9415,6369"
+    },
+    "user6-ETM": {
+        "username": "user6-ETM",
+        "id": 43,
+        "labels": ",veterans affairs,general,require,authorize,national,purposes,employers,giving them,revolving,hospitals,require,manpower development,authorize,land,relating,internal revenue,merchant marine act,purposes,tax,constitutional,armed forces,healthcare,authorize,national,state,authorize,income,soil bank act,justice,shall,clean air act,establish,tunit,internal revenue code,employer,authorize,omnibus crime control,development,school,airport,federal ocean acidification research,handicapped,effective date,production,project referred,social security act,amend,amend,f county commissioners,price,department,establishment,amend,require,establishment,provide,importation,authorize,national monument,restriction,prevent,prohibit,other purposes,conveyance,interest,federal food,employment,commissioner,development,provide,homeowner,personnel,authorize,payment,amend title,grants,federal aviation administration,protection,abundant human,protect,protect,deduction,program,authorize,provide for the awarding,standards,underdeveloped,construction,purposes,suspend temporarily,providing,congressional,payments,development fund,construction reserve funds,amend,change,change,energy organization act,education,amend,administrative,national,amend,qualification,comprehensive,production,conservation,members,national,facilitate,production,preservation,credit,income,additional,inspection,authorize,programs,respect,merchant ship sales act,grant,program,opportunity,americans,medical,establishment,entitlement,requirements,programs,other financial assistance,professional,animal welfare act,grants,provision,educationa,expenditure,senate,public,improvement,section,requirement,agencies,require,nation,elementary,programs,proper budgetary treatment,portion,program,provide,funding,establish,construction,alaska centennial commission,rural education initiative,provision,readjustment,authorization,federal power,bortion services,respect,certain criminal acts,certain criminal acts,national firearm act,prevention,importation,provide,permit the inspection,riverside county,amendment,wildlife management activities,pilot program,dependent,board,insurance,protections,provided,urban mass transportation act,educational,authorize,postsecondary,establishment,section",
+        "labelled_document": ",7157,5368,4996,11243,12152,10869,12216,2064,10693,4489,7760,9611,7890,2308,4220,5295,5250,624,12144,7231,6540,5509,2080,1200,6389,9309,5641,5091,1074,4431,4641,10537,12672,4644,5561,6678,7831,12639,2523,5823,11837,2272,6205,7418,2348,9740,11456,6949,6234,8326,11463,6536,9903,8989,5106,8671,10517,7264,12569,1100,9139,3379,7969,3537,2807,1512,12089,1310,814,920,9472,11256,5331,12455,11073,569,397,4266,10369,2315,6723,9751,9829,3322,6676,2847,8947,11501,5164,12746,7494,573,4330,9790,6024,12863,3458,5417,12341,9479,10623,6515,4535,1704,9651,11744,8576,9105,4707,1538,5056,11018,1205,6355,12634,10332,10949,2294,9334,7459,5473,6895,502,6811,3685,831,177,11688,6866,10248,12760,7088,7956,6931,12750,694,7922,6373,9527,4391,3182,7308,12943,10443,2932,7232,5099,8827,11622,11767,1609,9466,3573,3875,4426,9453,6557,5833,6400,10628,5685,11279,7945,10480,2564,9168,11008,1657,3946,1286,10691,6181,9670,9559,2708,5214,8346,10158,5671,3587,1028,9402,6246,7227"
+    },
+    "user6-active": {
+        "username": "user6-active",
+        "id": 44,
+        "labels": ",united states merchant marine,bridge,authorize,price reporting,national,internal revenue code,gang prevention programs,development,treatment works,energy conservation,natchez trace parkway,wildlife resources,expression,medical examination (seafarers) convention,suspend,prohibiting,mill creek dam,delinquency,empowerment zones,admissions tax,conversion,hospice,agriculture,amounts,limitation,employer,ecruitment,agricultural,approval,reference,district courts,acquisition,battle mountain pasture restoration act,a working spouse,elimination,market,authority,conveyance,eafood promotion act,eligibility,continued sale,authorizing,person from stalking,country,provide,period,fort raleigh national historic site,efficient production,comprehensive employment,ontrolled emergency reserves,ontrolled emergency reserves,ontrolled emergency reserves,veterans affairs,veterans affairs,world the airplane,referral,revised statues,amended,national,authorize,authorize,containers,containers,granted,electronic eavesdropping,pain experienced,protection act,payment,encourage,tate shall,establishment,amendment,abandonment,medicaid program,determining,domestic production,control act,vienna convention,fraudulent matter sent through,highway act,tribe,financing,rio grande near pharr,taxation,development,price,income tax exemptions allowed,authorize,cleanup,allegheny river basin,percentage,certain existing,wright brothers,surgical removal,office,treatment,administration site,transaction,bill emerson,walsh-healey act,international,boards,marketings,disruptions,application,hospitalization,shelled filberts,statue of liberty,eastern district,transactions,method,national,united states develop,claude pepper scholarship program,immigration,transfer,boundaries,gas act,moratorium,acquisition,selling,implement,atomic,authorizing,interstate,taxes paid,provision,property provides services,prermitting,environmental,electricity,electricity,removal,consolidation,identification,youth conservation corps,determine,head start act,reorganize,wilderness study,athenia veterans post,implementation,reauthorizing,national,employees,market,population,cattle hides,issuance,reauthorize,benefit,promotion,fair treatment,fair treatment,program,associated,water,information act,quality,commercialization,blended,provide,persons suspected,army,preservation,retroactive,house national historic site,authorization,sale,interstate,penalty provision,appointment,surveillance",
+        "labelled_document": ",6520,6510,30,88,152,220,308,420,569,722,939,1213,1449,1807,2112,2298,2618,2795,3123,3328,3949,4591,5061,5408,6202,6477,7423,8644,9571,11284,12880,7853,3319,2907,4912,12232,4571,558,10525,12909,12494,8004,7675,3720,338,5329,3373,10153,8053,5365,5010,8506,5640,1996,8292,9322,3942,3293,3645,6609,8075,3730,7491,5225,8390,12761,3644,7493,11613,7077,310,5638,12524,9756,1391,6720,8928,4268,6703,7357,1930,6434,6129,12026,5229,1675,12116,3867,10915,3185,11729,6573,890,7153,3483,562,4999,2367,6702,9817,9838,10967,7501,5157,6813,8913,9468,3564,6658,6071,820,12848,11539,6305,6875,6468,1780,86,12303,5174,8142,3205,11142,3100,6044,11520,8528,12282,1275,11643,10117,7552,10647,2753,7719,10457,5753,6066,835,2755,2235,8191,1025,4886,11775,8931,12183,6237,9055,363,7341,12108,12601,10206,280,4187,6258,12225,7057,10659,8430,7311,6372,440,9474,7901,4350,5385,4143,4907,5846,10767,778"
+    },
+    "user6-LDA": {
+        "username": "user6-LDA",
+        "id": 45,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "user6-SLDA": {
+        "username": "user6-SLDA",
+        "id": 46,
+        "labels": ",increase,increase,maintain,establish,orders,agricultural adjustment,provide,national,authorize,prohibit discrimination,project,designate,agricultural,provide,adjustment,designate,purposes,authorize,national,protection,provide,national,national,designate,acreage adjustment,price supports,national,special message transmitted,special,reservation,protect,authorize,authorize,authorize,commencement,cross florida barge canal,construction,sections,achieve balanced budgets,authorize,reconciliation pursuant,navigation,conservation reserve,government,marketing,production,improvement,revised statutes,remove,establish,authorize,authorize,render judgment,amend section,improvement,income tax,organizations,activities,authorize,establish producer owned,exclusion,additional permanent,internal revenue code,collection,individual,amendment,agricultural,authorize,deduction,deduction,authorizing,purpose,section,provide,authorize,relating,congressional budget,political subdivisions,scholarships,provide,admissions shall,provide,prohibit,authorize,administrator,provide grants,employee unions,communities,establish programs,elementary,authorize,fiscal year,development,reform,activities,employer portion,national,prohibit contractors,authorize,section,provide,mental health services,provide,authorize,secret ballot,authorize,development,provide,national,diseases,financial,application,section,program,national,authorize,provide,fraudulent matter,national,national,authorize,provide,provide,business,demonstration program,pilot program,agricultural marketing,national,authorize,stabilize prices,national,armed forces,national,minimum,agricultural,counseling program,provide,national,improve,section,loan repayment program,education,authorize,program,protections,provide,distributions,permanent,improve,agriculture,middle district,effective assistance,community,entitlement,withdraw,sources,internal revenue code,security benefits,conveyance,authorize,authorize,quality,september,create,plans,public,respect,exchange,elections,gasoline,national,management,flowing,establish,employee,duties,pursuant,settlement,development,agricultural,conservation,designate,efficiency,employee,improvement,anadromous,reduce,authorize,engineers,performance,ensure,authorize,stabilize farm income,authorize,minimum,death taxes imposed,drug,agriculture,existing programs,departments,amend section,national,employment,secretary,provide,extended,authorize,agricultural,entitlement,provide authority,acquisition,employment,conducting",
+        "labelled_document": ",8979,2625,4796,2053,140,10047,10811,738,9415,6369,2587,4743,2526,9937,1685,3061,2104,4078,595,1564,2224,548,186,1549,9510,4331,3256,7460,4903,1752,11002,1544,10162,8465,12470,232,4795,1400,10739,8004,5809,6146,11020,10311,5398,6945,1579,7900,7096,2687,3177,3824,4127,8905,92,7888,10910,4499,10806,5365,6415,3521,5330,12116,527,3122,10380,7456,4964,7039,3478,8782,9467,11711,7168,11533,7015,12658,8035,2654,6251,5733,449,11693,6579,8374,5892,1097,5838,11724,2105,12284,1838,10465,3065,6477,8611,10010,7521,6899,6654,9046,8589,11186,9817,12239,11699,3807,12666,10375,928,2749,5718,8143,11957,10481,5144,6703,3721,202,1348,3439,13033,5684,6088,3952,6380,12983,5496,10441,3926,1777,2567,9850,10428,12977,2376,7246,4194,5160,7708,10435,7702,8255,8820,8194,638,4257,9221,3937,2826,12490,10207,4175,1058,11732,2723,11998,2111,6979,1305,7222,10710,2592,4536,10326,11242,183,733,10937,10603,12347,773,10468,11681,8066,3688,9301,3974,1309,2695,1828,2081,12678,2183,10358,4539,334,3101,5189,4853,9498,4430,6183,3899,10109,8445,2682,12934,7626,1254,11617,12703,201,7835,6685,6489,4873,3561,8164,6220,10741,9445"
+    },
+    "user-ho": {
+        "username": "user-ho",
+        "id": 47,
+        "labels": ",cotton",
+        "labelled_document": ",10228"
+    },
+    "secret-test": {
+        "username": "secret-test",
+        "id": 48,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-4": {
+        "username": "secret-4",
+        "id": 51,
+        "labels": ",housing,employee",
+        "labelled_document": ",4511,471"
+    },
+    "secret-5": {
+        "username": "secret-5",
+        "id": 52,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret6": {
+        "username": "secret6",
+        "id": 53,
+        "labels": ",land,water,agricuture,water,agricuture,agricuture,water",
+        "labelled_document": ",4800,10720,6576,1579,7624,9562,751"
+    },
+    "secret-8": {
+        "username": "secret-8",
+        "id": 54,
+        "labels": ",park,land,land,land,land,land,land,land,land,land,land,land,agriculture,land,land,land,land,land,agriculture,agriculture,agriculture,agriculture,agriculture,agriculture,housing,transportation,land",
+        "labelled_document": ",2828,3543,661,4679,3209,1676,1230,1211,798,1473,4488,5264,9855,3217,1286,5869,8704,755,8168,11173,1611,1854,9415,11273,10280,6129,757"
+    },
+    "secret-9": {
+        "username": "secret-9",
+        "id": 55,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-10": {
+        "username": "secret-10",
+        "id": 56,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-11": {
+        "username": "secret-11",
+        "id": 57,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-12": {
+        "username": "secret-12",
+        "id": 58,
+        "labels": ",land,land,land,islands,tribes,river",
+        "labelled_document": ",2828,3543,661,1676,4679,1230"
+    },
+    "secret-13": {
+        "username": "secret-13",
+        "id": 59,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-14": {
+        "username": "secret-14",
+        "id": 60,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-15": {
+        "username": "secret-15",
+        "id": 61,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "secret-16": {
+        "username": "secret-16",
+        "id": 62,
+        "labels": ",land,land,land,wildlife,islands,land",
+        "labelled_document": ",2828,3543,661,1676,4679,3209"
+    }
+}
