@@ -110,9 +110,9 @@ main,
  
 }
 .mains{
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   /* padding-top: 2%; */
 }
 
@@ -359,10 +359,10 @@ span{
 }
 
 .time{
-  background-color: #dc2f55;
+  /* background-color: #dc2f55; */
   
-  font-weight: 300;
-  font-size: larger;
+  font-weight: 100;
+  font-size: 15px;
 }
 
 .loader {
@@ -380,3 +380,11 @@ span{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.time-container {
+  display: flex;
+  align-items: center;
+}
+
+.time-container p {
+  margin-right: 15px; /* Adjust this value as needed for spacing */}

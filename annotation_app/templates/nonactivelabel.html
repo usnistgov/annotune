@@ -43,12 +43,16 @@
               <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
               {% endif %}
             <a id="demo" href="#">Demo</a>
+
+
             <div class="time">
+              Time Elapsed
               <label id="minutes">{{elapsed_time[2:4] | int}}</label>
               <label id="colon">:</label>
               <label id="seconds">{{elapsed_time[5:] | int}}</label>
               <label id="secs" hidden>{{secs}}</label>
             </div>
+
 
             
             <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
@@ -175,5 +179,6 @@
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
 <script src = "{{ url_for('static', filename='modal.js') }}"></script>
+<script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
     </body>
 </html>
