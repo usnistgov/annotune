@@ -322,6 +322,7 @@ def finish():
     name = session['name']
     save_time(session["name"], "finish")
     session.pop(name, None)
+    return redirect("https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link")
     return redirect(url_for("login"))
 
 
@@ -411,9 +412,7 @@ def non_active_label(name, document_id):
     return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips)
 
   
-@app.route("/try")  
-def trial():
-    return render_template("try.html")
+
 
 
 

@@ -39,12 +39,17 @@
       <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
       {% endif %}
       <a id="demo" href="#">Demo</a>
-      <div class="time">
+
+      <div class="time" >
+        Time Elapsed
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
+
+
+
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
       <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
     </nav>
@@ -115,6 +120,7 @@
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>
+    <script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
 
   </body>
 </html>

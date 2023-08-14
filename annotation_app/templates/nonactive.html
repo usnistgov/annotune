@@ -50,13 +50,14 @@
       {% endif %}
       <a id="demo" href="#">Demo</a>
       <div class="time">
+        Time Elapsed
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
 
-      
+      </div>
 
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
             
@@ -191,13 +192,13 @@
         {% endfor %}
       </div>
 
-      <div class="center">
+      <!-- <div class="center">
         <form method="POST">
           <button name="finish" class="next_button"style="width: 70%; background-color: rgb(208, 219, 230); font-size: large;"type="“button”">
             Finish
           </button>
         </form>
-      </div>
+      </div> -->
     </main>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -227,6 +228,7 @@
     <script src="{{ url_for('static', filename='label.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+    <script src="{{ url_for('static', filename='track_labels.js') }}"></script>
 
   </body>
 </html>
