@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-readme file
-=======
 # Document Annotation App
 
 Welcome to the Document Annotation NLP Tool – an NLP topic modeling tool with active learning, designed to streamline document labeling.
@@ -107,4 +104,4 @@ This project was built upon the work of the following repositories:
 We extend our gratitude to the authors of these original repositories for their valuable contributions and inspiration.
 
 
->>>>>>> community_resilience-nlp_model/working-app
+
