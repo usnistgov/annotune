@@ -9,11 +9,11 @@
       type="text/css"
       href="{{ url_for('static', filename='data.css') }}"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       type="text/css"
-      href="{{ url_for('static', filename='css/active-learning.css') }}"
-    />
+      href="{{ url_for('static', filename='active-learning.css') }}"
+    /> -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -49,8 +49,8 @@
       </div>
 
 
-
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+      <!-- <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button> -->
       <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
     </nav>
     <h1 class="heading" style="margin-top: 2px;">LABEL THE DOCUMENT</h1>
@@ -93,7 +93,8 @@
 
           {% endif %}
     </main>
-    <!-- Modal -->
+    <div id="loader" class="loader"></div>
+<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
   <div class="modal-dialog">
   
@@ -116,11 +117,11 @@
 </div>
 
 </div>
-    <div id="loader" class="loader"></div>
+    
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>
-    <script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
-
+    <!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
+    <script src = "{{ url_for('static', filename='modal.js') }}"></script>
   </body>
 </html>

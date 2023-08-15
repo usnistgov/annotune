@@ -70,7 +70,7 @@
           <h6>Document Number: {{document_id}}</h6>
         <div id ="text" style="  background-color: white; padding: 1rem;
             font-size: large;
-            height: 40rem;
+            height: 45rem;
             overflow-y: auto;
             overflow-x: hidden;
             border-right: 1px solid rgb(72, 139, 181);">
@@ -142,8 +142,9 @@
     </div>
 
 </div>
+<div class="loader-wrapper">
 <div id="loader" class="loader"></div>
-
+</div>
 
 
 <!-- Modal -->
@@ -179,6 +180,6 @@
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
 <script src = "{{ url_for('static', filename='modal.js') }}"></script>
-<script src = "{{ url_for('static', filename='track_labels.js') }}"></script>
+<!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
     </body>
 </html>
