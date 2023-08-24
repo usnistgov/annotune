@@ -1,0 +1,3 @@
+[submodule "2023-document-annotation"]
+	path = 2023-document-annotation
+	url = https://github.com/Pinafore/2023-document-annotation.git
