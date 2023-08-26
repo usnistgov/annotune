@@ -22,13 +22,14 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("congressional_bills.json"))
-url = 'https://nist-topic-model.umiacs.umd.edu'
+# url = 'https://nist-topic-model.umiacs.umd.edu'
 # url = "https://nist-topic-model.umiacs.umd.edu"
 # url = "http://54.87.190.90:5001"
+url = "http://127.0.0.1:8820"
 
-global predicitons
+# global predicitons
 global skip
-predictions = []
+# predictions = []
 
 
 app = Flask(__name__)
