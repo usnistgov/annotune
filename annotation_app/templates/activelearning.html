@@ -10,41 +10,49 @@
       href="{{ url_for('static', filename='data.css') }}"
     />
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/active-learning.css') }}"
-    />
-    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
     <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
-          rel="stylesheet"
-        />
-    
+      href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
+    <style> 
+        mark {
+          padding: 0;
+          background-color: yellow;
+        }
+    </style>
 
-    <title>Document</title>
   </head>
-
   <body class="body">
     <nav class="topnav">
       <a class="active" href="{{url_for('home_page', name=session['name'])}}"
         >Home</a
       >
-      <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-      {% if docs_len != 1 %}
-      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
-      {% endif %}
       <a id="demo" href="#">Demo</a>
-      <div class="time">
+      <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+    
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
+
+      
+
+      <div class="time" >
+        Time Elapsed
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
+
+
+      
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
       <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
     </nav>
@@ -102,7 +110,7 @@
         <p>Are you sure you want to exit? </p>
       </div>
       <div class="modal-footer">
-        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link"> YES</a></div>
         <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
       </div>
     </div>
@@ -110,11 +118,11 @@
   </div>
 </div>
 
-</div>
     <div id="loader" class="loader"></div>
     <script src="{{ url_for('static', filename='activeLearning.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
-    <script src = "{{ url_for('static', filename='act_lab.js') }}"></script>
+    <!-- <script src = "{{ url_for('static', filename='act_lab.js') }}"></script> -->
+    <!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
 
   </body>
 </html>

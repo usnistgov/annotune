@@ -10,7 +10,142 @@
     />
     <link
       rel="stylesheet"
-      type="text/css"
+      type="text/css"<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static', filename='data.css') }}"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static', filename='css/active-list.css') }}"
+          />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+          
+          <title>Document</title>
+        </head>
+      
+        <body>
+          <nav class="topnav">
+            <a class="active" href="{{url_for('home_page', name=session['name'])}}"
+              >Home</a
+            >
+            <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+            <!-- <a href="{{url_for('finish')}}"> Finish</a> -->
+            <a id="demo" href="#">Demo</a>
+            <div class="time">
+              Time Elapsed : 
+              <label id="minutes">{{elapsed_time[2:4] | int}}</label>
+              <label id="colon">:</label>
+              <label id="seconds">{{elapsed_time[5:] | int}}</label>
+              <label id="secs" hidden>{{secs}}</label>
+            </div>
+            <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+            <!-- <a class="logout" href="{{url_for ('finish')}}"> Finish</a> -->
+          </nav>
+          <main>
+            <h1 class="heading">LABELED DOCUMENTS </h1>
+      
+            <div class="all_topics">
+              {% for a in completed_docs.keys()%}
+              <div class="topic" style="text-align: center; margin: 1rem; font-size: 20px;">  {{a}} </div>
+              <div class="table-wrapper active-list-table" style="height: auto; overflow-y: auto;" >
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Document</th>
+                    </tr>
+                  </thead>
+                  {% for b in completed_docs[a].keys() %}
+                  <tbody>
+                    <tr>
+                      <td>{{b}}</td>
+                      <td>
+                        <div id="{{b}}" class="table-data">
+                          <a
+                            href="{{url_for('view_labeled', document_id=b, name = session['name'])}}"
+                            >{{completed_docs[a][b][:200]}}</a
+                          >
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+      
+              {% endfor %}
+            </div>
+      
+      
+      
+          
+            <div class="table-wrapper active-list-table" style="height:4rem ; overflow:auto">
+      
+          </div>
+      
+      
+            <br>
+            <!-- <div class="table-wrapper active-list-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Number</th>
+                    <th>Document</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for a in docss.keys()%}
+                  <tr>
+                    <td> {{a}}</td>
+                    <td>
+                      <div class="table-data">
+                        <a href="{{url_for('view_labeled', document_id=a, name = session['name'])}}">
+                          {{docss[a]}}</a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor%}
+                </tbody>
+              </table>
+            </div> -->
+          </main>
+          <!-- Modal -->
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <!-- <h4 class="modal-title">Modal Header</h4> -->
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to exit? </p>
+            </div>
+            <div class="modal-footer">
+              <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link"> YES</a></div>
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      </div>
+      
+          <script src="{{ url_for('static', filename='label.js') }}"></script>
+        </body>
+      </html>
       href="{{ url_for('static', filename='css/active-list.css') }}"
     />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">

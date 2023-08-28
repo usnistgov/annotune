@@ -38,17 +38,21 @@
         <nav class="topnav">
             <a class="active" href="{{url_for('home_page', name=session['name'])}}"
               >Instructions</a>
+              <a id="demo" href="#">Demo</a>
               <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-              {% if docs_len != 1 %}
               <a id= "completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
-              {% endif %}
-            <a id="demo" href="#">Demo</a>
+            
+            
+
+
             <div class="time">
+              Time Elapsed
               <label id="minutes">{{elapsed_time[2:4] | int}}</label>
               <label id="colon">:</label>
               <label id="seconds">{{elapsed_time[5:] | int}}</label>
               <label id="secs" hidden>{{secs}}</label>
             </div>
+
 
             
             <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
@@ -66,7 +70,7 @@
           <h6>Document Number: {{document_id}}</h6>
         <div id ="text" style="  background-color: white; padding: 1rem;
             font-size: large;
-            height: 40rem;
+            height: 50rem;
             overflow-y: auto;
             overflow-x: hidden;
             border-right: 1px solid rgb(72, 139, 181);">
@@ -74,11 +78,16 @@
         </div>
         <div id ="original_text" hidden="1">{{text}}</div>
         <br>
-        <div id="model_suggestion"> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div>
+        <div id="model_suggestion" style="margin: auto; width: 50%; font-size: medium;"> Model Suggestions</div>
+        {% for p in pred %} 
+        <span style="font-size: larger; font-weight: 500; justify-content: center; margin-left: 10%; margin-top: 5rem;">{{p}}</span>
+        {% endfor %}
+        
+        
         <form method="POST">
             <div id="model_sugges" name="responses">
               <select id="old_labels" class="suggestion" name="suggestion">
-                <option></option>
+                <!-- <option></option> -->
                 {% for c in predictions %}
                 <option value="{{c}}">{{c}}</option>
                 {% endfor %}
@@ -110,7 +119,7 @@
             <div class="predicted_topics" id="topic11">
                 <div class="viewing">
                 <div class="topic_prediction" > <h5>Keyword Groups {{a[0]}}</h5></div>
-                <button id="buttons" class="view" type="button">Highlight</button>
+                <button id="buttons" class="view" type="button" style="width: fit-content;">Highlight</button>
                 <!-- <button id="buttons" class="view" type="button">Off</button> -->
                 
                 </div>
@@ -156,7 +165,7 @@
         <p>Are you sure you want to exit? </p>
       </div>
       <div class="modal-footer">
-        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link"> YES</a></div>
         <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
       </div>
     </div>
@@ -175,5 +184,6 @@
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
 <script src = "{{ url_for('static', filename='modal.js') }}"></script>
+<!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
     </body>
 </html>

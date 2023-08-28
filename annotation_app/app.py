@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 from .tools import *
 import json
-from flask_session import Session
+# from flask import Session
 from xml.dom import minidom
 import requests
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 import ast
 import random
@@ -21,22 +21,21 @@ received_data = json.load(open('dataset.json'))
 os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
-all_texts = json.load(open("congressional_bills.json"))
+all_texts = json.load(open("congressional_bill_train.json"))
 # url = 'https://nist-topic-model.umiacs.umd.edu'
 # url = "https://nist-topic-model.umiacs.umd.edu"
-# url = "http://54.87.190.90:5001"
 url = "http://127.0.0.1:8820"
 
-# global predicitons
+global predicitons
 global skip
-# predictions = []
+predictions = []
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24).hex()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+# Session(app)
 
 
 ## uSER FIRST LOGS IN
@@ -175,6 +174,7 @@ def active_list(name):
 
     session["rec_block"] = [x for x in topics["cluster"]["1"] if x != rec]
     print(session["rec_block"])
+    print(session.keys())
     
 
     elapsed_time = datetime.now() - session["begin"]
@@ -216,7 +216,7 @@ def non_active_list(name):
     sliced_results = get_sliced_texts(topic_list=topics, all_texts=all_texts, docs=docs)
  
     keywords = topics["keywords"] 
-    elapsed_time = datetime.now() - session["begin"]
+    elapsed_time = datetime.now(timezone.utc) - session["begin"]
     secs = round(elapsed_time.total_seconds())
     all_available_documents = [list(results[t].keys()) for t in [p for p in list(results.keys())]]
     long_list = []
@@ -348,7 +348,7 @@ def non_active_label(name, document_id):
     labels = list(set(session["labels"].strip(",").split(",")))
     session["start_time"] = str(session["start_time"]) + "+" + str(datetime.now().strftime("%H:%M:%S"))
     
-    elapsed_time = datetime.now() - session["begin"]
+    elapsed_time = datetime.now(timezone.utc) - session["begin"]
     secs = round(elapsed_time.total_seconds())
     
 
@@ -409,12 +409,9 @@ def non_active_label(name, document_id):
         done = len(docs)
         return redirect(url_for("non_active_label", response=response, words=words, document_id=posts["document_id"], name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips))
 
-    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=response["prediction"], total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips)
+    pred = "daniel,kofi,stephens".split(",")
+    return render_template("nonactivelabel.html", response=response, words=words, document_id=document_id, text=text, name=name, predictions=labels, pred=pred, total=total, docs_len=docs_len, elapsed_time=str(elapsed_time)[:7], secs = secs, skips=skips)
 
-  
-@app.route("/try")  
-def trial():
-    return render_template("try.html")
 
 
 
@@ -465,8 +462,5 @@ def edit_labels(name, document_id):
         return redirect(url_for("non_active_label", name=name, document_id=document_id))
 
 
-@app.route("/modal")
-def modal():
-    return render_template("modal.html")
 
     

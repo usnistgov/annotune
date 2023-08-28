@@ -1,91 +1,25 @@
 {
-    "user1": {
-        "username": "user1",
-        "id": 225,
-        "labels": ",food,food,food,food,texas,danieil,science",
-        "labelled_document": ",218,178,55,102,79,68,160"
-    },
-    "kofistephens": {
-        "username": "kofistephens",
-        "id": 226,
-        "labels": ",science,science,texas,texas,food,daniel,daniel,science,food,food",
-        "labelled_document": ",182,125,22,22,192,211,45,256,203,12"
-    },
-    "10002222222222d": {
-        "username": "10002222222222d",
-        "id": 227,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "danielaa": {
-        "username": "danielaa",
-        "id": 228,
+    "daa4f": {
+        "username": "daa4f",
+        "id": 30,
         "labels": "",
         "labelled_document": ""
     },
     "daniel": {
         "username": "daniel",
-        "id": 229,
+        "id": 31,
         "labels": "",
         "labelled_document": ""
     },
-    "daniels": {
-        "username": "daniels",
-        "id": 230,
+    "dans": {
+        "username": "dans",
+        "id": 33,
         "labels": "",
         "labelled_document": ""
     },
-    "daniela": {
-        "username": "daniela",
-        "id": 231,
-        "labels": ",science",
-        "labelled_document": ",144"
-    },
-    "dddddd": {
-        "username": "dddddd",
-        "id": 233,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "danielcvfg": {
-        "username": "danielcvfg",
-        "id": 234,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "a": {
-        "username": "a",
-        "id": 235,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "b": {
-        "username": "b",
-        "id": 236,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "c": {
-        "username": "c",
-        "id": 237,
-        "labels": ",science",
-        "labelled_document": ",136"
-    },
-    "Daniel": {
-        "username": "Daniel",
-        "id": 239,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "Daniels": {
-        "username": "Daniels",
-        "id": 240,
-        "labels": "",
-        "labelled_document": ""
-    },
-    "daniel787": {
-        "username": "daniel787",
-        "id": 3,
+    "daniel4": {
+        "username": "daniel4",
+        "id": 34,
         "labels": "",
         "labelled_document": ""
     }

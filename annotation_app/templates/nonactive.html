@@ -42,21 +42,22 @@
       <a id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
         >Instructions</a
       >
+      <a id="demo" href="#">Demo</a>
       <!-- <a href="{{url_for('active_check', name=session['name'])}}">Documents</a> -->
-      {% if docs_len != 1 %}
       <a id="completed" href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents </a>
       
       <!-- <a  hrf="{{url_for('finish')}}"> Finish</a> -->
-      {% endif %}
-      <a id="demo" href="#">Demo</a>
+    
+      
       <div class="time">
+        Time Elapsed
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
 
-      
+      </div>
 
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
             
@@ -67,7 +68,7 @@
 
       <div class="all_topics">
         <div id="topicblock" class="topic">
-        <h5 style="text-align: center;">Topic {{recommended_topic}}</h5>
+        <h5 style="text-align: center; font-size: larger;">Document Cluster {{recommended_topic}}</h5>
 
         <div class="keywords__list">
           {% for k in keywords[recommended_topic] %}
@@ -80,7 +81,7 @@
             <thead>
               <tr>
                 <th>Number</th>
-                <th>Document</th>
+                <th style="text-align: center;">Document</th>
               </tr>
             </thead>
             
@@ -105,7 +106,7 @@
             <thead>
               <tr>
                 <th>Number</th>
-                <th>Document</th>
+                <th style="text-align: center;"> Document</th>
               </tr>
             </thead>
             
@@ -144,7 +145,7 @@
         
         
         <div class="topic">
-          <h5 style="text-align: center;">Topic {{a}}</h5>
+          <h5 style="text-align: center; font-size: larger;">Document Cluster {{a}}</h5>
 
           <div class="keywords__list">
             {% for k in keywords[a] %}
@@ -157,7 +158,7 @@
             <thead>
               <tr>
                 <th>Number</th>
-                <th>Document</th>
+                <th style="text-align: center;">Document</th>
               </tr>
             </thead>
             {% for b in sliced_results[a].keys() %}
@@ -169,7 +170,7 @@
                   <div id="{{b}}" class="table-data">
                     <a
                       href="{{url_for('non_active_label', document_id=b, name=name)}}"
-                      >{{results[a][b][:200]}}</a
+                      >{{results[a][b][:300]}}</a
                     >
                   </div>
                 </td>
@@ -180,24 +181,27 @@
           </table>
         </div>
 
+    
           <a
-            href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}"
-            ><button class="view_more" style="background-color: rgb(235, 241, 245); height: 3rem;" name="Show more" type="“button”">
-              View all
-            </button>
+            href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}">
           </a>
+          <!-- <button class="view_more" style="background-color: rgb(235, 241, 245); height: 3rem;" name="Show more" type="“button”">
+            View all
+          </button> -->
+
+        <div class="button_div"><button class="buttons" type="button">View More</button></div>
         </div>
         {% endif %}
         {% endfor %}
       </div>
 
-      <div class="center">
+      <!-- <div class="center">
         <form method="POST">
           <button name="finish" class="next_button"style="width: 70%; background-color: rgb(208, 219, 230); font-size: large;"type="“button”">
             Finish
           </button>
         </form>
-      </div>
+      </div> -->
     </main>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -214,7 +218,7 @@
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button> -->
-            <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="{{url_for('finish')}}"> YES</a></div>
+            <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link"> YES</a></div>
           </div>
         </div>
         
@@ -227,8 +231,8 @@
     <script src="{{ url_for('static', filename='label.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='track_labels.js') }}"></script> -->
 
   </body>
 </html>
-
 

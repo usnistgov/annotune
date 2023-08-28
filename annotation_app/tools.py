@@ -144,7 +144,10 @@ def labelled_docs(labe, all_texts):
     results = {}
     labelled = [x for x in labe.strip(",").split(",")][: : -1]
     for a in labelled:
-        results[a] = all_texts["text"][a]
+        try:
+            results[a] = all_texts["text"][a]
+        except:
+            continue
     return results
 
 def extract_label (name, number):
@@ -214,13 +217,25 @@ def save_time(name, page):
         writer_object.writerow([page, datetime.datetime.now()])
         f_object.close()
 
+import os
+def change_permissions_recursive(path, mode):
+    for root, dirs, files in os.walk(path, topdown=False):
+        for dir in [os.path.join(root,d) for d in dirs]:
+            os.chmod(dir, mode)
+    for file in [os.path.join(root, f) for f in files]:
+            os.chmod(file, mode)
+
+
+
 def save_first_time(name, page):
     from csv import writer
     import datetime
+    change_permissions_recursive('./static/responses', 0o777)
     with open ("./static/responses/"+name+"/time.csv", 'w', newline='') as f_object:
         writer_object = writer(f_object)
         writer_object.writerow([page, datetime.datetime.now()])
         f_object.close()
+
 
 def make_folder(name):
     import os
