@@ -89,8 +89,8 @@
         <tbody>
           <tr>
             <td>{{rec}}</td>
-            <td>
-              <div class="table-data" style="padding-right:1000px;">
+            <td style="padding-right: 300px;">
+              <div class="table-data" >
                 <a style="color: black;" href="{{url_for('active', name=name, document_id=rec)}}">
                   {{results[rec][:300]}}</a
                 >
@@ -117,7 +117,7 @@
             <tr>
               <td>{{a}}</td>
               <td>
-                <div class="table-data">
+                <div class="table-data" >
                   <a style="color: black;" href="{{url_for('active', name=name, document_id=a)}}">
                     {{results[a][:300]}}</a
                   >

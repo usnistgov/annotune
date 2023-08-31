@@ -53,8 +53,17 @@ def login():
         with open('./static/users/users.json') as user_file:
             name_string = user_file.read()
             names = json.loads(name_string)
+
+        with open('./static/users/specified_users.json') as user_file:
+            namess = user_file.read()
+            specified_names = json.loads(namess)
+
+
         name = request.form["name"]
         # email = request.form["email"]
+
+        if name not in specified_names.keys():
+            return redirect("/login")
 
         identity = name
         session["name"] = identity
