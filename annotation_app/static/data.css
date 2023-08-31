@@ -17,6 +17,7 @@ a:visited {
   width: 60%;
   margin: auto;
 }
+
 .topnav {
   display: flex;
   align-items: center;
@@ -320,7 +321,7 @@ main,
 }
 
 .table-wrapper {
-  height: 70vh;
+  height: 80vh;
   overflow-y: scroll;
 }
 

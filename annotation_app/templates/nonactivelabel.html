@@ -45,13 +45,25 @@
             
 
 
-            <div class="time">
-              Time Elapsed
-              <label id="minutes">{{elapsed_time[2:4] | int}}</label>
-              <label id="colon">:</label>
-              <label id="seconds">{{elapsed_time[5:] | int}}</label>
-              <label id="secs" hidden>{{secs}}</label>
-            </div>
+              <div class="time">
+                Time Elapsed
+                <label id="hours"></label>
+                <label id="colon"></label>
+                <label id="minutess"></label>
+                <label id="colons"></label>
+                <label id="secondss"></label>
+                <label id="secs" hidden>{{secs}}</label>
+              </div>
+              <div hidden>
+                Time Elapsed
+                <label id="hour">{{elapsed_time[0:2] | int}}</label>
+                <label id="colon">:</label>
+                <label id="minutes">{{elapsed_time[2:4] | int}}</label>
+                <label id="colon">:</label>
+                <label id="seconds">{{elapsed_time[5:] | int}}</label>
+                <label id="secs" hidden>{{secs}}</label>
+              </div>
+        
 
 
             
@@ -87,11 +99,12 @@
         <form method="POST">
             <div id="model_sugges" name="responses">
               <select id="old_labels" class="suggestion" name="suggestion">
-                <!-- <option></option> -->
+                <option></option>
                 {% for c in predictions %}
                 <option value="{{c}}">{{c}}</option>
                 {% endfor %}
               </select>
+
               <input
                 id="written"
                 class="text_input"
@@ -177,13 +190,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js" charset="UTF-8"></script>
 <script src = "{{ url_for('static', filename='nistprep.js') }}"></script>
 <script src = "{{ url_for('static', filename='nonactive_lab.js') }}"></script>
-<script src = "{{ url_for('static', filename='modal.js') }}"></script>
-<!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
-    </body>
+
+
+</body>
 </html>

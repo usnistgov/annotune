@@ -3,6 +3,7 @@
 .table-data {
   height: 20px;
   overflow: hidden;
+  width: 70%;
 }
 
 .table-div {
@@ -15,7 +16,7 @@
 }
 
 .active-list-table td {
-  min-width: 5rem;
+  max-width: 70%;
   padding: 0.5rem 0.8rem;
   border: 2px solid rgb(196, 196, 196);
 }

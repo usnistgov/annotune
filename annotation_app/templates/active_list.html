@@ -49,11 +49,23 @@
       
       <div class="time">
         Time Elapsed
+        <label id="hours"></label>
+        <label id="colon"></label>
+        <label id="minutess"></label>
+        <label id="colons"></label>
+        <label id="secondss"></label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+      <div hidden>
+        Time Elapsed
+        <label id="hour">{{elapsed_time[0:2] | int}}</label>
+        <label id="colon">:</label>
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
+
 
       
 
@@ -78,7 +90,7 @@
           <tr>
             <td>{{rec}}</td>
             <td>
-              <div class="table-data">
+              <div class="table-data" style="padding-right:1000px;">
                 <a style="color: black;" href="{{url_for('active', name=name, document_id=rec)}}">
                   {{results[rec][:300]}}</a
                 >

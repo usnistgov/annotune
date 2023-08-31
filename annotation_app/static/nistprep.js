@@ -5,8 +5,10 @@ const submitButton = document.getElementById("myBtn")
 
 submitButton.disabled = true;
 
+
 let selectValue = 0;
 let labelValue = 0;
+
 
 select.addEventListener("change", (e) => {
   selectValue = e.target.value.length;
@@ -32,22 +34,35 @@ function checkButtonEnabled() {
   }
 }
 
+
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
+var hoursLabel = document.getElementById("hour");
+
+var minutesLabels = document.getElementById("minutess");
+var secondsLabels = document.getElementById("secondss");
+var hoursLabels = document.getElementById("hours");
+var colon = document.getElementById('colon')
+var colons = document.getElementById('colons')
 // var totalSeconds = 0;
 var totalSeconds = document.getElementById("secs").innerText;
 
-console.log(minutesLabel.innerText)
-console.log(secondsLabel.innerText)
+console.log(minutesLabel)
+console.log(secondsLabel)
 
 setInterval(setTime, 1000);
 
 function setTime()
 {
     ++totalSeconds;
-    secondsLabel.innerHTML = pad(totalSeconds%60);
-    minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+    secondsLabels.innerHTML = pad(totalSeconds%60);
+    minutesLabels.innerHTML = pad(parseInt((totalSeconds/60)%60));
+    hoursLabels.innerHTML = pad(parseInt(Math.floor(totalSeconds/60)/60));
+    colon.innerHTML=':';
+    colons.innerHTML=':';
+
 }
+
 
 function pad(val)
 {

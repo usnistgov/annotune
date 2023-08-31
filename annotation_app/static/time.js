@@ -1,3 +1,5 @@
+
+
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var hoursLabel = document.getElementById("hour");

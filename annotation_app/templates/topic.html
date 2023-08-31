@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -12,21 +14,67 @@
       type="text/css"
       href="{{ url_for('static', filename='css/active-list.css') }}"
     />
-    <title>Document</title>
+    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/introjs.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" />-->
+    <style> 
+        mark {
+          padding: 0;
+          background-color: yellow;
+        }
+    </style>
+
   </head>
 
   <body>
     <nav class="topnav">
-      <a class="active" href="{{url_for('home_page', name=session['name'])}}"
-        >Home</a
-      >
-      <a href="{{url_for('active_check', name=session['name'])}}">Documents</a>
-      {% if docs_len != 1 %}
-      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed </a>
-      {% endif %}
-      <a href="{{url_for('finish')}}"> Finish</a>
-      <a class="logout" href="{{url_for ('login')}}"> Logout</a>
+      <a  id="home" class="active" href="{{url_for('home_page', name=session['name'])}}"
+        >Instructions</a>
+      <!-- <a id="demo" href="#">Demo</a> -->
+      <a id="documents" href="{{url_for('active_check', name=session['name'])}}">Documents</a>
+      <a href="{{url_for('labeled_list', name=session['name'])}}"> Completed Documents</a>
+
+      
+      <div class="time">
+        Time Elapsed
+        <label id="hours"></label>
+        <label id="colon"></label>
+        <label id="minutess"></label>
+        <label id="colons"></label>
+        <label id="secondss"></label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+      <div hidden>
+        Time Elapsed
+        <label id="hour">{{elapsed_time[0:2] | int}}</label>
+        <label id="colon">:</label>
+        <label id="minutes">{{elapsed_time[2:4] | int}}</label>
+        <label id="colon">:</label>
+        <label id="seconds">{{elapsed_time[5:] | int}}</label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+
+
+      
+
+      
+      <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
+      <!-- <a class="logout" href="{{url_for('finish')}}"> Finish</a> -->
+      
     </nav>
+  
     <main>
       <h4> Topic {{topic_id}}</h4>
 
@@ -37,23 +85,25 @@
       </div>
       <br>
 
-      <div class="table-wrapper active-list-table" style="overflow-y: auto;">
+      <br>
+      <div id="act_lis" class="table-wrapper active-list-table">
         <table>
           <thead>
-            <tr>
+            <tr >
               <th>Number</th>
-              <th>Document</th>
+              <th style="text-align: center;">Document</th>
             </tr>
           </thead>
           <tbody>
+         
             {% for a in res.keys()%}
 
             <tr>
               <td>{{a}}</td>
               <td>
                 <div class="table-data">
-                  <a href="{{url_for('non_active_label', document_id=a, name=session['name'])}}">
-                    {{res[a][:200]}}</a
+                  <a style="color: black;" href="{{url_for('non_active_label', document_id=a, name=session['name'])}}">
+                    {{res[a][:300]}}</a
                   >
                 </div>
               </td>
@@ -62,13 +112,49 @@
           </tbody>
         </table>
       </div>
-      <div class="center">
-        
+      <!-- <div class="center">
+        <form method="POST">
+          <button name="finish" class="next_button" style="width: 20%; background-color: rgb(208, 219, 230); font-size: large;" type="“button”">
+            Finish
+          </button>
+        </form>
+      </div> -->
+          <div class="center">
+
+        <div class="button_div"><button class="buttons" type="button"><a style="color:white"
+          href="{{url_for('active_check', name=session['name'])}}">
+        back </a></button></div>
 
         
-          <button name="finish" class="view_more" type="“button”">
-            <a href="{{url_for('active_check', name=session['name'])}}">back</a>
-          </button>
-        
       </div>
-    </main>
+
+    <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to exit? </p>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" style="height:3rem; padding: 0.5rem; width: 4rem;"> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEvyk1zQjI4FE0Gih0s4Q9xdm5J5lAWaF_aARtPRWhUwhI7Q/viewform?usp=sf_link"> YES</a></div>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.href='{{url_for('finish')}}'">Yes</button> -->
+      </div>
+    </div>
+    
+  </div>
+</div>
+</main>
+
+<script src="{{ url_for('static', filename='label.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+    <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='track_labels.js') }}"></script> -->
+
+  </body>
+</html>

@@ -43,13 +43,25 @@
 
       
 
-      <div class="time" >
+      <div class="time">
         Time Elapsed
+        <label id="hours"></label>
+        <label id="colon"></label>
+        <label id="minutess"></label>
+        <label id="colons"></label>
+        <label id="secondss"></label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+      <div hidden>
+        Time Elapsed
+        <label id="hour">{{elapsed_time[0:2] | int}}</label>
+        <label id="colon">:</label>
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
+
 
 
       
@@ -64,10 +76,19 @@
         <h5>{{ message }}</h5>
         {% endfor %}
     </div>
+    
       <h6>Document Number: {{document_id}}</h6>
       <div id="text" class="active-label">{{text}}</div>
       <!-- <div> Model Suggestion: <span style="font-size: larger; font-weight: 500;">{{pred}}</span></div> -->
-    
+      
+      <br>
+      <div id="model_suggestion" style="margin: auto; width: 50%; font-size: medium;"> Model Suggestions</div>
+      <br>   
+      {% for p in pred %} 
+      <span style="font-size: larger; font-weight: 500; justify-content: center; margin-left: 10%; margin-top: 5rem;">{{p}}</span>
+        {% endfor %}
+
+
       <form method="POST">
         <div id="model_sugges" name="responses">
           <select class="suggestion" name="suggestion">

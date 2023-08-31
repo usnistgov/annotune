@@ -51,19 +51,33 @@
       
       <div class="time">
         Time Elapsed
+        <label id="hours"></label>
+        <label id="colon"></label>
+        <label id="minutess"></label>
+        <label id="colons"></label>
+        <label id="secondss"></label>
+        <label id="secs" hidden>{{secs}}</label>
+      </div>
+      <div hidden>
+        Time Elapsed
+        <label id="hour">{{elapsed_time[0:2] | int}}</label>
+        <label id="colon">:</label>
         <label id="minutes">{{elapsed_time[2:4] | int}}</label>
         <label id="colon">:</label>
         <label id="seconds">{{elapsed_time[5:] | int}}</label>
         <label id="secs" hidden>{{secs}}</label>
       </div>
 
+
       </div>
 
       <button type="button" class="logout"  data-toggle="modal" data-target="#myModal">Finish</button>
             
+      
       <!-- <a id="finish" class="logout" href="{{url_for ('finish')}}"> Finish</a> -->
     </nav>
-    <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div>
+    <!-- <div class="welcome"> <h5>SELECT DOCUMENTS TO LABEL</h5></div> -->
+    <div style="font-size: 25px; text-align: center;">SELECT DOCUMENTS TO LABEL</div>
     <main class="non-active-list">
 
       <div class="all_topics">
@@ -75,7 +89,7 @@
           <p class="keyword">{{k}}</p>
           {% endfor %}
         </div>
-        <div class="table-wrapper active-list-table">
+        <div class="table-wrapper active-list-table" style="height: 50rem;">
           Recommended Document
           <table id="recommended_table">
             <thead>
@@ -88,7 +102,7 @@
             <tbody>
               <tr >
                 <td>{{recommended}}</td>
-                <td>
+                <td style="padding-right: 500px;">
                   <div id="{{recommended}}" class="table-data">
                     <a
                       href="{{url_for('non_active_label', document_id=recommended, name=name)}}">
@@ -153,7 +167,7 @@
             {% endfor %}
           </div>
           <br>
-          <div class="table-wrapper active-list-table">
+          <div class="table-wrapper active-list-table" style="height: 22rem;">
           <table>
             <thead>
               <tr>
@@ -182,18 +196,21 @@
         </div>
 
     
-          <a
+          <!-- <a
             href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}">
-          </a>
+          </a> -->
           <!-- <button class="view_more" style="background-color: rgb(235, 241, 245); height: 3rem;" name="Show more" type="“button”">
             View all
           </button> -->
 
-        <div class="button_div"><button class="buttons" type="button">View More</button></div>
+      <div class="button_div"><button class="buttons" type="button"><a style="color:white"
+        href="{{ url_for('topic', name=name, topic_id = a, documents=document_list[a], keywords=keywords[a])}}">
+      show more </a></button></div>
         </div>
         {% endif %}
         {% endfor %}
-      </div>
+    </div>
+
 
       <!-- <div class="center">
         <form method="POST">
