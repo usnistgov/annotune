@@ -221,15 +221,53 @@ def save_response(name, label, response_time, document_id, user_id):
 
 
 
-def get_texts (topic_list, all_texts, docs):
+# def get_texts (topic_list, all_texts, docs):
+#     results = {}
+#     for a in topic_list["cluster"].keys():
+#         sub_results = {}
+#         for b in topic_list["cluster"][a]:
+#             if str(b) in docs:
+#                 continue
+#             sub_results[str(b)] = all_texts["text"][str(b)]
+#         results[a]= sub_results
+#     return results
+
+
+def get_texts(topic_list, all_texts, docs):
+    """
+    Retrieve text data for specified topics and documents.
+
+    Parameters:
+    - topic_list (dict): A dictionary containing topics and associated document lists.
+    - all_texts (dict): A dictionary containing text data where keys are document IDs and values are corresponding documents.
+    - docs (set): A set of document IDs to exclude from the results.
+
+    Returns:
+    - results (dict): A dictionary containing text data for specified topics and documents.
+
+    This function takes a 'topic_list' dictionary, which includes topics and associated document lists, a 'all_texts' dictionary containing
+    document text data, and a 'docs' set representing documents to exclude. It retrieves text data for specified documents under each topic.
+
+    The function returns 'results,' a dictionary where each key represents a topic, and the associated value is a sub-dictionary
+    containing document IDs and their corresponding texts for that topic. Documents listed in the 'docs' set are excluded.
+    """
     results = {}
-    for a in topic_list["cluster"].keys():
+
+    for topic, document_list in topic_list["cluster"].items():
         sub_results = {}
-        for b in topic_list["cluster"][a]:
-            if str(b) in docs:
+
+        for document_id in document_list:
+            if str(document_id) in docs:
                 continue
-            sub_results[str(b)] = all_texts["text"][str(b)]
-        results[a]= sub_results
+
+            try:
+                sub_results[str(document_id)] = all_texts["text"][str(document_id)]
+            except KeyError:
+                # Handle the case where the document ID is not found in 'all_texts'
+                continue
+
+        results[topic] = sub_results
+
     return results
 
 
@@ -645,39 +683,44 @@ def get_completed(completed_json, all_texts):
 #                 recommended_topic = a
 #     return recommended_topic,  results
 
-def get_completed(completed_json, all_texts):
+
+def get_recommended_topic(recommended, topics, all_texts):
     """
-    Retrieve completed documents based on a completed JSON representation.
+    Retrieve recommended topic and associated documents from a topic-clustered dataset.
 
     Parameters:
-    - completed_json (dict): A JSON-like dictionary representing labeled documents grouped by labels.
+    - recommended (str): The recommended topic to retrieve.
+    - topics (dict): A dictionary containing clustered topics and associated document lists.
     - all_texts (dict): A dictionary containing text data where keys are document IDs and values are corresponding documents.
 
     Returns:
-    - results (dict): A dictionary containing completed documents grouped by labels.
+    - recommended_topic (str): The recommended topic.
+    - results (dict): A dictionary containing text data for documents associated with the recommended topic.
 
-    This function takes a 'completed_json' dictionary, which represents labeled documents grouped by labels, and a 'all_texts' dictionary
-    containing document text data. It retrieves the document texts for the specified document IDs in 'completed_json' and organizes them
-    into a dictionary where labels are keys, and the associated documents are stored in sub-dictionaries.
+    This function takes a 'recommended' topic, a 'topics' dictionary that includes clustered topics and associated document lists,
+    and a 'all_texts' dictionary containing document text data. It retrieves text data for documents associated with the specified
+    recommended topic.
 
-    The function returns 'results,' a dictionary where each key represents a label, and the associated value is a sub-dictionary
-    containing document IDs and their corresponding texts for that label.
+    The function returns 'recommended_topic,' the name of the recommended topic, and 'results,' a dictionary where each key represents
+    a cluster within the recommended topic, and the associated value is a sub-dictionary containing document IDs and their corresponding texts.
     """
     results = {}
 
-    for label, document_ids in completed_json.items():
+    for cluster_name, document_list in topics["cluster"].items():
         sub_results = {}
 
-        for document_id in document_ids:
-            try:
-                sub_results[str(document_id)] = all_texts["text"][str(document_id)]
-            except KeyError:
-                # Handle the case where the document ID is not found in 'all_texts'
-                continue
+        if recommended in document_list:
+            for document_id in document_list:
+                try:
+                    sub_results[str(document_id)] = all_texts["text"][str(document_id)]
+                except KeyError:
+                    # Handle the case where the document ID is not found in 'all_texts'
+                    continue
 
-        results[label] = sub_results
+            results[cluster_name] = sub_results
+            recommended_topic = cluster_name
 
-    return results
+    return recommended_topic, results
 
 
 
