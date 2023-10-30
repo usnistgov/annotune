@@ -9,7 +9,7 @@ import os
 
 def read_data(path):
     """
-    Read JSON data from a file.
+    Read JSON data from a file. The data respresents all the documents used to train the model
 
     Args:
         path (str): The path to the JSON file.
@@ -393,7 +393,7 @@ def get_single_document(topics, all_texts, existing_documents):
 #         name_string = user_file.read()
 #         names = json.loads(name_string)
 
-#     with open('.\\static\\users\\users.json', mode='w', encoding='utf-8') as name_json:
+#     with open('./static/users/users.json', mode='w', encoding='utf-8') as name_json:
 #         names[session["name"]]["labels"] = session["labels"]
 #         names[session["name"]]["labelled_document"] = session["labelled_document"]
 #         json.dump(names, name_json, indent=4)
@@ -633,6 +633,7 @@ def completed_json_(name):
 #             results[a]= sub_results
             
 #     return results
+
 
 def get_completed(completed_json, all_texts):
     """
