@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, url_for, redirect, flash, session
 import numpy as np
 import pandas as pd
-from .tools import *
+from .utils import *
 import json
 from xml.dom import minidom
 import requests
@@ -23,8 +23,6 @@ os.urandom(24).hex()
 
 topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("congressional_bill_train.json"))
-# url = 'https://nist-topic-model.umiacs.umd.edu'
-# url = "https://nist-topic-model.umiacs.umd.edu"
 url = "http://127.0.0.1:8820"
 
 global predicitons
@@ -44,11 +42,47 @@ Session(app)
 
 @app.route("/")
 def home():
+    """
+    Handle the root route ("/") of the annotation application.
+    Redirects the user to the login page.
+    """
     return redirect(url_for("login"))
 
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+
+    """
+    Handles user login functionality for the Flask application.
+
+    If the request method is POST:
+    - Reads user data from JSON files.
+    - Validates the submitted user name.
+    - If the user is valid, sets session variables for the user, including name, user ID, labels, and labeled documents.
+    - Redirects the validated user to the home page.
+    - If the user is not valid, redirects back to the login page.
+
+    If the request method is GET:
+    - Renders the login page template.
+
+    Routes:
+    - GET: '/'
+    - POST: '/login'
+
+    Method:
+    - GET
+    - POST
+
+    Parameters:
+    - None
+
+    Returns:
+    - If the request method is POST and the user is validated, it redirects to the home page ('/firstpage/<name>/').
+    - If the request method is POST and the user is not validated, it redirects back to the login page ('/login').
+    - If the request method is GET, it renders the login page template ('login.html').
+    """
+
+
     if request.method =="POST":
         with open('./static/users/users.json') as user_file:
             name_string = user_file.read()
@@ -122,6 +156,27 @@ def login():
 # READING WHAT THE STUDY IS ABOUT
 @app.route("//firstpage//<name>/", methods = ["POST", "GET"])
 def home_page(name):
+    """
+    Handles the user's home page functionality in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - If the request method is POST and the user's session has just started, updates the session start time.
+    - If the request method is POST, redirects to the active check page ('/active_check/<name>/').
+    - If the request method is GET, renders the home page template ('first.html') with user name and session start time.
+    
+    Routes:
+    - GET: '/firstpage/<name>/'
+    - POST: '/firstpage/<name>/'
+    
+    Method:
+    - GET
+    - POST
+
+    """
     if session.get("name") != name:
         # if not there in the session then redirect to the login page
         return redirect("/login")
@@ -161,6 +216,25 @@ def active_check(name):
 
 @app.route("//active_list//<name>", methods=["POST", "GET"])
 def active_list(name):
+    """
+    Checks if the model being used is active learning or not.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves the topic list for the user.
+    - If there is only one topic in the topic list, marks the user as active and redirects to the active list page ('/active_list/<name>/').
+    - If there are multiple topics in the topic list, marks the user as non-active and redirects to the non-active list page ('/non_active_list/<name>/').
+
+    Routes:
+    - GET/POST: '/checkactive/<name>/'
+    
+    Method:
+    - GET
+    - POST
+    """
     save_time(session["name"], "selecting documents to label")
     if session.get("name") != name:
     # if not there in the session then redirect to the login page
@@ -242,6 +316,27 @@ def non_active_list(name):
  
 @app.route("//active//<name>//<document_id>", methods=["GET", "POST"])
 def active(name, document_id):
+    """
+    Handles the non-active list functionality for the user in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves the topic list for the user and the recommended document ID.
+    - Saves the time when the user starts selecting a document to label.
+    - Retrieves the user's labeled documents and relevant texts based on the topic list.
+    - Prepares the data for rendering the non-active list page template ('nonactive.html').
+    
+    Routes:
+    - GET: '/non_active_list/<name>'
+    - POST: '/non_active_list/<name>'
+
+    Method:
+    - GET
+    - POST
+    """
     save_time(session["name"], str(document_id))
     save_time(session["name"], "labeling a document")
     text = all_texts["text"][str(document_id)]
@@ -329,6 +424,25 @@ def active(name, document_id):
 ### lABELLING THE TOPIC AND SAVING THE RESPONSE aaa
 @app.route("//get_label//<document_id>//", methods=["POST", 'GET'])
 def get_label(document_id):
+    """
+    Handles the functionality to retrieve document labels in the Flask application.
+
+    Parameters:
+    - document_id (str): The ID of the document to retrieve labels for, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves information about the specified document using its ID and the user ID.
+    - Saves the time when the user starts relabeling the document.
+    - Redirects to the label page to allow the user to add or edit labels for the document.
+
+    Routes:
+    - GET/POST: '/get_label/<document_id>'
+
+    Method:
+    - GET
+    - POST
+    """
     document_id = document_id 
     user_id=session["user_id"] 
     get_document_information = url + "//get_document_information"
@@ -347,6 +461,21 @@ def get_label(document_id):
 
 @app.route("/logout", methods=["POST", "GET"])
 def finish():
+    """
+    Handles the user logout functionality in the Flask application.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Saves the time when the user finishes the session.
+    - Removes the user's session data and redirects to the login page.
+    
+    Routes:
+    - GET/POST: '/logout'
+
+    Method:
+    - GET
+    - POST
+    """
     name = session['name']
     save_time(session["name"], "finish")
     session.pop(name, None)
@@ -356,6 +485,18 @@ def finish():
 
 @app.before_request
 def require_login():
+    """
+    Checks if the user is logged in before processing any request.
+
+    If the user is not logged in and the requested endpoint is not allowed (e.g., 'login'),
+    redirects to the login page.
+
+    Routes Allowed Without Login:
+    - 'login'
+
+    Returns:
+    - If the user is not logged in and the requested endpoint is not allowed, redirects to the login page ('/login').
+    """
     allowed_route = ['login']
     if request.endpoint not in allowed_route and "name" not in session:
         return redirect('/login')
@@ -364,6 +505,27 @@ def require_login():
 
 @app.route('//non_active_label//<name>//<document_id>/', methods=["POST", "GET"])
 def non_active_label(name, document_id):
+    """
+    Handles the labeling functionality for non-active documents in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+    - document_id (str): The ID of the document to label, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves information about the specified document using its ID and the user ID.
+    - Saves the time when the user starts labeling the document.
+    - Handles form submission to process the user's label input.
+    - Redirects to the non-active label page with updated information after processing the label input.
+
+    Routes:
+    - GET/POST: '/non_active_label/<name>/<document_id>'
+
+    Method:
+    - GET
+    - POST
+    """
     save_time(session["name"], "labelling document")
     save_time(session["name"], str(document_id))
 
@@ -462,6 +624,26 @@ def non_active_label(name, document_id):
 
 @app.route("/non_active/<name>/<topic_id>//<documents>//<keywords>")
 def topic(name, topic_id, documents, keywords): 
+    """
+    Handles displaying all documents for a specific topic in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+    - topic_id (str): The ID of the topic, extracted from the URL.
+    - documents (str): List of document IDs for the topic, extracted from the URL.
+    - keywords (str): List of keywords for the topic, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves information about the specified documents and keywords for the topic.
+    - Calculates and displays the documents, topic ID, keywords, and elapsed time for the topic page.
+
+    Routes:
+    - GET: '/non_active/<name>/<topic_id>/<documents>/<keywords>'
+
+    Method:
+    - GET
+    """
     # print(topic_id)
     # res = get_single_document(documents, all_texts)
     keywords = keywords.strip("'[]'").split("', '")
@@ -476,7 +658,26 @@ def topic(name, topic_id, documents, keywords):
  
 
 @app.route("/<name>/labeled/<document_id>")
+
 def view_labeled(name,document_id):
+    """
+    Handles displaying labeled information for a specific document in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+    - document_id (str): The ID of the document, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves labeled information for the specified document.
+    - Calculates and displays the document text, labeled response, document ID, and elapsed time for the view labeled page.
+
+    Routes:
+    - GET: '/<name>/labeled/<document_id>'
+
+    Method:
+    - GET
+    """
     text = all_texts["text"][document_id]
     response = extract_label(name, document_id )
     elapsed_time = datetime.now() - session["begin"]
@@ -489,6 +690,23 @@ def view_labeled(name,document_id):
 
 @app.route("/<name>/labeled_list/")
 def labeled_list(name):
+    """
+    Handles displaying a list of labeled documents for a user in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+
+    Returns:
+    - If the user is not logged in (name not in session), redirects to the login page ('/login').
+    - Retrieves labeled documents and completed documents for the user.
+    - Calculates and displays the list of labeled documents, completed documents, elapsed time, and number of documents for the labeled list page.
+
+    Routes:
+    - GET: '/<name>/labeled_list/'
+
+    Method:
+    - GET
+    """
     labe = session["labelled_document"]
     docs = list(set(session["labelled_document"].strip(",").split(",")))
     docs_len = len(docs)
@@ -503,6 +721,20 @@ def labeled_list(name):
 
 @app.route("/<name>/edit_response/<document_id>")
 def edit_labels(name, document_id):
+    """
+    Handles redirecting to the appropriate editing labels route based on the document's active status in the Flask application.
+
+    Parameters:
+    - name (str): The name of the user, extracted from the URL.
+    - document_id (str): The ID of the document, extracted from the URL.
+
+    Returns:
+    - If the document is active, redirects to the active editing labels page.
+    - If the document is non-active, redirects to the non-active editing labels page.
+
+    Routes:
+    - GET: '/<name>/edit_response/<document_id>'
+    """
     save_time(session["name"], "editing labels")
     if session["is_active"] == True:
         return redirect(url_for("active", name=name, document_id=document_id))
