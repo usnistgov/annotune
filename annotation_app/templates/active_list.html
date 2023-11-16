@@ -54,7 +54,7 @@
         <label id="minutess"></label>
         <label id="colons"></label>
         <label id="secondss"></label>
-        <label id="secs" hidden>{{secs}}</label>
+        <label id="secss" hidden>{{secs}}</label>
       </div>
       <div hidden>
         Time Elapsed
@@ -158,11 +158,21 @@
   </div>
 </div>
 
+<div class="overlay" id="overlay"></div>
+<div class="custom-modal" id="customModal">
+  <h3>Are you there?</h3>
+  <div class="modal-buttons">
+    <button onclick="closeAndReset()">Yes</button>
+    <button onclick="redirectToHome()">No</button>
+  </div>
 </div>
+
+
 
     <script src="{{ url_for('static', filename='label.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='active_listt.js') }}"></script>
+    <script src="{{url_for('static', filename='activity.js')}}"></script>`
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
     <!-- <script src = "{{ url_for('static', filename='track_labels.js') }}"></script> -->
   </body>

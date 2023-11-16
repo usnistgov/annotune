@@ -1,3 +1,20 @@
 {
-    
+    "LDA-001": {
+        "username": "LDA-001",
+        "id": 24,
+        "labels": ",land management planning,healthful workiing,recreation,agriculture",
+        "labelled_document": ",565,768,0,1"
+    },
+    "SLDA-001": {
+        "username": "SLDA-001",
+        "id": 25,
+        "labels": "",
+        "labelled_document": ""
+    },
+    "daniel": {
+        "username": "daniel",
+        "id": 26,
+        "labels": "",
+        "labelled_document": ""
+    }
 }

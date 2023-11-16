@@ -21,7 +21,7 @@ received_data = json.load(open('dataset.json'))
 
 os.urandom(24).hex()
 
-topic_list = json.load(open('topic_list.json'))
+# topic_list = json.load(open('topic_list.json'))
 all_texts = json.load(open("congressional_bill_train.json"))
 url = "http://127.0.0.1:8820"
 
@@ -53,7 +53,7 @@ def home():
 def login():
 
     """
-    Handles user login functionality for the Flask application.
+    Handles user login functionality for the application.
 
     If the request method is POST:
     - Reads user data from JSON files.

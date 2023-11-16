@@ -241,6 +241,15 @@
         
       </div>
     </div>
+
+    <div class="overlay" id="overlay"></div>
+<div class="custom-modal" id="customModal">
+  <h3>Are you there?</h3>
+  <div class="modal-buttons">
+    <button onclick="closeAndReset()">Yes</button>
+    <button onclick="redirectToHome()">No</button>
+  </div>
+</div>
     
     </div>
     
@@ -248,6 +257,7 @@
     <script src="{{ url_for('static', filename='label.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
     <script src = "{{ url_for('static', filename='nonactdemo.js') }}"></script>
+    <script src="{{url_for('static', filename='activity.js')}}"></script>`
     <!-- <script src="{{ url_for('static', filename='track_labels.js') }}"></script> -->
 
   </body>

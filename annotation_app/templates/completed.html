@@ -116,8 +116,16 @@
         </div>
       </div>
       
-      </div>
+      <div class="overlay" id="overlay"></div>
+<div class="custom-modal" id="customModal">
+  <h3>Are you there?</h3>
+  <div class="modal-buttons">
+    <button onclick="closeAndReset()">Yes</button>
+    <button onclick="redirectToHome()">No</button>
+  </div>
+</div>
       
           <script src="{{ url_for('static', filename='label.js') }}"></script>
+          <script src="{{url_for('static', filename='activity.js')}}"></script>`
         </body>
       </html>
