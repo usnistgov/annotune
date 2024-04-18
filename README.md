@@ -1,6 +1,6 @@
 # Annotation and Text Understanding and Navigation Engine (Annotune)
 
-The Annotation App is a web-based application built with Flask that allows users to annotate data using an external API. Users can specify the API URL and utilize this app to make annotations conveniently.
+The Annotune is a web-based application built with Flask that allows users to annotate data using an external API. Users can specify the API URL and utilize this app to make annotations conveniently.
 
 ## Prerequisites
 
