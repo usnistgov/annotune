@@ -72,7 +72,7 @@ traitlets==5.9.0
 typing-extensions==4.5.0
 urllib3==1.26.15
 wcwidth==0.2.6
-Werkzeug==2.2.3
+Werkzeug==3.0.3
 xlrd==2.0.1
 zipp==3.15.0
 zope.event==4.6
