@@ -66,7 +66,7 @@ scitree==0.5.3
 seedir==0.4.2
 six==1.16.0
 threadpoolctl==3.1.0
-tornado==6.2
+tornado==6.4.1
 tqdm==4.65.0
 traitlets==5.9.0
 typing-extensions==4.5.0
