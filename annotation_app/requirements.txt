@@ -59,7 +59,7 @@ pywin32==306
 pyzmq==25.0.2
 requests==2.28.2
 rispy==0.7.1
-scikit-learn==1.0.2
+scikit-learn==1.5.0
 scipy==1.7.3
 scisort==0.5.3
 scitree==0.5.3
